@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Font switcher — vanilla demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- 1. Config + pre-paint: must run in <head>, before anything renders. -->
+    <script>
+      window.FONT_SWITCHER = {
+        storageKey: "font-preset",
+        defaultPreset: "Instrument Serif",
+        presets: {
+          "Instrument Serif": {
+            display: '"Instrument Serif","Times New Roman",serif',
+            sans: '"Inter",system-ui,sans-serif',
+            href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300..700&display=swap",
+            italic: true
+          },
+          "Fraunces": {
+            display: '"Fraunces","Times New Roman",serif',
+            sans: '"Inter",system-ui,sans-serif',
+            href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..700&display=swap"
+          },
+          "Playfair Display": {
+            display: '"Playfair Display","Times New Roman",serif',
+            sans: '"Inter",system-ui,sans-serif',
+            href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..700&family=Inter:wght@300..700&display=swap"
+          },
+          "DM Serif Display": {
+            display: '"DM Serif Display","Times New Roman",serif',
+            sans: '"Inter",system-ui,sans-serif',
+            href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300..700&display=swap"
+          },
+          "Space Grotesk": {
+            display: '"Space Grotesk",system-ui,sans-serif',
+            sans: '"Space Grotesk",system-ui,sans-serif',
+            href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+          }
+        }
+      };
+      (function (c) {
+        try {
+          var n = localStorage.getItem(c.storageKey);
+          var f = Object.prototype.hasOwnProperty.call(c.presets, n) ? c.presets[n] : c.presets[c.defaultPreset];
+          var r = document.documentElement.style;
+          r.setProperty("--font-display", f.display);
+          r.setProperty("--font-sans", f.sans);
+          if (f.href) {
+            var l = document.createElement("link");
+            l.rel = "stylesheet";
+            l.href = f.href;
+            document.head.appendChild(l);
+          }
+        } catch (e) {}
+      })(window.FONT_SWITCHER);
+    </script>
+
+    <style>
+      :root {
+        --font-display: "Instrument Serif", "Times New Roman", serif;
+        --font-sans: "Inter", system-ui, sans-serif;
+        --fs-bg: #1b1c23;
+        --fs-fg: #f3efe7;
+        --fs-accent: #ff9a76;
+        --fs-border: rgba(243, 239, 231, 0.22);
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #13141a;
+        color: var(--fs-fg);
+        font-family: var(--font-sans);
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 24px;
+        font-family: ui-monospace, monospace;
+        font-size: 13px;
+        color: color-mix(in oklab, var(--fs-fg) 85%, transparent);
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 24px 96px;
+      }
+      h1 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: clamp(44px, 8vw, 84px);
+        line-height: 1;
+        margin: 0 0 24px;
+      }
+      h2 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: 32px;
+        margin: 48px 0 12px;
+      }
+      p {
+        font-size: 17px;
+        line-height: 1.65;
+        opacity: 0.8;
+        max-width: 60ch;
+      }
+
+      /* 2. Switcher styles — themable through the --fs-* variables. */
+      .fs { position: relative; display: inline-flex; }
+      .fs-trigger {
+        width: 28px; height: 28px; padding: 0; border-radius: 50%;
+        border: 1px solid var(--fs-border); background: transparent; color: var(--fs-fg);
+        font: italic 14px/1 var(--font-display); cursor: pointer;
+      }
+      .fs-trigger:hover, .fs-trigger:focus-visible { border-color: var(--fs-accent); outline: none; }
+      .fs-menu {
+        position: absolute; top: calc(100% + 10px); right: 0; z-index: 300;
+        min-width: 240px; max-height: 320px; overflow-y: auto; padding: 6px;
+        display: flex; flex-direction: column; gap: 2px;
+        background: var(--fs-bg); border: 1px solid var(--fs-border); border-radius: 14px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      }
+      .fs-menu[hidden] { display: none; }
+      .fs-label {
+        font: 10px ui-monospace, monospace; letter-spacing: 0.18em; text-transform: uppercase;
+        opacity: 0.6; padding: 8px 10px 6px;
+      }
+      .fs-item {
+        display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+        border: none; border-radius: 8px; background: transparent; color: var(--fs-fg);
+        font: 13px var(--font-sans); text-align: left; cursor: pointer;
+      }
+      .fs-item:hover, .fs-item:focus-visible { background: color-mix(in oklab, var(--fs-fg) 6%, transparent); outline: none; }
+      .fs-item[aria-checked="true"] { background: color-mix(in oklab, var(--fs-accent) 14%, transparent); }
+      .fs-item[aria-checked="true"]::after { content: "●"; color: var(--fs-accent); }
+      .fs-preview { font-size: 22px; line-height: 1; width: 32px; flex: 0 0 auto; }
+      .fs-name { flex: 1; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span>font-switcher / vanilla</span>
+      <div id="font-switcher"></div>
+    </header>
+
+    <main>
+      <h1>Pick a typeface.</h1>
+      <p>
+        Open the <em>Aa</em> button in the top corner. Every option previews in its own face, the page switches
+        instantly, and the choice survives a reload with no flash of the wrong font.
+      </p>
+      <h2>Only what you use</h2>
+      <p>
+        On first load the browser downloads just the active font. The others are fetched when the picker opens, so
+        five presets cost about the same as one until someone goes looking.
+      </p>
+      <h2>Pairs, not single fonts</h2>
+      <p>
+        Each preset sets a heading face (<code>--font-display</code>) and a body face (<code>--font-sans</code>).
+        Style your page with those two variables and every preset just works.
+      </p>
+    </main>
+
+    <!-- 3. Switcher: mounts into any element. -->
+    <script>
+      (function () {
+        var cfg = window.FONT_SWITCHER;
+        var presets = cfg.presets;
+
+        function has(name) {
+          return typeof name === "string" && Object.prototype.hasOwnProperty.call(presets, name);
+        }
+        function loadFont(p) {
+          if (!p.href) return;
+          var links = document.querySelectorAll('link[rel="stylesheet"]');
+          for (var i = 0; i < links.length; i++) if (links[i].getAttribute("href") === p.href) return;
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.href = p.href;
+          document.head.appendChild(link);
+        }
+        function applyFont(p) {
+          var r = document.documentElement.style;
+          r.setProperty("--font-display", p.display);
+          r.setProperty("--font-sans", p.sans);
+        }
+        function storedFont() {
+          try {
+            var n = localStorage.getItem(cfg.storageKey);
+            if (has(n)) return n;
+          } catch (e) {}
+          return cfg.defaultPreset;
+        }
+
+        function mount(root) {
+          var active = storedFont();
+          root.className = "fs";
+
+          var trigger = document.createElement("button");
+          trigger.type = "button";
+          trigger.className = "fs-trigger";
+          trigger.textContent = "Aa";
+          trigger.setAttribute("aria-label", "Switch font");
+          trigger.setAttribute("aria-haspopup", "menu");
+          trigger.setAttribute("aria-expanded", "false");
+
+          var menu = document.createElement("div");
+          menu.className = "fs-menu";
+          menu.setAttribute("role", "menu");
+          menu.hidden = true;
+
+          function render() {
+            menu.textContent = "";
+            var label = document.createElement("div");
+            label.className = "fs-label";
+            label.textContent = "Typography";
+            menu.appendChild(label);
+            Object.keys(presets).forEach(function (name) {
+              var p = presets[name];
+              var item = document.createElement("button");
+              item.type = "button";
+              item.className = "fs-item";
+              item.setAttribute("role", "menuitemradio");
+              item.setAttribute("aria-checked", String(name === active));
+              var preview = document.createElement("span");
+              preview.className = "fs-preview";
+              preview.style.fontFamily = p.display;
+              preview.style.fontStyle = p.italic ? "italic" : "normal";
+              preview.textContent = "Aa";
+              var label = document.createElement("span");
+              label.className = "fs-name";
+              label.textContent = name;
+              item.append(preview, label);
+              item.addEventListener("click", function () { select(name); });
+              menu.appendChild(item);
+            });
+          }
+          function setOpen(open) {
+            menu.hidden = !open;
+            trigger.setAttribute("aria-expanded", String(open));
+          }
+          function select(name) {
+            active = name;
+            loadFont(presets[name]);
+            applyFont(presets[name]);
+            try { localStorage.setItem(cfg.storageKey, name); } catch (e) {}
+            render();
+            setOpen(false);
+          }
+
+          trigger.addEventListener("click", function () {
+            Object.keys(presets).forEach(function (n) { loadFont(presets[n]); });
+            setOpen(menu.hidden);
+          });
+          document.addEventListener("mousedown", function (e) {
+            if (!root.contains(e.target)) setOpen(false);
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") setOpen(false);
+          });
+
+          render();
+          root.append(trigger, menu);
+        }
+
+        mount(document.getElementById("font-switcher"));
+      })();
+    </script>
+  </body>
+</html>
