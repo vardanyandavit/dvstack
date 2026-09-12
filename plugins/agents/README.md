@@ -7,6 +7,7 @@ Global agent-ops habits that apply across projects and tools. Per-repo files sta
 | Skill | What it does | Ask for it with |
 |---|---|---|
 | [agent-ops-bar](skills/agent-ops-bar/) | Throwaway vs production bar, outcome-first steering, verify loops, encoding misses into skills | "review this agent PR" / "is this production quality" |
+| [agent-rigor](skills/agent-rigor/) | Proof up front, agent-friendly harness, live verification, design exploration, parallel isolation | "verify this live" / "explore designs before committing" |
 
 ## Install
 

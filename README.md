@@ -22,8 +22,8 @@ DVstack is a **plugin marketplace**. A skill is one unit of knowledge — a `SKI
 
 ```
 dvstack/
-├── AGENTS.md                         # thin pointer to agent-ops-bar
-├── CLAUDE.md                         # same pointer for Claude Code
+├── AGENTS.md                         # thin pointers to agent-ops-bar and agent-rigor
+├── CLAUDE.md                         # same pointers for Claude Code
 ├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
 ├── .cursor-plugin/marketplace.json   # marketplace manifest (Cursor)
 └── plugins/
@@ -31,7 +31,8 @@ dvstack/
     │   ├── .claude-plugin/plugin.json
     │   ├── .cursor-plugin/plugin.json
     │   └── skills/
-    │       └── agent-ops-bar/        # SKILL.md
+    │       ├── agent-ops-bar/        # SKILL.md
+    │       └── agent-rigor/          # SKILL.md
     ├── frontend/                     # dvstack-frontend
     │   ├── .claude-plugin/plugin.json
     │   ├── .cursor-plugin/plugin.json
@@ -59,7 +60,7 @@ dvstack/
 
 | Plugin | Covers | Status |
 |---|---|---|
-| [agents](plugins/agents/) | Global agent-ops habits: throwaway vs production bar, verify loops, encoding misses | 1 skill |
+| [agents](plugins/agents/) | Global agent-ops habits: throwaway vs production bar, verify loops, encoding misses, plus proof-first rigor | 2 skills |
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 14 skills |
 
@@ -110,7 +111,8 @@ Keep this shape so both the plugin install and the manual copy keep working:
 
 **[dvstack-agents](plugins/agents/)**
 
-- [agent-ops-bar](plugins/agents/skills/agent-ops-bar/) — global habits for coding with agents: throwaway vs production bar, outcome-first steering, verify loops, and encoding misses into skills. Root `AGENTS.md` and `CLAUDE.md` point here; install the plugin for other projects.
+- [agent-ops-bar](plugins/agents/skills/agent-ops-bar/) — global habits for coding with agents: throwaway vs production bar, outcome-first steering, verify loops, and encoding misses into skills.
+- [agent-rigor](plugins/agents/skills/agent-rigor/) — proof up front, agent-friendly harness, live verification, design exploration, and parallel isolation. Root `AGENTS.md` and `CLAUDE.md` point at both; install the plugin for other projects.
 
 **[dvstack-frontend](plugins/frontend/)**
 

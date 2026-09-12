@@ -1,6 +1,6 @@
 # Agent notes for this repository
 
-DVstack is a plugin marketplace of skills. When writing or reviewing code with agents, follow `plugins/agents/skills/agent-ops-bar/SKILL.md`.
+DVstack is a plugin marketplace of skills. When writing or reviewing code with agents, follow `plugins/agents/skills/agent-ops-bar/SKILL.md`. For verification, design exploration, or a better harness, also follow `plugins/agents/skills/agent-rigor/SKILL.md`.
 
 Compressed bar:
 - Throwaway vs production: production needs a higher bar (esp. money, auth, user data).
