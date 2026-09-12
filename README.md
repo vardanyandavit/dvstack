@@ -60,11 +60,7 @@ dvstack/
 
 | Plugin | Covers | Status |
 |---|---|---|
-<<<<<<< HEAD
-| [agents](plugins/agents/) | Light-by-default agent-ops: match the bar to blast radius, one verify path, encode repeated misses | 2 skills |
-=======
-| [agents](plugins/agents/) | Global agent-ops habits: balanced cost discipline, throwaway vs production bar, verify loops, encoding misses, plus proof-first rigor | 2 skills |
->>>>>>> b643645 (Refine agent-ops-bar and agent-rigor skills in dvstack-agents)
+| [agents](plugins/agents/) | Light-by-default agent-ops: spend where it changes the result and save where it doesn't, throwaway vs production bar, narrow verify loops, no unasked extra work | 2 skills |
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 14 skills |
 
