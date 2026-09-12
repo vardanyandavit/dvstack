@@ -1,29 +1,35 @@
 ---
 name: agent-rigor
-description: Use when doing nontrivial agent work that needs verification, design exploration, parallel agents, or a better harness. Global rules for proving work with any coding agent. Complements agent-ops-bar; does not replace it.
+description: Use when agent work needs verification, design exploration, or a better harness. Complements agent-ops-bar. Light by default; add cost only when risk or ambiguity is high.
 ---
 
 # Agent rigor
 
-Global rules for rigorous work with any coding agent.
+Keep standards. Stay cheap by default. Scale with blast radius.
 
-## Rules
+## Always (cheap)
 
-1. **Define proof up front.** Observable outcomes, constraints, and how you will know it works — before implementation.
-2. **Prime with real context.** Relevant code, history, user flows, assumptions, and prior decisions. Vague goals alone are not enough.
-3. **Restate before editing.** On ambiguous asks, have the agent restate the problem in plain language before changing anything.
-4. **Demand evidence.** Mechanism, rationale, tradeoffs, and supporting evidence — not unsupported confidence.
-5. **Build an agent-friendly harness.** Composable commands, dry runs, progressive disclosure, actionable errors, rich help, machine-readable output. Prefer reproducible tools over one-off scripts and prose-only instructions.
-6. **Keep the environment reproducible.** Data, auth, test users, and external-service access should be repeatable for agents.
-7. **Verify live behavior.** Inspect and measure the real application. Keep concrete evidence. Do not stop at “tests passed” or the agent’s claim alone.
-8. **Explore before committing.** Use throwaway prototypes and measurements to compare designs. Do not accept the first design or replace evidence with an elaborate abstract plan.
-9. **Ground architecture.** Ownership, constraints, history, and failure modes. For major changes: independent designs, cross-review, then synthesize. Restart when implementation evidence shows the architecture is wrong.
-10. **Smell workarounds.** Repeated escape hatches, forced casts, and recurring patches mean reconsider the design.
-11. **Ship in small increments.** Self-contained steps, each independently verifiable.
-12. **Isolate parallel work.** Separate reproducible environments; do not share mutable state across parallel agents.
-13. **Keep a compact map.** Features, user paths, controls, known caveats — searchable and maintained.
-14. **Automate after the loop works.** Recurring diagnostics and reproductions only once verification is trustworthy.
+1. **Done + proof.** Know what done looks like and how you will prove it.
+2. **Enough context.** Relevant code, flows, and constraints — not a whole-repo dump.
+3. **Evidence over vibes.** Mechanism and a real check beat unsupported confidence.
+4. **Small steps.** Self-contained, independently verifiable increments.
+5. **Encode repeats.** If the same miss or friction happens twice, write it into a rule or skill.
+
+## When risk or ambiguity is high
+
+- **Restate first** before editing.
+- **Check live** — inspect the real app, not only “tests passed.”
+- **Compare options lightly** — spikes and measurements, not committees.
+- **Smell chronic hacks** — repeated escape hatches mean reconsider the design.
+- **Isolate parallel work** only when you are actually parallelizing.
+
+## Do not by default
+
+- Review swarms on tiny PRs
+- Long planning for obvious fixes
+- Automate everything before one verify works
+- Paste essays into every project
 
 ## Start small
 
-One real verify path for the app you ship is enough. Add harness commands and maps when the same friction repeats.
+One trusted verify path is enough. Grow the harness when the same check keeps slowing you down.

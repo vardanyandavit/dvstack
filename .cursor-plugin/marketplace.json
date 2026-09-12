@@ -19,7 +19,7 @@
     {
       "name": "dvstack-agents",
       "source": "plugins/agents",
-      "description": "Global agent-ops habits for any coding tool: throwaway vs production bar, outcome-first steering, verify loops, encoding misses into skills, plus proof-first rigor for harnesses, live verification, and design exploration."
+      "description": "Light-by-default agent-ops habits: match the bar to blast radius, one honest verify path, encode repeated misses. Token-efficient."
     }
   ]
 }
