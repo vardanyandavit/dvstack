@@ -14,7 +14,7 @@
     {
       "name": "dvstack-testing",
       "source": "./plugins/testing",
-      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist."
+      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist."
     },
     {
       "name": "dvstack-agents",

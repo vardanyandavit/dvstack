@@ -41,10 +41,11 @@ dvstack/
     └── testing/                      # dvstack-testing
         ├── .claude-plugin/plugin.json
         ├── .cursor-plugin/plugin.json
-        └── skills/            # 14 Playwright skills
+        └── skills/            # 15 Playwright skills
             ├── playwright-naming-conventions/
             ├── playwright-test-architecture/   # SKILL.md + files/ to copy
             ├── playwright-test-strategy/
+            ├── playwright-step-validation/
             ├── playwright-fixtures/
             ├── playwright-locators/
             ├── playwright-api-testing/
@@ -62,7 +63,7 @@ dvstack/
 |---|---|---|
 | [agents](plugins/agents/) | Light-by-default agent-ops: spend where it changes the result and save where it doesn't, throwaway vs production bar, narrow verify loops, no unasked extra work | 2 skills |
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
-| [testing](plugins/testing/) | Playwright: architecture, strategy, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 14 skills |
+| [testing](plugins/testing/) | Playwright: architecture, strategy, step validation, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 15 skills |
 
 More plugins get added as the material grows — design standards, local development, and LLM notes each become their own plugin once they have skills to hold.
 
@@ -118,7 +119,7 @@ Keep this shape so both the plugin install and the manual copy keep working:
 
 - [font-switcher](plugins/frontend/skills/font-switcher/) — a drop-in font picker for React or plain HTML/JS projects: heading and body font pairs, fonts downloaded only when needed, live previews, and the choice remembered across visits.
 
-**[dvstack-testing](plugins/testing/)** — fourteen Playwright skills: naming conventions, suite architecture, test strategy, fixtures, locators, API-driven setup, network mocking, hard interactions (iframes, dialogs, downloads, drag and drop), accessibility, visual testing, code review, debugging, flaky-test triage, and CI. Page objects injected through fixtures, everything else in `constants/`, `data/`, and `helpers/`, and every `test.step` closing with a web-first assertion. See the [plugin README](plugins/testing/) for the full table.
+**[dvstack-testing](plugins/testing/)** — fifteen Playwright skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions (iframes, dialogs, downloads, drag and drop), accessibility, visual testing, code review, debugging, flaky-test triage, and CI. Page objects injected through fixtures, everything else in `constants/`, `data/`, and `helpers/`, and every `test.step` closing with a validation that proves the app moved on — never a hard-coded timeout. See the [plugin README](plugins/testing/) for the full table.
 
 ## Status
 

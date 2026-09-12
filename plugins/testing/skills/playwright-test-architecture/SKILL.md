@@ -122,7 +122,7 @@ Rules that make this work:
 - **`beforeEach` for arrival state only** — navigate, seed data, set a feature flag. Anything under test belongs in the test body where a failure is attributed correctly.
 - **`beforeAll` only for genuinely shared, read-only setup.** It runs once per worker, so anything it mutates leaks between tests.
 - **`afterEach` for cleanup the test cannot leave behind** — created records, uploaded files. Clean up through the API, not the UI (`playwright-api-testing`).
-- **Every test is a sequence of `test.step` blocks**, and **every step ends with at least one `expect`**. Navigate, then assert the landing element is visible. Click, then assert the next element appeared *and* the previous one is hidden. A step with no assertion proves nothing and reports as passed.
+- **Every test is a sequence of `test.step` blocks**, and **every step ends with at least one `expect`**. Navigate, then assert the landing element is visible. Click, then assert the next element appeared *and* the previous one is hidden. A step with no assertion proves nothing and reports as passed. Which validation a step needs — locator state, a response, or both — is `playwright-step-validation`.
 - **Steps are named for user intent**, not mechanics: "submit valid credentials", not "click button".
 - **Assert with web-first matchers** — `toBeVisible`, `toHaveText`, `toHaveURL`, `toBeEnabled`. They retry until the expect timeout, which is what makes the suite stable. See `playwright-locators` and `playwright-flaky-tests`.
 - **Tests are independent.** Each one can run alone, in any order, in parallel. Serial mode (`test.describe.configure({ mode: "serial" })`) is a last resort for a genuine wizard, never a fix for shared state.

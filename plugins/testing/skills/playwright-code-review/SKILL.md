@@ -28,12 +28,16 @@ Review in this order. The first group are defects — the test is wrong, or it i
 
 ## 2. Stability
 
+The validation each step owes is defined in `playwright-step-validation`.
+
+- A step that ends without a validation, or whose only wait is a load state on a content-heavy page.
 - `page.waitForTimeout` — replace with an assertion on the awaited state. No exceptions.
 - `waitForLoadState("networkidle")` — replace with an assertion on the landing element.
 - `isVisible()` / `textContent()` / `count()` used inside an assertion — non-retrying reads. Use `toBeVisible`, `toHaveText`, `toHaveCount`.
 - `waitForSelector` where `expect(...).toBeVisible()` says the same thing.
 - `force: true` — a forced click means the element was covered or disabled, which is what the test should be reporting.
 - An event listener registered *after* its trigger: `await click()` then `waitForEvent("download" | "popup" | "filechooser")`. The event already fired; the test will time out. See `playwright-hard-interactions`.
+- A `Promise.all` with the action listed before the wait — the array evaluates left to right, so the trigger fires before the listener exists.
 - A screenshot assertion doing an assertion's job, or a masked region with no comment explaining why it is volatile.
 - `ElementHandle` stored across re-renders — use locators, which re-resolve.
 - `.first()` / `.nth()` used to silence a strict-mode violation rather than scoping the query.
