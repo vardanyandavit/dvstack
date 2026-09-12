@@ -2,7 +2,7 @@
 
 Playwright-focused end-to-end testing skills. Every skill carries a working config, fixture, or spec that the agent copies into the project, so the standard arrives as code rather than as prose.
 
-The fourteen skills are written to work together: naming conventions and architecture set the vocabulary, and the rest reference them.
+The fifteen skills are written to work together: naming conventions and architecture set the vocabulary, and the rest reference them.
 
 ## Skills
 
@@ -19,6 +19,7 @@ The fourteen skills are written to work together: naming conventions and archite
 
 | Skill | Covers | Ask for it with |
 |---|---|---|
+| [playwright-step-validation](skills/playwright-step-validation/) | Zero hard-coded timeouts, the validation ladder — locator state, then `waitForResponse` with method and status, then response plus rendered UI, then `waitForLoadState` on quiet pages only | "what should this step wait for" |
 | [playwright-locators](skills/playwright-locators/) | Role-first locator order, `data-testid` policy, strict-mode scoping, web-first assertions | "fix these selectors" |
 | [playwright-api-testing](skills/playwright-api-testing/) | `request` fixture, seeding state through the API instead of the UI, `toBeOK`, cleanup, where the API/UI boundary belongs | "setup is slow because it clicks through the UI" |
 | [playwright-network-mocking](skills/playwright-network-mocking/) | `page.route`, stubbing JSON, forcing errors, deferring responses for loading states, what not to mock | "test the error state" |
@@ -45,6 +46,7 @@ The fourteen skills are written to work together: naming conventions and archite
 - **Page objects + fixtures.** Intents live on the page object; the page object reaches the test through `test.extend`. A spec never calls `new`.
 - **One definition per element, at the narrowest scope.** Used once: inline in the method. Used twice or asserted on from a spec: a `getXxx()` getter. Used across pages: the value goes in `constants/selectors.ts` and the page object wraps it.
 - **A step is a step only if it asserts.** Every test is a sequence of `test.step` blocks and every block closes with at least one web-first `expect` — navigate then assert the landing element, click then assert the next element is visible and the previous one hidden.
+- **No hard-coded timeout anywhere.** Not in a spec, a page object, a fixture, or a helper. The step waits on the state it needs: a locator, a response with its method and status, both together for data-driven UI, and a load state only on a small, quiet page.
 - **Web-first assertions everywhere.** `toBeVisible`, `toHaveText`, `toHaveURL`. No `isVisible()` inside an expect, no `waitForTimeout`, no `networkidle`.
 - **Tests are independent** — any test, alone, in any order, in parallel.
 - **Nothing hard-coded in a spec.** Routes and endpoints in `constants/`, accounts in `data/`, pure functions in `helpers/`. A spec never reads `process.env`.

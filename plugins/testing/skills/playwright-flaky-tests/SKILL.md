@@ -5,7 +5,7 @@ description: Diagnose and fix a flaky, intermittent, or timing-dependent Playwri
 
 # Fixing flaky Playwright tests
 
-Naming and folder placement are defined in `playwright-naming-conventions`; suite structure in `playwright-test-architecture`.
+Naming and folder placement are defined in `playwright-naming-conventions`; suite structure in `playwright-test-architecture`. What each step should wait on in the first place is `playwright-step-validation` — this skill is for a test that is already failing intermittently.
 
 A flaky test is a race the test lost, not a test that needs more time. Raising timeouts hides it; the next slow CI run brings it back.
 
@@ -38,7 +38,7 @@ await expect(table.getByRole("row")).toHaveCount(5);
 ```
 
 - **Navigation:** assert on the landing element, not `waitForLoadState("networkidle")` — an app with polling or analytics never goes idle.
-- **A specific response:** `const res = page.waitForResponse(r => r.url().includes("/api/orders") && r.ok()); await save.click(); await res;` — start the wait *before* the action.
+- **A specific response:** `const [res] = await Promise.all([page.waitForResponse(r => r.url().includes("/api/orders") && r.request().method() === "POST"), save.click()]);` — the wait is the *first* entry, so the response cannot be missed. Match on endpoint and method, never on `ok()` (a 500 then reports as a timeout), and assert `res.status()` after. See `playwright-step-validation`.
 - **Animation / re-render:** assert the post-animation state (`toBeEnabled`, `toHaveClass`, `toHaveCount`) rather than sleeping for the duration.
 - **Auto-retrying block** for a condition with no matcher: `await expect(async () => { ... }).toPass({ timeout: 10_000 })`.
 - **Toasts that vanish:** asserting on something that disappears after 3s is a lost race by design. Assert the durable outcome — the row in the list, the URL, the record via API.

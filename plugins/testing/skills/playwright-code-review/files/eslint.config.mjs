@@ -39,6 +39,7 @@ export default tseslint.config(
       "playwright/no-skipped-test": ["warn", { allowConditional: true }],
       "playwright/no-wait-for-timeout": "error",
       "playwright/no-networkidle": "error",
+      "playwright/no-wait-for-selector": "warn",
       "playwright/no-element-handle": "error",
       "playwright/no-eval": "error",
       "playwright/no-force-option": "warn",
