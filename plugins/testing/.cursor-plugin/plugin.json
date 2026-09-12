@@ -1,0 +1,12 @@
+{
+  "name": "dvstack-testing",
+  "version": "0.3.0",
+  "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist.",
+  "author": {
+    "name": "Davit Vardanyan",
+    "url": "https://github.com/vardanyandavit"
+  },
+  "repository": "https://github.com/vardanyandavit/dvstack",
+  "license": "MIT",
+  "skills": "./skills/"
+}

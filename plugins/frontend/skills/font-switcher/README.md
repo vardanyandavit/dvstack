@@ -51,4 +51,13 @@ Open [`examples/vanilla.html`](examples/vanilla.html). It contains three marked 
 
 ## Using it as a Cursor or Claude Code skill
 
-Copy this folder to `~/.cursor/skills/font-switcher/` (Cursor) or `~/.claude/skills/font-switcher/` (Claude Code). For one project only, use `.cursor/skills/font-switcher/` or `.claude/skills/font-switcher/`. Then “add a font switcher” is enough, with no link.
+It ships in the `dvstack-frontend` plugin:
+
+```bash
+claude plugin marketplace add vardanyandavit/dvstack
+claude plugin install dvstack-frontend@dvstack
+```
+
+Or copy this folder on its own to `~/.claude/skills/font-switcher/` (Claude Code) or `~/.cursor/skills/font-switcher/` (Cursor). For one project only, use `.claude/skills/font-switcher/` or `.cursor/skills/font-switcher/`.
+
+Either way, “add a font switcher” is then enough, with no link.

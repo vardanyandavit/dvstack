@@ -15,52 +15,94 @@ This is a knowledge collection, not a product. Material will land here as I writ
 - Files and notes connected with LLM models
 - Testing and automation notes
 
-## Repository layout
+## How it's organized
 
-Content will be organized by topic as it's added, roughly along these lines:
+DVstack is a **plugin marketplace**. A skill is one unit of knowledge — a `SKILL.md` plus the real files that go with it. A plugin is a group of related skills with a manifest, so a whole topic installs in one command and updates with the repository.
 
-- `skills/` — reusable skills and suggested approaches for different kinds of projects
-- `design/` — design approaches and standards
-- `automation/` — automation notes and files
-- `local-dev/` — local development experience and notes
-- `llm/` — files and notes connected with LLM models
-- `testing/` — testing and automation notes
-- `examples/` — real files and working examples referenced from the notes above
-
-This layout will evolve as content gets added — folders above may not exist yet.
-
-## Using skills
-
-Each folder under `skills/` is one agent skill: a `SKILL.md` plus any files the agent should copy into a project. The same install works for every skill, now and later.
-
-**Cursor / Claude Code.** Copy the folder once, then a normal request is enough — no GitHub link:
-
-| Install here | Who sees it |
-|---|---|
-| `~/.cursor/skills/<name>/` | Cursor, all your projects |
-| `~/.claude/skills/<name>/` | Claude Code, all your projects |
-| `.cursor/skills/<name>/` or `.claude/skills/<name>/` in a repo | That project only |
-
-Example for the font switcher:
-
-```bash
-cp -R skills/font-switcher ~/.cursor/skills/font-switcher
-cp -R skills/font-switcher ~/.claude/skills/font-switcher
+```
+dvstack/
+├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
+├── .cursor-plugin/marketplace.json   # marketplace manifest (Cursor)
+└── plugins/
+    ├── frontend/                     # dvstack-frontend
+    │   ├── .claude-plugin/plugin.json
+    │   ├── .cursor-plugin/plugin.json
+    │   └── skills/
+    │       └── font-switcher/        # SKILL.md + src/ + examples/
+    └── testing/                      # dvstack-testing
+        ├── .claude-plugin/plugin.json
+        ├── .cursor-plugin/plugin.json
+        └── skills/            # 14 Playwright skills
+            ├── playwright-naming-conventions/
+            ├── playwright-test-architecture/   # SKILL.md + files/ to copy
+            ├── playwright-test-strategy/
+            ├── playwright-fixtures/
+            ├── playwright-locators/
+            ├── playwright-api-testing/
+            ├── playwright-network-mocking/
+            ├── playwright-hard-interactions/
+            ├── playwright-accessibility-testing/
+            ├── playwright-visual-testing/
+            ├── playwright-code-review/
+            ├── playwright-debugging/
+            ├── playwright-flaky-tests/
+            └── playwright-ci/
 ```
 
-Then ask: “add a font switcher”. The agent reads `SKILL.md` and copies the files sitting next to it.
+| Plugin | Covers | Status |
+|---|---|---|
+| [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
+| [testing](plugins/testing/) | Playwright: architecture, strategy, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 14 skills |
 
-**Any other AI.** Send the folder URL, for example `https://github.com/vardanyandavit/dvstack/tree/main/skills/font-switcher`, and ask it to implement that skill.
+More plugins get added as the material grows — design standards, local development, and LLM notes each become their own plugin once they have skills to hold.
 
-When you add a new skill, keep this shape so the install above keeps working:
+## Install
 
-- Folder: `skills/<name>/` with a `SKILL.md` whose `name` matches the folder
-- `description` in the frontmatter says **what** it does and **when** to use it (the trigger phrase)
-- Files the agent should copy live in that folder, and `SKILL.md` tells it to copy from there rather than rewrite from scratch
+**Claude Code**
+
+```bash
+claude plugin marketplace add vardanyandavit/dvstack
+claude plugin install dvstack-frontend@dvstack
+claude plugin install dvstack-testing@dvstack
+```
+
+**Cursor** — add this repository as a plugin marketplace, then install `dvstack-frontend`.
+
+Once installed, a normal request is enough: ask "add a font switcher" and the agent picks the skill up on its own. No link, no copy step.
+
+### Using a single skill without the plugin
+
+Every skill folder is self-contained, so it also works on its own in any tool that reads `SKILL.md`:
+
+| Copy the skill folder to | Who sees it |
+|---|---|
+| `~/.claude/skills/<name>/` | Claude Code, all your projects |
+| `~/.cursor/skills/<name>/` | Cursor, all your projects |
+| `.claude/skills/<name>/` or `.cursor/skills/<name>/` in a repo | That project only |
+
+```bash
+cp -R plugins/frontend/skills/font-switcher ~/.claude/skills/font-switcher
+```
+
+**Any other AI.** Send the folder URL, for example `https://github.com/vardanyandavit/dvstack/tree/main/plugins/frontend/skills/font-switcher`, and ask it to implement that skill.
+
+## Adding a skill
+
+Keep this shape so both the plugin install and the manual copy keep working:
+
+- Folder: `plugins/<plugin>/skills/<name>/` with a `SKILL.md` whose `name` matches the folder
+- `description` in the frontmatter says **what** it does and **when** to use it — that sentence is the trigger, and it's the only part the agent reads until the skill fires
+- One narrow subject per skill. Five focused skills beat one that tries to cover a whole tool
+- Files the agent should copy live next to `SKILL.md`, and `SKILL.md` tells it to copy them rather than rewrite from scratch
+- List the skill in the plugin's README, and bump `version` in both `plugin.json` files
 
 ## What's here now
 
-- [skills/font-switcher](skills/font-switcher/) — a drop-in font picker for React or plain HTML/JS projects: heading and body font pairs, fonts downloaded only when needed, live previews, and the choice remembered across visits.
+**[dvstack-frontend](plugins/frontend/)**
+
+- [font-switcher](plugins/frontend/skills/font-switcher/) — a drop-in font picker for React or plain HTML/JS projects: heading and body font pairs, fonts downloaded only when needed, live previews, and the choice remembered across visits.
+
+**[dvstack-testing](plugins/testing/)** — fourteen Playwright skills: naming conventions, suite architecture, test strategy, fixtures, locators, API-driven setup, network mocking, hard interactions (iframes, dialogs, downloads, drag and drop), accessibility, visual testing, code review, debugging, flaky-test triage, and CI. Page objects injected through fixtures, everything else in `constants/`, `data/`, and `helpers/`, and every `test.step` closing with a web-first assertion. See the [plugin README](plugins/testing/) for the full table.
 
 ## Status
 

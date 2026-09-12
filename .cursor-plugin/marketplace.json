@@ -1,0 +1,20 @@
+{
+  "name": "dvstack",
+  "description": "Skills and working examples for front-end work and test automation, collected from real projects.",
+  "owner": {
+    "name": "Davit Vardanyan",
+    "url": "https://github.com/vardanyandavit"
+  },
+  "plugins": [
+    {
+      "name": "dvstack-frontend",
+      "source": "plugins/frontend",
+      "description": "Front-end skills that ship with working source files: the agent copies proven code into your project instead of rewriting it from scratch."
+    },
+    {
+      "name": "dvstack-testing",
+      "source": "plugins/testing",
+      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist."
+    }
+  ]
+}
