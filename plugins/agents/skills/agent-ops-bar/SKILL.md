@@ -1,6 +1,6 @@
 ---
 name: agent-ops-bar
-description: Use when starting agent coding, reviewing agent PRs, or deciding throwaway vs production quality. Light by default; scale the bar with blast radius. Not project-specific verify commands.
+description: Use when starting nontrivial agent coding, reviewing agent PRs, deciding throwaway vs production quality, or when an agent is doing more work than the task needs. Global agent habits for any tool (Cursor, Claude Code, cloud agents). Not project-specific verify commands.
 ---
 
 # Agent ops bar
@@ -9,14 +9,26 @@ Optimize for quality and token efficiency. Scale to blast radius. Do not overcom
 
 Apply across projects. Per-repo files stay limited to verify commands and local don'ts.
 
+**Default trade:** spend where it changes the result, save where it does not. Narrow and cheap first, escalate on evidence. Effort skipped on a check that would have caught a real failure was never saved — it was borrowed.
+
 ## Rules
 
+<<<<<<< HEAD
 1. **Match the bar to blast radius.** A low-risk prototype can stay a black box. Production work — especially money, auth, and user data — needs a higher bar.
 2. **Outcome and constraints first.** Agree what done looks like, what must not be touched, and whether to refactor or reuse. Then let the agent work. Reject a bad change before it becomes a PR.
 3. **One honest verify path.** Prefer a single real check over review swarms. Put those commands in project rules.
 4. **Hold design and the bar.** Blast radius decides how much you read. Do not add process theater.
 5. **When the agent misses, encode the lesson.** Write the correction into a project rule or skill so the next run improves.
 6. **If still below the bar.** Stronger model and higher effort, or pay down debt. Skip multi-agent bakeoffs unless the work is large or contested.
+=======
+1. **Throwaway vs production.** A low blast-radius prototype can stay a black box. Production agent code needs a higher bar than typical human-written code — especially money, auth, and user data.
+2. **Outcome and constraints first.** Agree what done looks like, what must not be touched, and whether to refactor or reuse. Name the files or the area in scope — an unscoped ask makes the agent read half the repo to guess the boundary, and guess it wrong. Then let the agent work. Reject a bad change before it becomes a PR.
+3. **Give the agent a way to check its work.** Put exact build, test, and lint commands in project rules. Keep the inner loop narrow — the one spec, the typecheck, the changed package — and save the full suite for before the PR. A check that takes minutes gets skipped, or re-run whole for a one-line change.
+4. **Your job is design and the bar.** Blast radius decides how much you read, and how much you spend: model, effort, and review depth all scale with it. Over-spending on a prototype is slow; under-spending on a payments path is the expensive mistake. Guardrails compound: lint, tests, e2e, review, security checks, refactor routines.
+5. **When the agent misses, encode the lesson.** Do not only fix by hand. Write the correction into project rules or a skill so the next run improves. Keep the always-on rules file short — it is re-read on every turn, so it holds only what applies every time; the detail belongs in a skill that loads when it is relevant.
+6. **Do no extra work.** No unasked refactor, no speculative abstraction, no restating a plan already agreed, no summary file nobody asked for. Ship the change and the evidence it works. Volume is not thoroughness — it buries the part actually under review.
+7. **If still below the bar.** Stronger model and higher effort, tighter project rules and skills, more steering, or have the agent pay down debt so the codebase is easier to work in.
+>>>>>>> b643645 (Refine agent-ops-bar and agent-rigor skills in dvstack-agents)
 
 ## Default mode
 

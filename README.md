@@ -60,7 +60,11 @@ dvstack/
 
 | Plugin | Covers | Status |
 |---|---|---|
+<<<<<<< HEAD
 | [agents](plugins/agents/) | Light-by-default agent-ops: match the bar to blast radius, one verify path, encode repeated misses | 2 skills |
+=======
+| [agents](plugins/agents/) | Global agent-ops habits: balanced cost discipline, throwaway vs production bar, verify loops, encoding misses, plus proof-first rigor | 2 skills |
+>>>>>>> b643645 (Refine agent-ops-bar and agent-rigor skills in dvstack-agents)
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 14 skills |
 
@@ -111,8 +115,8 @@ Keep this shape so both the plugin install and the manual copy keep working:
 
 **[dvstack-agents](plugins/agents/)**
 
-- [agent-ops-bar](plugins/agents/skills/agent-ops-bar/) — light-by-default habits: match the bar to blast radius, outcome-first steering, one verify path. Token-efficient.
-- [agent-rigor](plugins/agents/skills/agent-rigor/) — cheap proof defaults; extra cost only when risk or ambiguity is high. Root `AGENTS.md` and `CLAUDE.md` point at both; install the plugin for other projects.
+- [agent-ops-bar](plugins/agents/skills/agent-ops-bar/) — global habits for coding with agents: spend where it changes the result and save where it does not, throwaway vs production bar, outcome-first steering, narrow verify loops, no unasked extra work, and encoding misses into skills.
+- [agent-rigor](plugins/agents/skills/agent-rigor/) — the cheapest proof that would still catch a real failure: proof up front, agent-friendly harness, live verification, design exploration, and parallel isolation. Root `AGENTS.md` and `CLAUDE.md` point at both; install the plugin for other projects.
 
 **[dvstack-frontend](plugins/frontend/)**
 
