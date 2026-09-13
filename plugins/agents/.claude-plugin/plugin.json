@@ -1,7 +1,7 @@
 {
   "name": "dvstack-agents",
-  "version": "0.1.3",
-  "description": "Global agent-ops habits for any coding tool: cost discipline that never trades away quality, throwaway vs production bar, outcome-first steering, verify loops, encoding misses into skills, proof-first rigor for harnesses, live verification, and design exploration, plus session and token hygiene.",
+  "version": "0.1.4",
+  "description": "Light-by-default agent habits for any coding tool: quality bar scaled to blast radius, token-efficient session hygiene, and a short when-to-deepen check. Outcome and constraints first; one honest verify; encode misses.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"

@@ -1,10 +1,10 @@
 # DVstack Harness
 
-The system around the model: task contracts, tool gates, verify/recover, durable state, and change receipts.
+The system around the model: task contracts, compiled context, tool gateway, permissions, durable state, feature maps, hard CI, verify-to-reject, recover, and change receipts.
 
-`dvstack-agents` holds light session, ops, and rigor habits. This plugin is the harness — keep them distinct.
+`dvstack-agents` holds light habits (ops-bar, session, rigor). This plugin is the heavy system — point to agent-ops-bar for the quality bar and agent-session for token hygiene instead of duplicating them here.
 
-Light by default. Scale with blast radius. Skip for short low-risk tasks.
+Skip for short low-risk tasks.
 
 ## Skills
 
