@@ -20,6 +20,11 @@
       "name": "dvstack-agents",
       "source": "./plugins/agents",
       "description": "Global agent-ops habits for any coding tool: cost discipline that never trades away quality, throwaway vs production bar, outcome-first steering, verify loops, encoding misses into skills, proof-first rigor for harnesses, live verification, and design exploration, plus session and token hygiene."
+    },
+    {
+      "name": "dvstack-harness",
+      "source": "./plugins/harness",
+      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, and change receipts. Light by default; skip for short low-risk tasks."
     }
   ]
 }

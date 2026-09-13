@@ -1,0 +1,12 @@
+{
+  "name": "dvstack-harness",
+  "version": "0.1.0",
+  "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, and change receipts. Light by default; skip for short low-risk tasks.",
+  "author": {
+    "name": "Davit Vardanyan",
+    "url": "https://github.com/vardanyandavit"
+  },
+  "repository": "https://github.com/vardanyandavit/dvstack",
+  "license": "MIT",
+  "skills": "./skills/"
+}
