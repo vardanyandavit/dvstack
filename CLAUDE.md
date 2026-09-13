@@ -1,6 +1,6 @@
 # Agent notes for this repository
 
-Same as `AGENTS.md`. DVstack is a plugin marketplace of skills. When writing or reviewing code with agents, follow `plugins/agents/skills/agent-ops-bar/SKILL.md`. For verification or design exploration, also follow `plugins/agents/skills/agent-rigor/SKILL.md`. For session and token hygiene, follow `plugins/agents/skills/agent-session/SKILL.md`.
+Same as `AGENTS.md`. DVstack is a plugin marketplace of skills. When writing or reviewing code with agents, follow `plugins/agents/skills/agent-ops-bar/SKILL.md`. For verification or design exploration, also follow `plugins/agents/skills/agent-rigor/SKILL.md`. For session and token hygiene, follow `plugins/agents/skills/agent-session/SKILL.md`. For multi-step or side-effectful agent systems, see `plugins/harness/skills/harness-engineering/SKILL.md`.
 
 Light by default. Scale with blast radius. Stay token-efficient.
 
@@ -13,4 +13,4 @@ Compressed bar:
 - No unasked refactors, speculative layers, or summaries nobody asked for — ship the change plus its proof.
 - Hold design and quality; blast radius decides how deep you read and how much you spend.
 
-Install for other projects: `dvstack-agents` from this marketplace (see README).
+Install for other projects: `dvstack-agents` and `dvstack-harness` from this marketplace (see README).

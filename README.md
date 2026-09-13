@@ -22,7 +22,7 @@ DVstack is a **plugin marketplace**. A skill is one unit of knowledge — a `SKI
 
 ```
 dvstack/
-├── AGENTS.md                         # thin pointers to agent-ops-bar, agent-rigor, and agent-session
+├── AGENTS.md                         # thin pointers to agent-ops-bar, agent-rigor, agent-session, harness-engineering
 ├── CLAUDE.md                         # same pointers for Claude Code
 ├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
 ├── .cursor-plugin/marketplace.json   # marketplace manifest (Cursor)
@@ -39,6 +39,11 @@ dvstack/
     │   ├── .cursor-plugin/plugin.json
     │   └── skills/
     │       └── font-switcher/        # SKILL.md + src/ + examples/
+    ├── harness/                      # dvstack-harness
+    │   ├── .claude-plugin/plugin.json
+    │   ├── .cursor-plugin/plugin.json
+    │   └── skills/
+    │       └── harness-engineering/  # SKILL.md
     └── testing/                      # dvstack-testing
         ├── .claude-plugin/plugin.json
         ├── .cursor-plugin/plugin.json
@@ -64,6 +69,7 @@ dvstack/
 |---|---|---|
 | [agents](plugins/agents/) | Light-by-default agent-ops: spend where it changes the result and save where it doesn't, throwaway vs production bar, narrow verify loops, no unasked extra work, session token hygiene | 3 skills |
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
+| [harness](plugins/harness/) | The system around the model: task contracts, tool gates, verify/recover, durable state, change receipts. Light by default | 1 skill |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, step validation, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 15 skills |
 
 More plugins get added as the material grows — design standards, local development, and LLM notes each become their own plugin once they have skills to hold.
@@ -76,10 +82,11 @@ More plugins get added as the material grows — design standards, local develop
 claude plugin marketplace add vardanyandavit/dvstack
 claude plugin install dvstack-agents@dvstack
 claude plugin install dvstack-frontend@dvstack
+claude plugin install dvstack-harness@dvstack
 claude plugin install dvstack-testing@dvstack
 ```
 
-**Cursor** — add this repository as a plugin marketplace, then install `dvstack-agents`, `dvstack-frontend`, or `dvstack-testing`.
+**Cursor** — add this repository as a plugin marketplace, then install `dvstack-agents`, `dvstack-frontend`, `dvstack-harness`, or `dvstack-testing`.
 
 Once installed, a normal request is enough: ask "add a font switcher" and the agent picks the skill up on its own. No link, no copy step.
 
@@ -120,6 +127,10 @@ Keep this shape so both the plugin install and the manual copy keep working:
 **[dvstack-frontend](plugins/frontend/)**
 
 - [font-switcher](plugins/frontend/skills/font-switcher/) — a drop-in font picker for React or plain HTML/JS projects: heading and body font pairs, fonts downloaded only when needed, live previews, and the choice remembered across visits.
+
+**[dvstack-harness](plugins/harness/)**
+
+- [harness-engineering](plugins/harness/skills/harness-engineering/) — the system around the model: task contracts, progressive context, tool gates, durable state, verify/recover, and change receipts. Skip for short low-risk tasks. Root `AGENTS.md` and `CLAUDE.md` point at it for multi-step or side-effectful agent systems.
 
 **[dvstack-testing](plugins/testing/)** — fifteen Playwright skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions (iframes, dialogs, downloads, drag and drop), accessibility, visual testing, code review, debugging, flaky-test triage, and CI. Page objects injected through fixtures, everything else in `constants/`, `data/`, and `helpers/`, and every `test.step` closing with a validation that proves the app moved on — never a hard-coded timeout. See the [plugin README](plugins/testing/) for the full table.
 
