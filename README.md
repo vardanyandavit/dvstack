@@ -22,7 +22,7 @@ DVstack is a **plugin marketplace**. A skill is one unit of knowledge — a `SKI
 
 ```
 dvstack/
-├── AGENTS.md                         # thin pointers to agent-ops-bar and agent-rigor
+├── AGENTS.md                         # thin pointers to agent-ops-bar, agent-rigor, and agent-session
 ├── CLAUDE.md                         # same pointers for Claude Code
 ├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
 ├── .cursor-plugin/marketplace.json   # marketplace manifest (Cursor)
@@ -32,7 +32,8 @@ dvstack/
     │   ├── .cursor-plugin/plugin.json
     │   └── skills/
     │       ├── agent-ops-bar/        # SKILL.md
-    │       └── agent-rigor/          # SKILL.md
+    │       ├── agent-rigor/          # SKILL.md
+    │       └── agent-session/        # SKILL.md
     ├── frontend/                     # dvstack-frontend
     │   ├── .claude-plugin/plugin.json
     │   ├── .cursor-plugin/plugin.json
@@ -61,7 +62,7 @@ dvstack/
 
 | Plugin | Covers | Status |
 |---|---|---|
-| [agents](plugins/agents/) | Light-by-default agent-ops: spend where it changes the result and save where it doesn't, throwaway vs production bar, narrow verify loops, no unasked extra work | 2 skills |
+| [agents](plugins/agents/) | Light-by-default agent-ops: spend where it changes the result and save where it doesn't, throwaway vs production bar, narrow verify loops, no unasked extra work, session token hygiene | 3 skills |
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, step validation, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 15 skills |
 
@@ -113,7 +114,8 @@ Keep this shape so both the plugin install and the manual copy keep working:
 **[dvstack-agents](plugins/agents/)**
 
 - [agent-ops-bar](plugins/agents/skills/agent-ops-bar/) — global habits for coding with agents: spend where it changes the result and save where it does not, throwaway vs production bar, outcome-first steering, narrow verify loops, no unasked extra work, and encoding misses into skills.
-- [agent-rigor](plugins/agents/skills/agent-rigor/) — the cheapest proof that would still catch a real failure: proof up front, agent-friendly harness, live verification, design exploration, and parallel isolation. Root `AGENTS.md` and `CLAUDE.md` point at both; install the plugin for other projects.
+- [agent-rigor](plugins/agents/skills/agent-rigor/) — the cheapest proof that would still catch a real failure: proof up front, agent-friendly harness, live verification, design exploration, and parallel isolation.
+- [agent-session](plugins/agents/skills/agent-session/) — portable session and token hygiene: context budget, model choice, quiet logs, clear between tasks, and side agents that return conclusions. Root `AGENTS.md` and `CLAUDE.md` point at all three; install the plugin for other projects.
 
 **[dvstack-frontend](plugins/frontend/)**
 
