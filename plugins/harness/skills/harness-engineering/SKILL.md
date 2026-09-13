@@ -11,18 +11,17 @@ The harness is the system around the model: contracts, tool gates, verify/recove
 
 ## Rules
 
-1. **Task contract first.** Outcome, scope, must-not-change, evidence, and approvals — before work starts.
-2. **Progressive context.** Map first. Retrieve on demand. Do not dump the whole repo.
+1. **Task contract first.** Outcome, scope, must-not-change, evidence, approvals, `done_when`, and `escalate_when` — before work starts. Escalate on the same failure 3×, a needed schema change, or a product-rule conflict.
+2. **Compile context, don't dump.** Map + step spec + summarized done + open risks + artifacts. Progressive disclosure. Transcript ≠ DB. Prompt ≠ filing cabinet.
 3. **Tool gateway.** Bounds, timeouts, idempotent retries, structured evidence.
-4. **Split brain, hands, and history.** The transcript is not memory.
-5. **Durable state.** Facts, decisions and reasons, progress, lessons.
-6. **Done needs evidence.** Cheapest deterministic checks first.
-7. **Verify to reject.** Independent verifier. No duty to repair.
-8. **Policy outside the prompt.** Gate external and irreversible actions. Hard-stop secrets, out-of-workspace writes, and budget overruns.
-9. **Classify then recover.** Change a condition. Keep budgets. Stop if nothing changed.
+4. **Four memory kinds.** FACTS / DECISIONS / STATE / LESSONS. Summarize, then drop tool dumps. The transcript is not memory.
+5. **Permission ladder.** Model proposes → policy authorizes → tool executes. Friction matches consequence: read auto; isolated writes + diff; send/deploy/delete need approval.
+6. **Policy outside the prompt.** Gate external and irreversible actions. Hard-stop secrets, out-of-workspace writes, and budget overruns.
+7. **Done needs evidence.** Deterministic domain checks before model review.
+8. **Verify to reject.** Independent verifier, fresh context. No duty to repair.
+9. **On failure, fix capability not prompt heat.** Missing context → map. Bad tool → schema. Missing guardrail → policy. Weak check → regression. One bounded repair. Rollback point. Keep budgets. Stop if nothing changed.
 10. **Trace plus change receipt.** What changed, what was verified, what was not, risks, approvals.
-11. **Learn the smallest fix.** Delete dead harness.
-12. **Minimum layers.** Add only for failures you have seen.
+11. **Minimum layers.** Build order: define done → one tool → one state file → one recovery → trace → then more autonomy. Repeated failure → exactly one of map / tool / permission / test. Delete dead harness.
 
 ## Do not by default
 
@@ -30,4 +29,4 @@ Multi-agent for one-file tweaks. Whole-repo context dumps. Mark tests passed wit
 
 ## Start small
 
-One contract + one verify + one approval gate for risky actions.
+One contract + one verify + one approval gate for risky actions. Skip for short low-risk tasks.
