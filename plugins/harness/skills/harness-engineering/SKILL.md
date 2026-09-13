@@ -1,11 +1,13 @@
 ---
 name: harness-engineering
-description: Use when building or tightening the system around coding agents (task contracts, tool gates, verify/recover, durable state). Skip for short low-risk tasks.
+description: Use when building or tightening the system around coding agents (task contracts, tool gates, verify/recover, durable state, feature maps, hard CI). Skip for short low-risk tasks.
 ---
 
 # Harness engineering
 
-The harness is the system around the model: contracts, tool gates, verify/recover, and receipts. Light by default. Scale with blast radius.
+The harness is the system around the model: contracts, tool gates, verify/recover, durable state, feature maps, hard CI, and receipts.
+
+Quality bar and blast-radius habits live in agent-ops-bar. Token and session hygiene live in agent-session. This skill is the heavy system — skip it for short low-risk tasks.
 
 **Default trade:** start with one contract, one verify path, and one approval gate for risky actions. Add a layer only after a failure you have seen.
 

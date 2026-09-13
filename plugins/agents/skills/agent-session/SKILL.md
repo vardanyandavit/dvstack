@@ -26,6 +26,10 @@ Keep the thread cheap. Spend tokens on the asked task, not leftover context.
 
 Max model or max effort on a tiny edit. One mega-session all day. Dumping full test logs. Spawning swarms for a simple fix.
 
+## Not this skill
+
+Quality bar: agent-ops-bar. Contracts, tool gates, verify/recover: harness-engineering.
+
 ## Start small
 
 Clear between tasks. Attach known files. Keep the project rules file short.

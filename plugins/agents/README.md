@@ -1,16 +1,16 @@
 # DVstack Agents
 
-Global agent-ops habits that apply across projects and tools. Light by default; scale with blast radius; stay token-efficient. Per-repo files stay limited to verify commands and local don'ts.
+Light-by-default agent habits that apply across projects and tools. Quality bar scaled to blast radius; session token hygiene; a short when-to-deepen check.
 
-The three skills share one trade: spend where it changes the result, save where it does not. Saving effort on a check that would have caught a real failure is not a saving.
+This plugin stays light. It does not own contracts, tool gates, feature maps, CI architecture, memory kinds, or recovery loops — those live in `dvstack-harness`.
 
 ## Skills
 
 | Skill | What it does | Ask for it with |
 |---|---|---|
-| [agent-ops-bar](skills/agent-ops-bar/) | Throwaway vs production bar, outcome-first steering, scoped asks, narrow verify loops, no unasked extra work, encoding misses into skills | "review this agent PR" / "is this production quality" / "this is doing more than I asked" |
-| [agent-rigor](skills/agent-rigor/) | Cheapest conclusive proof, agent-friendly harness, live verification, design exploration, parallel isolation | "verify this live" / "explore designs before committing" |
+| [agent-ops-bar](skills/agent-ops-bar/) | Quality bar: throwaway vs production, outcome and constraints, one honest verify command, encode misses, no extra work | "review this agent PR" / "is this production quality" / "this is doing more than I asked" |
 | [agent-session](skills/agent-session/) | Context budget, model choice, quiet logs, clear between tasks, side agents that return conclusions | "this session is bloated" / "clear between tasks" / "keep the thread cheap" |
+| [agent-rigor](skills/agent-rigor/) | When to deepen only: restate, demand evidence, escalate model or effort, time-boxed exploration | "this ask is ambiguous" / "blast radius is high — deepen" |
 
 ## Install
 

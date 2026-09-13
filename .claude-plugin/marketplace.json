@@ -1,6 +1,6 @@
 {
   "name": "dvstack",
-  "description": "Skills and working examples for front-end work, test automation, and agent ops, collected from real projects.",
+  "description": "Skills and working examples for front-end work, Playwright testing, light agent-ops habits, and the system around coding agents, collected from real projects.",
   "owner": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
@@ -19,12 +19,12 @@
     {
       "name": "dvstack-agents",
       "source": "./plugins/agents",
-      "description": "Global agent-ops habits for any coding tool: cost discipline that never trades away quality, throwaway vs production bar, outcome-first steering, verify loops, encoding misses into skills, proof-first rigor for harnesses, live verification, and design exploration, plus session and token hygiene."
+      "description": "Light-by-default agent habits for any coding tool: quality bar scaled to blast radius, token-efficient session hygiene, and a short when-to-deepen check. Outcome and constraints first; one honest verify; encode misses."
     },
     {
       "name": "dvstack-harness",
       "source": "./plugins/harness",
-      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, and change receipts. Light by default; skip for short low-risk tasks."
+      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, and change receipts. Skip for short low-risk tasks."
     }
   ]
 }
