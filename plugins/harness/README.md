@@ -10,7 +10,7 @@ Light by default. Scale with blast radius. Skip for short low-risk tasks.
 
 | Skill | What it does | Ask for it with |
 |---|---|---|
-| [harness-engineering](skills/harness-engineering/) | Task contracts with `done_when`/`escalate_when`, compiled context, permission ladder, four memory kinds, verify/recover, change receipts | "tighten this agent harness" / "this run has side effects" |
+| [harness-engineering](skills/harness-engineering/) | Task contracts with `done_when`/`escalate_when`, compiled context, feature map, hard gates, permission ladder, four memory kinds, verify/recover, change receipts | "tighten this agent harness" / "this run has side effects" |
 
 ## Install
 
