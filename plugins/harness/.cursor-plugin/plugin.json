@@ -1,6 +1,6 @@
 {
   "name": "dvstack-harness",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, and change receipts. Light by default; skip for short low-risk tasks.",
   "author": {
     "name": "Davit Vardanyan",
