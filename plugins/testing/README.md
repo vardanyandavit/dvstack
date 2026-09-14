@@ -63,3 +63,12 @@ claude plugin install dvstack-testing@dvstack
 In Cursor, add the same repository as a plugin marketplace and install `dvstack-testing`.
 
 Or copy a single skill folder by hand — see the [repository README](../../README.md#using-a-single-skill-without-the-plugin).
+
+## Commands
+
+Claude Code, after install:
+
+- `/dvstack-testing:playwright` — force the whole pack when the change spans architecture, strategy, writing, or review.
+- `/dvstack-testing:playwright-locators` (and the other skill names) — force one skill.
+
+Cursor and other tools: invoke the skill name, or ask "use dvstack-testing" / "follow playwright-locators". See [using commands](../../docs/using-commands.md).

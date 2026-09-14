@@ -1,12 +1,13 @@
 {
   "name": "dvstack-agents",
-  "version": "0.1.4",
-  "description": "Light-by-default agent habits for any coding tool: quality bar scaled to blast radius, token-efficient session hygiene, and a short when-to-deepen check. Outcome and constraints first; one honest verify; encode misses.",
+  "version": "0.2.0",
+  "description": "Light-by-default agent habits for any coding tool: using-dvstack router, quality bar, session hygiene, when-to-deepen, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill. Outcome and constraints first; one honest verify; encode misses.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
   },
   "repository": "https://github.com/vardanyandavit/dvstack",
   "license": "MIT",
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "commands": "./commands"
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Fast, dependency-free marketplace checks.
- * Fails if skill frontmatter, marketplace sources, or plugin folders drift.
+ * Fails if skill frontmatter, command frontmatter, marketplace sources, or plugin folders drift.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -76,6 +76,26 @@ function skillFolders(pluginName) {
   return readdirSync(skillsRoot)
     .filter((name) => !name.startsWith('.') && isDir(join(skillsRoot, name)))
     .sort();
+}
+
+function commandMarkdownFiles(pluginName) {
+  const commandsRoot = join(repoRoot, 'plugins', pluginName, 'commands');
+  if (!isDir(commandsRoot)) return [];
+  const files = [];
+  for (const name of readdirSync(commandsRoot).sort()) {
+    if (name.startsWith('.')) continue;
+    const abs = join(commandsRoot, name);
+    if (statSync(abs).isDirectory()) {
+      fail(`commands must be flat .md files: plugins/${pluginName}/commands/${name}/`);
+      continue;
+    }
+    if (!name.endsWith('.md')) {
+      fail(`commands must be .md files: plugins/${pluginName}/commands/${name}`);
+      continue;
+    }
+    files.push(name);
+  }
+  return files;
 }
 
 function loadMarketplace(relPath) {
@@ -158,7 +178,9 @@ for (const dir of dirs) {
 }
 
 let skillCount = 0;
+let commandCount = 0;
 const counts = {};
+const commandCounts = {};
 for (const pluginName of dirs) {
   const skills = skillFolders(pluginName);
   counts[pluginName] = skills.length;
@@ -176,6 +198,19 @@ for (const pluginName of dirs) {
       continue;
     }
     if (!fields.name) fail(`${rel}: frontmatter missing name`);
+    if (!fields.description) fail(`${rel}: frontmatter missing description`);
+  }
+
+  const commands = commandMarkdownFiles(pluginName);
+  commandCounts[pluginName] = commands.length;
+  commandCount += commands.length;
+  for (const file of commands) {
+    const rel = `plugins/${pluginName}/commands/${file}`;
+    const fields = parseFrontmatter(readFileSync(join(repoRoot, rel), 'utf8'));
+    if (!fields) {
+      fail(`${rel}: missing YAML frontmatter`);
+      continue;
+    }
     if (!fields.description) fail(`${rel}: frontmatter missing description`);
   }
 }
@@ -204,9 +239,12 @@ if (claude.names.size !== dirs.length) {
 
 console.log('plugins:', dirs.join(', ') || '(none)');
 for (const [pluginName, count] of Object.entries(counts)) {
-  console.log(`  ${pluginName}: ${count} skill${count === 1 ? '' : 's'}`);
+  const cmds = commandCounts[pluginName] ?? 0;
+  const cmdPart = cmds ? `, ${cmds} command${cmds === 1 ? '' : 's'}` : '';
+  console.log(`  ${pluginName}: ${count} skill${count === 1 ? '' : 's'}${cmdPart}`);
 }
 console.log(`total skills: ${skillCount}`);
+console.log(`total commands: ${commandCount}`);
 
 if (errors.length) {
   console.error('\ncheck-marketplace failed:');

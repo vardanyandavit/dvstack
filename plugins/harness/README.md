@@ -22,3 +22,7 @@ claude plugin install dvstack-harness@dvstack
 In Cursor, add the same repository as a plugin marketplace and install `dvstack-harness`.
 
 Or copy a single skill folder by hand — see the [repository README](../../README.md#using-a-single-skill-without-the-plugin).
+
+## Commands
+
+Claude Code: `/dvstack-harness:harness` force-loads `harness-engineering`. Cursor: invoke the skill name. See [using commands](../../docs/using-commands.md).
