@@ -14,12 +14,12 @@
     {
       "name": "dvstack-testing",
       "source": "plugins/testing",
-      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist."
+      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist. Slash commands force the whole pack or one skill."
     },
     {
       "name": "dvstack-agents",
       "source": "plugins/agents",
-      "description": "Light-by-default agent habits for any coding tool: quality bar scaled to blast radius, token-efficient session hygiene, and a short when-to-deepen check. Outcome and constraints first; one honest verify; encode misses."
+      "description": "Light-by-default agent habits: using-dvstack router, quality bar, session hygiene, when-to-deepen, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill."
     },
     {
       "name": "dvstack-harness",

@@ -1,6 +1,6 @@
 {
   "name": "dvstack-frontend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Front-end skills that ship with working source files: the agent copies proven code into your project instead of rewriting it from scratch.",
   "author": {
     "name": "Davit Vardanyan",
@@ -8,5 +8,6 @@
   },
   "repository": "https://github.com/vardanyandavit/dvstack",
   "license": "MIT",
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "commands": "./commands"
 }

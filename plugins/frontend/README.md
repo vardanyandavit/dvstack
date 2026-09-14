@@ -18,3 +18,7 @@ claude plugin install dvstack-frontend@dvstack
 In Cursor, add the same repository as a plugin marketplace and install `dvstack-frontend`.
 
 Or copy a single skill folder by hand — see the [repository README](../../README.md#using-a-single-skill-without-the-plugin).
+
+## Commands
+
+Claude Code: `/dvstack-frontend:font-switcher` force-loads the skill. Cursor: invoke the skill name, or ask "add a font switcher". See [using commands](../../docs/using-commands.md).
