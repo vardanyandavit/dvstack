@@ -2,7 +2,7 @@
 
 I spend most of my time as an SDET: not “does the model sound smart,” but **does the system stay inside the boundaries we meant?** That lens is exactly what this paper is about.
 
-Paper: [A Large-Scale Empirical Study of Quality Assurance Practices and Gaps in AI Agents](https://arxiv.org/abs/2609.17698) (arXiv:2609.17698, Sep 2026). [HTML](https://arxiv.org/html/2609.17698v1)
+Paper: [A Large-Scale Empirical Study of Quality Assurance Practices and Gaps in AI Agents](https://arxiv.org/abs/2609.17698) (arXiv:2609.17698, Sep 2026). HTML: https://arxiv.org/html/2609.17698v1
 
 The authors looked at **157** popular open-source LLM agent projects (≥100 GitHub stars) and asked a practical question: what QA do these repos actually show — in code, config, docs, and tests — when agents can plan, call tools, touch files, run shell, browse, use MCP/plugins, and keep state?
 
