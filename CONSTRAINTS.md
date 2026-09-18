@@ -11,7 +11,7 @@ Shipped plugins:
 - `dvstack-frontend` — font-switcher
 - `dvstack-testing` — fifteen Playwright skills
 - `dvstack-agents` — agent-ops-bar, agent-session, agent-rigor, using-dvstack, anti-rationalization, doubt-check, source-check
-- `dvstack-harness` — harness-engineering
+- `dvstack-harness` — harness-engineering, agent-execution-surfaces, safeguard-parity, agent-boundary-tests, agent-risk-chains
 
 ## Skills
 
@@ -22,7 +22,7 @@ Shipped plugins:
 
 ## Agents vs harness
 
-Agents stay light (habits). Harness owns heavy system concerns (contracts, tools, verify/recover, durable state, feature maps, hard CI). Do not duplicate across that boundary — point instead.
+Agents stay light (habits). Harness owns heavy system concerns (contracts, tools, verify/recover, durable state, feature maps, hard CI, plus execution-surface / safeguard-parity / boundary-test / risk-chain QA). Do not duplicate across that boundary — point instead.
 
 ## Commands
 

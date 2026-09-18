@@ -19,7 +19,7 @@ This skill routes to **this marketplace**. It does not replace the skill it poin
 | `dvstack-testing` | Playwright, e2e, test-suite work | `/playwright` (whole pack) or a skill command such as `/playwright-locators` |
 | `dvstack-frontend` | Font UI / typography picker | `/font-switcher` |
 | `dvstack-agents` | Light agent habits (bar, session, rigor, doubt, sources) | `/ops-bar`, `/session`, `/rigor`, `/anti-rationalization`, `/doubt-check`, `/source-check` |
-| `dvstack-harness` | Multi-step or side-effectful agent **systems** | `/harness` |
+| `dvstack-harness` | Multi-step or side-effectful agent **systems** (surfaces, parity, boundary tests, risk chains) | `/harness`, `/execution-surfaces`, `/safeguard-parity`, `/boundary-tests`, `/risk-chains` |
 
 Exact slash form in Claude Code is `/plugin-name:command-name` (see `/help`). Cursor and other tools force via the skill name or a direct ask.
 
@@ -31,11 +31,11 @@ Exact slash form in Claude Code is `/plugin-name:command-name` (see `/help`). Cu
 4. **Several can apply.** Playwright work can also need ops-bar. Point; don't merge plugins.
 5. **Slash command = hard force-load.** If the user invoked a command, Read that skill (or pack) and follow it. Commands do not invent extra rules.
 
-Agents stay light. Harness owns contracts, tool gates, verify/recover, durable state, feature maps, and hard CI.
+Agents stay light. Harness owns contracts, tool gates, verify/recover, durable state, feature maps, hard CI, and bound-action QA.
 
 ## Not this skill
 
-Writing Playwright tests: `dvstack-testing`. Building an agent harness: `harness-engineering`. Font picker implementation: `font-switcher`.
+Writing Playwright tests: `dvstack-testing`. Building an agent harness: `harness-engineering` (narrower: `agent-execution-surfaces`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`). Font picker implementation: `font-switcher`.
 
 ## Verification
 

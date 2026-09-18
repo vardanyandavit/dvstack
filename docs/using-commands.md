@@ -14,6 +14,10 @@ After `claude plugin install dvstack-testing@dvstack` (and the other plugins you
 /dvstack-agents:ops-bar
 /dvstack-agents:using-dvstack
 /dvstack-harness:harness
+/dvstack-harness:execution-surfaces
+/dvstack-harness:safeguard-parity
+/dvstack-harness:boundary-tests
+/dvstack-harness:risk-chains
 /dvstack-frontend:font-switcher
 ```
 

@@ -32,3 +32,10 @@ Multi-agent for one-file tweaks. Whole-repo context dumps. Mark tests passed wit
 ## Start small
 
 One contract + one verify + one approval gate for risky actions. Skip for short low-risk tasks.
+
+## Related skills
+
+- `agent-execution-surfaces` — inventory invoke/action channels; produce a surface map
+- `safeguard-parity` — same control class on every equivalent route
+- `agent-boundary-tests` — failure-oriented bounds tests (remove control → must fail)
+- `agent-risk-chains` — eight chain templates → QA tickets
