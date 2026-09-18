@@ -44,7 +44,3 @@ Claude Code, after install:
 - `/dvstack-harness:risk-chains` — force `agent-risk-chains`
 
 Cursor: invoke the skill name. See [using commands](../../docs/using-commands.md).
-
-## Further reading
-
-SDET notes on agent QA practices and gaps: [agent-qa-practices-and-gaps.md](../../docs/notes/agent-qa-practices-and-gaps.md).

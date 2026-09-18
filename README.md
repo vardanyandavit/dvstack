@@ -19,7 +19,6 @@ dvstack/
 ├── CONTRIBUTING.md                   # how to add a plugin, skill, or command
 ├── CONSTRAINTS.md                    # what this marketplace is allowed to ship
 ├── docs/using-commands.md            # Claude vs Cursor vs Grok: how to force a skill
-├── docs/notes/agent-qa-practices-and-gaps.md
 ├── scripts/check-marketplace.mjs     # marketplace, skill, and command-frontmatter checks
 ├── .github/workflows/marketplace.yml
 ├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
