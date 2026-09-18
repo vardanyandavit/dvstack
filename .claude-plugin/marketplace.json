@@ -24,7 +24,7 @@
     {
       "name": "dvstack-harness",
       "source": "./plugins/harness",
-      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, and change receipts. Skip for short low-risk tasks."
+      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, change receipts, plus execution-surface, safeguard-parity, boundary-test, and risk-chain QA. Skip for short low-risk tasks."
     }
   ]
 }

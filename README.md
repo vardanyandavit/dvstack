@@ -4,9 +4,9 @@ DVstack is an open source plugin marketplace I created to share skills and worki
 
 This is a knowledge collection, not a product. The README only covers plugins that are in the tree.
 
-What's here now: a font switcher, fifteen Playwright testing skills, light agent-ops habits (including a marketplace router and short self-checks), and one harness-engineering skill for the system around the agent.
+What's here now: a font switcher, fifteen Playwright testing skills, light agent-ops habits (including a marketplace router and short self-checks), and five harness skills for the system around the agent (contracts plus execution-surface, safeguard-parity, boundary-test, and risk-chain QA).
 
-**Ladder:** ops-bar (quality bar) → session (token hygiene) → rigor (when to deepen) → harness (system around the agent). Harness owns contracts, tools, verify, and recover; agents stay light habits.
+**Ladder:** ops-bar (quality bar) → session (token hygiene) → rigor (when to deepen) → harness (system around the agent). Harness owns contracts, tools, verify, recover, and bound-action QA; agents stay light habits.
 
 ## How it's organized
 
@@ -45,9 +45,13 @@ dvstack/
     ├── harness/                      # dvstack-harness
     │   ├── .claude-plugin/plugin.json
     │   ├── .cursor-plugin/plugin.json
-    │   ├── commands/                 # harness
+    │   ├── commands/                 # harness, execution-surfaces, safeguard-parity, boundary-tests, risk-chains
     │   └── skills/
-    │       └── harness-engineering/  # SKILL.md
+    │       ├── harness-engineering/
+    │       ├── agent-execution-surfaces/
+    │       ├── safeguard-parity/
+    │       ├── agent-boundary-tests/
+    │       └── agent-risk-chains/
     └── testing/                      # dvstack-testing
         ├── .claude-plugin/plugin.json
         ├── .cursor-plugin/plugin.json
@@ -74,7 +78,7 @@ dvstack/
 |---|---|---|
 | [agents](plugins/agents/) | Light-by-default agent habits: marketplace router, quality bar, session hygiene, when to deepen, anti-rationalization, doubt-check, source-check | 7 skills |
 | [frontend](plugins/frontend/) | Front-end implementation skills that ship with working source files | 1 skill |
-| [harness](plugins/harness/) | The system around the model: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI | 1 skill |
+| [harness](plugins/harness/) | The system around the model: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, plus execution-surface / safeguard-parity / boundary-test / risk-chain QA | 5 skills |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, step validation, fixtures, locators, API, mocking, hard interactions, a11y, visual, review, debugging, flaky tests, CI | 15 skills |
 
 ## Install
@@ -137,9 +141,13 @@ To add a plugin, skill, or command, see [CONTRIBUTING.md](CONTRIBUTING.md). Mark
 
 - [font-switcher](plugins/frontend/skills/font-switcher/) — a drop-in font picker for React or plain HTML/JS projects: heading and body font pairs, fonts downloaded only when needed, live previews, and the choice remembered across visits.
 
-**[dvstack-harness](plugins/harness/)** — the heavy system around the agent. Quality bar and session hygiene stay in `dvstack-agents`.
+**[dvstack-harness](plugins/harness/)** — the heavy system around the agent. Quality bar and session hygiene stay in `dvstack-agents`. Force a skill after install with e.g. `/dvstack-harness:boundary-tests`.
 
 - [harness-engineering](plugins/harness/skills/harness-engineering/) — task contracts, compiled context, tool gateway, permissions, durable state, feature maps, hard CI, verify-to-reject, recover, and change receipts. Skip for short low-risk tasks.
+- [agent-execution-surfaces](plugins/harness/skills/agent-execution-surfaces/) — inventory every invoke/action channel and which reach shell, files, network, secrets, browser, MCP, or subagents; overlapping routes; short surface map.
+- [safeguard-parity](plugins/harness/skills/safeguard-parity/) — same control class on every equivalent route to the same protected action (CLI vs API vs headless vs MCP vs hooks).
+- [agent-boundary-tests](plugins/harness/skills/agent-boundary-tests/) — failure-oriented bounds tests: remove the control → must fail; untrusted-context and multi-step tool paths. Component tests alone are not enough.
+- [agent-risk-chains](plugins/harness/skills/agent-risk-chains/) — eight chain templates into QA tickets: trigger → asset → required control → regression.
 
 **[dvstack-testing](plugins/testing/)** — fifteen Playwright skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions (iframes, dialogs, downloads, drag and drop), accessibility, visual testing, code review, debugging, flaky-test triage, and CI. Page objects injected through fixtures, everything else in `constants/`, `data/`, and `helpers/`, and every `test.step` closing with a validation that proves the app moved on — never a hard-coded timeout. Force the pack with `/dvstack-testing:playwright` after install. See the [plugin README](plugins/testing/) for the full table.
 
