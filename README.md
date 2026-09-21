@@ -17,7 +17,7 @@ dvstack/
 ├── AGENTS.md                         # thin pointers, including using-dvstack
 ├── CONTRIBUTING.md                   # how to add a plugin, skill, or command
 ├── CONSTRAINTS.md                    # what this marketplace is allowed to ship
-├── docs/using-commands.md            # Claude vs Cursor vs Grok: how to force a skill
+├── docs/using-commands.md            # Claude vs Cursor: how to force a skill
 ├── scripts/check-marketplace.mjs     # marketplace, skill, and command-frontmatter checks
 ├── .github/workflows/marketplace.yml
 ├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
@@ -163,36 +163,6 @@ Also on the Cursor plugin catalog (search **dvstack**):
 
 Force a skill with `/` or `@` plus the skill name (e.g. `@dvstack-mode`, `@playwright-locators`), or ask in plain language ("use dvstack-testing").
 
-### Grok Bot
-
-Grok Bot reads `SKILL.md` skills from its skill library / installed plugins. It does **not** load Claude `commands/*.md` automatically.
-
-**Install (recommended)**
-
-1. In Grok Bot chat, ask to install the DVstack plugins from the catalog, e.g. "install dvstack-testing and dvstack-frontend".
-2. Or install from Cursor's plugin UI while signed into the same account — those plugins show up for Grok Bot too (`dvstack-testing`, `dvstack-frontend`).
-
-For the **full** agents/harness set (including `dvstack-mode`), use the GitHub copy path below until those plugins are published in the catalog.
-
-**Install / update from GitHub (any skill)**
-
-```bash
-# Example: pull latest and copy one skill into a Grok Bot / Cursor user skills dir
-git clone --depth 1 https://github.com/vardanyandavit/dvstack.git /tmp/dvstack
-cp -R /tmp/dvstack/plugins/agents/skills/dvstack-mode ~/.cursor/skills/dvstack-mode
-# or project-only:
-# cp -R ... .cursor/skills/dvstack-mode
-```
-
-To refresh later: `git -C /tmp/dvstack pull` (or re-clone) and copy again over the same folder.
-
-You can also paste a skill URL and ask Grok Bot to follow it, e.g.
-`https://github.com/vardanyandavit/dvstack/tree/main/plugins/agents/skills/dvstack-mode`
-
-**Force**
-
-`/dvstack-mode`, `@agent-ops-bar`, `@playwright-locators`, or "follow verify-loop".
-
 ### After install
 
 A normal request is often enough ("add a font switcher", "rewrite this Playwright suite"). For a guaranteed load, use a slash/`@` skill name — see [docs/using-commands.md](docs/using-commands.md).
@@ -203,7 +173,6 @@ To **force** a skill (or the whole Playwright pack) instead of hoping auto-disco
 
 - **Claude Code:** `/dvstack-testing:playwright` or `/dvstack-testing:locators` (namespaced in `/help`).
 - **Cursor:** `/` or `@` plus the skill name, or ask "use dvstack-testing".
-- **Grok Bot / other SKILL.md readers:** `/` or `@` if the skill is in that tool's library; otherwise copy the folder or paste the GitHub URL.
 
 See [docs/using-commands.md](docs/using-commands.md). Commands load skills; they do not invent a second rulebook.
 
