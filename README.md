@@ -93,7 +93,20 @@ dvstack/
 
 ## Install
 
-**Claude Code**
+Add the marketplace once, then install the plugins you need. After you pull new commits on this repo (or we publish updates), **refresh / update** so local copies pick up the latest skills — install alone does not keep updating forever on every tool.
+
+Plugins in this repo:
+
+| Plugin id | What you get |
+|---|---|
+| `dvstack-agents` | Light agent habits, trust stack, `dvstack-mode` conductor |
+| `dvstack-frontend` | Testable UI + font switcher (ships copyable source) |
+| `dvstack-harness` | Contracts, tool gates, verify/recover, bound-action QA |
+| `dvstack-testing` | Playwright pack (20 skills) |
+
+### Claude Code
+
+**Install**
 
 ```bash
 claude plugin marketplace add vardanyandavit/dvstack
@@ -103,9 +116,86 @@ claude plugin install dvstack-harness@dvstack
 claude plugin install dvstack-testing@dvstack
 ```
 
-**Cursor** — add this repository as a plugin marketplace, then install `dvstack-agents`, `dvstack-frontend`, `dvstack-harness`, or `dvstack-testing`.
+Same flow works inside a session with `/plugin marketplace add` and `/plugin install …`.
 
-Once installed, a normal request is enough: ask "add a font switcher" and the agent picks the skill up on its own. No link, no copy step.
+**Update (get the latest from this repo)**
+
+```bash
+# Refresh the marketplace clone (new skills / versions show up)
+claude plugin marketplace update dvstack
+# or in-session:
+# /plugin marketplace update dvstack
+
+# Reload so the running session uses the new files
+# /reload-plugins
+```
+
+If a plugin still looks stale after the marketplace update, reinstall it:
+
+```bash
+claude plugin uninstall dvstack-agents@dvstack
+claude plugin install dvstack-agents@dvstack
+# repeat for frontend / harness / testing as needed
+```
+
+Optional: enable marketplace auto-update in Claude Code settings so catalogs refresh in the background; still run `/reload-plugins` (or restart) when you need the new code in the current session.
+
+### Cursor
+
+**Install**
+
+1. Open **Dashboard → Plugins** (or **Cursor Settings → Plugins**).
+2. Add this repository as a **plugin marketplace** / team marketplace (import from GitHub: `vardanyandavit/dvstack`).
+3. Install `dvstack-agents`, `dvstack-frontend`, `dvstack-harness`, and/or `dvstack-testing` from that marketplace.
+
+Also on the Cursor plugin catalog (search **dvstack**):
+
+- [dvstack-testing](https://cursor.com/marketplace) — Playwright skills
+- [dvstack-frontend](https://cursor.com/marketplace) — front-end skills with source
+
+(The GitHub marketplace is the full set, including agents + harness.)
+
+**Update**
+
+1. In the marketplace settings for `vardanyandavit/dvstack`, click **Refresh** (or turn on **Auto Refresh** if the Cursor GitHub App can see the repo).
+2. Focus Cursor or restart so the client reloads skills.
+3. If a skill still looks old: uninstall that plugin, clear its cache under `~/.cursor/plugins/cache/` if needed, then reinstall.
+
+Force a skill with `/` or `@` plus the skill name (e.g. `@dvstack-mode`, `@playwright-locators`), or ask in plain language ("use dvstack-testing").
+
+### Grok Bot
+
+Grok Bot reads `SKILL.md` skills from its skill library / installed plugins. It does **not** load Claude `commands/*.md` automatically.
+
+**Install (recommended)**
+
+1. In Grok Bot chat, ask to install the DVstack plugins from the catalog, e.g. "install dvstack-testing and dvstack-frontend".
+2. Or install from Cursor's plugin UI while signed into the same account — those plugins show up for Grok Bot too (`dvstack-testing`, `dvstack-frontend`).
+
+For the **full** agents/harness set (including `dvstack-mode`), use the GitHub copy path below until those plugins are published in the catalog.
+
+**Install / update from GitHub (any skill)**
+
+```bash
+# Example: pull latest and copy one skill into a Grok Bot / Cursor user skills dir
+git clone --depth 1 https://github.com/vardanyandavit/dvstack.git /tmp/dvstack
+cp -R /tmp/dvstack/plugins/agents/skills/dvstack-mode ~/.cursor/skills/dvstack-mode
+# or project-only:
+# cp -R ... .cursor/skills/dvstack-mode
+```
+
+To refresh later: `git -C /tmp/dvstack pull` (or re-clone) and copy again over the same folder.
+
+You can also paste a skill URL and ask Grok Bot to follow it, e.g.
+`https://github.com/vardanyandavit/dvstack/tree/main/plugins/agents/skills/dvstack-mode`
+
+**Force**
+
+`/dvstack-mode`, `@agent-ops-bar`, `@playwright-locators`, or "follow verify-loop".
+
+### After install
+
+A normal request is often enough ("add a font switcher", "rewrite this Playwright suite"). For a guaranteed load, use a slash/`@` skill name — see [docs/using-commands.md](docs/using-commands.md).
 
 ## Commands
 
