@@ -10,7 +10,7 @@ Shipped plugins:
 
 - `dvstack-frontend` — testable-ui, font-switcher
 - `dvstack-testing` — twenty Playwright skills
-- `dvstack-agents` — using-dvstack, repo-recon, agent-ops-bar, verify-loop, agent-session, agent-rigor, anti-rationalization, doubt-check, source-check, agent-trust-stack, dvstack-mode
+- `dvstack-agents` — using-dvstack, repo-recon, agent-ops-bar, verify-loop, agent-session, agent-rigor, anti-rationalization, doubt-check, source-check, agent-trust-stack, coding-rules, dvstack-mode
 - `dvstack-harness` — harness-engineering, agent-execution-surfaces, agent-tool-design, safeguard-parity, agent-boundary-tests, agent-risk-chains
 
 ## Skills
@@ -27,7 +27,9 @@ Agents stay light (habits). Harness owns heavy system concerns (contracts, tools
 
 ## Scope
 
-Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, and the system around coding agents. No back-end, database, SQL, or infrastructure skills.
+Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, the system around coding agents, and the universal rules an agent applies when it writes or changes code (`coding-rules`).
+
+`coding-rules` states invariants (correctness, data, effects, failure, proof, ownership). It is not a backend, SQL, or infrastructure tutorial: no migration recipes, query patterns, or cloud runbooks.
 
 ## Commands
 

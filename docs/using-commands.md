@@ -16,6 +16,7 @@ After `claude plugin install dvstack-testing@dvstack` (and the other plugins you
 /dvstack-agents:dvstack
 /dvstack-agents:recon
 /dvstack-agents:ops-bar
+/dvstack-agents:code
 /dvstack-agents:verify
 /dvstack-harness:harness
 /dvstack-harness:execution-surfaces

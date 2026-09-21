@@ -1,6 +1,6 @@
 # DVstack Agents
 
-Light-by-default agent habits that apply across projects and tools. Orientation in an unfamiliar repo; quality bar scaled to blast radius; finding and running the project's honest check; session token hygiene; a short when-to-deepen check; a portable trust ladder (fix at the highest lasting layer, scale only after verified work); a thin dvstack-mode conductor that applies that bar and routes to domain skills; plus a marketplace router and three short self-checks.
+Light-by-default agent habits that apply across projects and tools. Orientation in an unfamiliar repo; quality bar scaled to blast radius; finding and running the project's honest check; session token hygiene; a short when-to-deepen check; a portable trust ladder (fix at the highest lasting layer, scale only after verified work); coding rules for any change; a thin dvstack-mode conductor that applies that bar and routes to domain skills; plus a marketplace router and three short self-checks.
 
 This plugin stays light. It does not own contracts, tool gates, feature maps, CI architecture, memory kinds, or recovery loops — those live in `dvstack-harness`.
 
@@ -18,13 +18,14 @@ This plugin stays light. It does not own contracts, tool gates, feature maps, CI
 | [doubt-check](skills/doubt-check/) | One self-adversarial pass on a non-trivial decision; flag self-check vs independent review | "I'm unsure about this boundary" |
 | [source-check](skills/source-check/) | Installed version + official docs for framework code; cite URLs; flag UNVERIFIED | "confirm this Playwright API" |
 | [agent-trust-stack](skills/agent-trust-stack/) | Portable trust ladder: fix at the highest lasting layer, scale agents only after one verified agent, easy path is the right path | "where should this fix live" / "safe to add more agents?" |
-| [dvstack-mode](skills/dvstack-mode/) | Sticky conductor: global bar, then route to domain skills. Playbooks: feature, bugfix, rewrite, review, harden, investigate | "work in dvstack mode" / `/dvstack-agents:mode` |
+| [coding-rules](skills/coding-rules/) | Rules for code you write or change: intent, correctness that cannot be bypassed, data, effects, loud failure, tests of behavior, owned outcome. Contested trade-offs stay judgment calls | "follow the coding rules" / `/dvstack-agents:code` |
+| [dvstack-mode](skills/dvstack-mode/) | Sticky conductor: global bar (including coding rules), then route to domain skills. Playbooks: feature, bugfix, rewrite, review, harden, investigate | "work in dvstack mode" / `/dvstack-agents:mode` |
 
 ## Commands
 
-Claude Code: `/dvstack-agents:dvstack`, `/dvstack-agents:recon`, `/dvstack-agents:ops-bar`, `/dvstack-agents:verify`, `/dvstack-agents:session`, `/dvstack-agents:rigor`, `/dvstack-agents:no-excuses`, `/dvstack-agents:doubt`, `/dvstack-agents:sources`, `/dvstack-agents:trust`, `/dvstack-agents:mode` (see `/help`). Cursor and other tools: invoke the skill name. See [using commands](../../docs/using-commands.md).
+Claude Code: `/dvstack-agents:dvstack`, `/dvstack-agents:recon`, `/dvstack-agents:ops-bar`, `/dvstack-agents:verify`, `/dvstack-agents:session`, `/dvstack-agents:rigor`, `/dvstack-agents:no-excuses`, `/dvstack-agents:doubt`, `/dvstack-agents:sources`, `/dvstack-agents:trust`, `/dvstack-agents:code`, `/dvstack-agents:mode` (see `/help`). Cursor and other tools: invoke the skill name. See [using commands](../../docs/using-commands.md).
 
-**Typical order on a new task:** `repo-recon` (orient) → `agent-ops-bar` (set the bar) → work → `verify-loop` (prove it). `agent-rigor` when the ask is ambiguous or the blast radius is high; `agent-session` throughout.
+**Typical order on a new task:** `repo-recon` (orient) → `agent-ops-bar` (set the bar) → `coding-rules` (what the code must be) → work → `verify-loop` (prove it). `dvstack-mode` loads that sequence for you. `agent-rigor` when the ask is ambiguous or the blast radius is high; `agent-session` throughout.
 
 ## Install
 
