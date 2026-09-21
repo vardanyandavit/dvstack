@@ -1,5 +1,7 @@
 # Using DVstack commands and skills
 
+Install and update details live in [README Install](../README.md#install).
+
 Install a plugin once. Then force its conventions for a task with a slash command (Claude Code) or the skill name (Cursor and other `SKILL.md` readers).
 
 Commands are **force-loaders**. They point at installed skills. They do not add a second rulebook.
@@ -44,6 +46,8 @@ Install the marketplace plugin. Skills appear in the skill list. Force one with 
 Cursor does **not** load Claude plugin `commands/*.md` the same way. Skills are the primary force mechanism. Asking "use dvstack-testing" or "follow playwright-locators" still works.
 
 ## Grok Bot and other SKILL.md readers
+
+Catalog plugins `dvstack-testing` and `dvstack-frontend` install from the plugin catalog (ask in chat, or install them in Cursor on the same account). For `dvstack-agents`, `dvstack-harness`, and `dvstack-mode`, copy the skill folder from GitHub or install from the Claude Code marketplace. Refresh by reinstalling the catalog plugin or by copying the skill folder again.
 
 If the skill is in that tool's skill library, invoke it with `/` or `@` plus the skill name. Otherwise copy the skill folder, or paste the GitHub skill URL and ask the agent to follow it.
 
