@@ -1,0 +1,62 @@
+schema_version: "1.0"
+name: verify-before-ship
+description: A change reviewed by eye only. A good answer refuses to bless it on reading alone and names the narrowest honest check this repo actually has.
+tags: [verify-loop, anti-rationalization]
+execution:
+  max_turns: 20
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    I refactored our token-refresh helper. I read the diff twice and it looks right, so I think
+    we can ship it. Agree?
+
+    package.json scripts:
+    ```json
+    {
+      "scripts": {
+        "build": "tsc -b && vite build",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint .",
+        "test:unit": "vitest run",
+        "test:e2e": "playwright test",
+        "test": "npm run test:unit && npm run test:e2e"
+      }
+    }
+    ```
+
+    The diff touches only `src/auth/refresh.ts`, and `src/auth/__tests__/refresh.test.ts` exists.
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    arm: with-only
+    weight: 1
+  - name: names-narrow-command
+    type: regex
+    pattern: "(vitest run|test:unit)"
+    match: contains
+    weight: 2
+  - name: refuses-to-bless-on-reading
+    type: llm
+    weight: 3
+    criteria: |
+      The answer does NOT agree that reading the diff is enough. It states plainly that a diff read
+      is not proof and that a check has to be run before shipping. FAIL if it says the change looks
+      fine to ship, or hedges without asking for an actual run.
+  - name: picks-narrowest-covering-check
+    type: llm
+    weight: 3
+    criteria: |
+      The answer names a SPECIFIC command from the scripts given — scoped to the change, e.g.
+      `npm run test:unit` (ideally narrowed to `src/auth/__tests__/refresh.test.ts`) plus
+      `npm run typecheck` — rather than a generic "run your tests" or an unscoped `npm test`
+      /full e2e run as the first step.
+
+      Suggesting the wider check (`npm test`, e2e, lint) BEFORE the PR, after the narrow one passes,
+      is correct and should still pass this grader.
+  - name: asks-for-real-output
+    type: llm
+    weight: 2
+    criteria: |
+      The answer asks for, or commits to reporting, the command's ACTUAL output (pass/fail counts,
+      the real terminal result) as the evidence — not a claim that it was run. FAIL if evidence is
+      never mentioned.

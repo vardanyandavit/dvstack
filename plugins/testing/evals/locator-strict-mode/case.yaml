@@ -1,0 +1,78 @@
+schema_version: "1.0"
+name: locator-strict-mode
+description: A brittle spec that fails strict mode, sleeps, and asserts with a non-retrying read. The fix should follow the locator order of preference and web-first assertions.
+tags: [locators, step-validation]
+execution:
+  max_turns: 20
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    This Playwright test fails with:
+
+        Error: strict mode violation: locator('.btn-primary') resolved to 3 elements
+
+    Fix it so it passes reliably.
+
+    ```ts
+    test('paid invoice shows a Paid badge', async ({ page }) => {
+      await page.goto('https://app.example.com/invoices');
+      await page.waitForTimeout(3000);
+      await page.locator('.btn-primary').click();
+      const badge = page.locator('tr:nth-child(2) > td.status > span.css-1x2y3z');
+      expect(await badge.isVisible()).toBe(true);
+    });
+    ```
+
+    The page renders one row per invoice; the row under test is invoice INV-1042, and each
+    row has a "View" button (the `.btn-primary` one) and a status cell.
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    arm: with-only
+    weight: 1
+  - name: uses-role-locator
+    type: regex
+    pattern: "getByRole\\("
+    match: contains
+    weight: 1
+  - name: awaited-web-first-assertion
+    type: regex
+    pattern: "await\\s+expect\\("
+    match: contains
+    weight: 1
+  - name: strict-mode-fixed-by-scoping
+    type: llm
+    weight: 2
+    criteria: |
+      The corrected test resolves the strict-mode violation by NARROWING to the invoice row
+      (for example `page.getByRole('row', { name: /INV-1042/ })` and then querying the button
+      inside that row, or `.filter({ hasText: 'INV-1042' })`).
+
+      FAIL if the answer's primary fix is `.first()`, `.nth(0)`, `.nth(1)` or any index used to
+      silence strict mode, or if it keeps `.btn-primary` as the final click target.
+      PASS only if the final code scopes or filters by content.
+  - name: no-hard-wait-in-final-code
+    type: llm
+    weight: 2
+    criteria: |
+      The FINAL corrected test code contains no `page.waitForTimeout`, no `setTimeout`, no sleep
+      helper, and no `networkidle`. Waiting is done by a retrying assertion or an explicit
+      response wait instead.
+
+      Quoting the original line while explaining why it was removed is fine. Judge only the code
+      the answer presents as the fix.
+  - name: structural-selector-replaced
+    type: llm
+    weight: 2
+    criteria: |
+      The `tr:nth-child(2) > td.status > span.css-1x2y3z` selector is gone from the fixed code and
+      replaced by something tied to meaning rather than DOM position: a role/cell query, visible
+      text, or a domain-named `data-testid`. FAIL if any `nth-child`, generated class name
+      (`.css-...`), XPath, or depth-encoding CSS chain survives in the final code.
+  - name: non-retrying-read-replaced
+    type: llm
+    weight: 1
+    criteria: |
+      `expect(await badge.isVisible()).toBe(true)` is replaced with an awaited retrying matcher
+      such as `await expect(badge).toBeVisible()` (or `toHaveText`). FAIL if the fixed code still
+      wraps a non-retrying read (`isVisible()`, `textContent()`, `count()`) inside `expect(...)`.
