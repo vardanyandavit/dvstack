@@ -42,7 +42,7 @@ plugins/<plugin>/
 
 ## Agent vs harness
 
-- `dvstack-agents` — light habits: repo recon, quality bar, verify loop, session hygiene, when to deepen, trust ladder, marketplace router, short self-checks.
+- `dvstack-agents` — light habits: repo recon, quality bar, verify loop, session hygiene, when to deepen, trust ladder, dvstack-mode conductor, marketplace router, short self-checks.
 - `dvstack-harness` — the heavy system: contracts, tool design, verify/recover, durable state, feature maps, hard CI, plus execution-surface, safeguard-parity, boundary-test, and risk-chain QA.
 
 Do not merge them. Point across the boundary instead of duplicating.
