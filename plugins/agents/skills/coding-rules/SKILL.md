@@ -28,7 +28,7 @@ They are unfamiliar with the feature, under time pressure, and possibly you in s
 - Prefer deep modules: a small interface in front of a lot of behavior. A layer that forwards each call to the layer below adds files to read and hides nothing. If understanding the interface takes as long as understanding the implementation, the module is not paying for itself.
 - Write the call site before the implementation. Bad ergonomics are obvious from outside a module and invisible from inside it.
 - Comment the why: constraints, surprising decisions, rejected alternatives. Delete comments that no longer match reality. A comment that restates the code is noise. A comment that contradicts the code is a bug with a longer life than most.
-- Delete dead code, unused imports, obsolete dependencies, and finished feature flags. Git preserves history. A flag gets its removal ticket the day it is created; a flag at 100% for months means that ticket is overdue.
+- Delete dead code, unused imports, obsolete dependencies, and finished feature flags. Git preserves history. A flag gets its removal ticket the day it is created; a flag at 100% for six months means that ticket is overdue.
 - Build for current requirements. Create boundaries that make a future change possible, and do not implement that change now.
 - Follow project conventions over personal preference. Settle formatting, linting, and type checking with tools so they never reach review.
 
@@ -42,7 +42,7 @@ Anything that depends on an engineer remembering will eventually not happen. Tha
 - Fail at startup, not at request time. Parse configuration, environment, and required connections into typed values when the process boots. A missing variable fails the deploy. Do not add a silent default that hides a required value until a user hits that path.
 - Bound everything: request bodies, list and page sizes, queue depths, retry counts, cache entries, recursion depth, string lengths, concurrent connections. Unbounded is a bug waiting for load.
 - Security belongs in the default path: least privilege, parameterized queries, managed secrets, output encoding, server-side authorization. Hidden UI controls and client-side validation are not controls.
-- Authorize the object, not just the route. "May this user call this endpoint" and "may this user see this record" are different checks. Deny by default.
+- Authorize the object, not just the route. "May this user call this endpoint" and "may this user see this record" are different checks. Skipping the record check is broken object-level authorization. Deny by default.
 
 ## 3. Respect the data
 
