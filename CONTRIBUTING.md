@@ -47,10 +47,36 @@ plugins/<plugin>/
 
 Do not merge them. Point across the boundary instead of duplicating.
 
+## Naming rule: a command must not share a skill's name
+
+A command named the same as a skill **shadows it**. Invoking the skill then returns the command
+body instead of `SKILL.md`, and the real skill never loads. Give the command a shorter, distinct
+name (`/dvstack-testing:locators` loads the `playwright-locators` skill).
+
+A command must also never point at `skills/<name>/SKILL.md`. That path resolves against the
+user's project, not the plugin root, so it never loads — the agent searches, fails, and answers
+from general knowledge. Name the skill for the Skill tool instead:
+
+```md
+Load the skill **`dvstack-testing:playwright-locators`** with the Skill tool now, and follow it
+for this task. The skill arrives with its own base directory, so do not go looking for
+`SKILL.md` on disk.
+
+If the skill does not load, say so plainly and stop — do not answer from general knowledge instead.
+```
+
+Both shipped once and cost measurable answer quality. See [docs/evals.md](docs/evals.md).
+
 ## Checks
 
 ```bash
 node scripts/check-marketplace.mjs
 ```
 
-Fails if a skill is missing frontmatter `name` or `description`, a command `.md` is missing `description`, a marketplace `source` path does not exist, or plugin folders drift from the marketplace lists.
+Fails if a skill is missing frontmatter `name` or `description`, a command `.md` is missing `description`, a command name collides with a skill name, a command points at a relative `skills/.../SKILL.md` path, a marketplace `source` path does not exist, or plugin folders drift from the marketplace lists.
+
+Eval suites live in `plugins/*/evals/` — see [docs/evals.md](docs/evals.md).
+
+```bash
+cd plugins/frontend && claude plugin eval . --judge-model sonnet --runs 4
+```

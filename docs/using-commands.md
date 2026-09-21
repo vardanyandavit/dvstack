@@ -10,27 +10,32 @@ After `claude plugin install dvstack-testing@dvstack` (and the other plugins you
 
 ```text
 /dvstack-testing:playwright
-/dvstack-testing:playwright-locators
-/dvstack-agents:using-dvstack
-/dvstack-agents:repo-recon
+/dvstack-testing:locators
+/dvstack-agents:dvstack
+/dvstack-agents:recon
 /dvstack-agents:ops-bar
-/dvstack-agents:verify-loop
+/dvstack-agents:verify
 /dvstack-harness:harness
 /dvstack-harness:execution-surfaces
 /dvstack-harness:tool-design
-/dvstack-harness:safeguard-parity
+/dvstack-harness:parity
 /dvstack-harness:boundary-tests
 /dvstack-harness:risk-chains
-/dvstack-frontend:testable-ui
-/dvstack-frontend:font-switcher
+/dvstack-frontend:testable
+/dvstack-frontend:fonts
 ```
 
 One command per skill, plus `playwright` for the whole testing pack. `/help` lists them all after install.
 
-- `/dvstack-testing:playwright` — whole Playwright pack (architecture, strategy, writing, review).
-- `/dvstack-testing:playwright-locators` (and the other skill file names) — one skill.
+**Command names are deliberately shorter than the skill names they load** (`/dvstack-testing:locators` loads
+`playwright-locators`). A command that shares a skill's name shadows it, and invoking the skill then returns the
+command body instead of `SKILL.md` — see [evals](evals.md). `scripts/check-marketplace.mjs` fails the build on it.
 
-The agent should Read that skill (or every relevant testing skill) and follow it.
+- `/dvstack-testing:playwright` — whole Playwright pack (architecture, strategy, writing, review).
+- `/dvstack-testing:locators` (and one per remaining skill) — force a single skill.
+
+The command loads that skill (or every relevant testing skill) with the Skill tool and follows it. The skill
+arrives with its own base directory — nothing needs to be read off disk by path.
 
 ## Cursor
 

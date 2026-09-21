@@ -1,0 +1,56 @@
+schema_version: "1.0"
+name: step-validation-wait
+description: A step stabilised with a sleep whose real outcome is a request. The fix should register the wait before the action and assert the rendered result too.
+tags: [step-validation, flaky]
+execution:
+  max_turns: 20
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    Our order test is flaky in CI. Clicking Submit fires `POST /api/orders`, and the new order
+    only appears in the table once that response comes back. Someone "fixed" it like this:
+
+    ```ts
+    await ordersPage.submit();
+    await page.waitForTimeout(2000);
+    await expect(page.getByText('ORD-9001')).toBeVisible();
+    ```
+
+    It still fails about one run in ten. What should this step look like instead?
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    arm: with-only
+    weight: 1
+  - name: mentions-response-wait
+    type: regex
+    pattern: "waitForResponse"
+    match: contains
+    weight: 1
+  - name: wait-registered-before-action
+    type: llm
+    weight: 3
+    criteria: |
+      The recommended code registers the response wait BEFORE the action that triggers it — the
+      canonical shape being a single `Promise.all([page.waitForResponse(...), ordersPage.submit()])`
+      with the wait listed first (an equivalent shape that starts the wait first, such as assigning
+      the promise before calling submit, also passes).
+
+      FAIL if the answer awaits `page.waitForResponse(...)` on a line AFTER `await ordersPage.submit()`,
+      because the response has usually already arrived by then.
+      The answer should also say WHY the order matters.
+  - name: no-hard-wait
+    type: llm
+    weight: 2
+    criteria: |
+      The recommended code removes `page.waitForTimeout(2000)` and does not substitute another
+      duration-based wait, a sleep helper, or `waitForLoadState('networkidle')`.
+  - name: asserts-rendered-result-too
+    type: llm
+    weight: 2
+    criteria: |
+      The answer does not stop at the network. It keeps (or adds) an assertion that the order
+      actually RENDERED — e.g. `await expect(page.getByRole('row', { name: /ORD-9001/ })).toBeVisible()`
+      or the existing `getByText('ORD-9001')` check — in addition to checking the response
+      (status and/or matching method+endpoint). FAIL if the answer replaces the UI assertion with
+      the network wait alone.

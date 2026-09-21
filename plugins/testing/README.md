@@ -82,6 +82,6 @@ Or copy a single skill folder by hand — see the [repository README](../../READ
 Claude Code, after install:
 
 - `/dvstack-testing:playwright` — force the whole pack when the change spans architecture, strategy, writing, or review.
-- `/dvstack-testing:playwright-locators` (and the other skill names) — force one skill.
+- `/dvstack-testing:locators` (and the other skill names) — force one skill.
 
 Cursor and other tools: invoke the skill name, or ask "use dvstack-testing" / "follow playwright-locators". See [using commands](../../docs/using-commands.md).

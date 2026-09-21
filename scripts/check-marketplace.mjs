@@ -206,12 +206,30 @@ for (const pluginName of dirs) {
   commandCount += commands.length;
   for (const file of commands) {
     const rel = `plugins/${pluginName}/commands/${file}`;
-    const fields = parseFrontmatter(readFileSync(join(repoRoot, rel), 'utf8'));
+    const body = readFileSync(join(repoRoot, rel), 'utf8');
+    const fields = parseFrontmatter(body);
     if (!fields) {
       fail(`${rel}: missing YAML frontmatter`);
       continue;
     }
     if (!fields.description) fail(`${rel}: frontmatter missing description`);
+
+    const commandName = file.replace(/\.md$/, '');
+    if (skills.includes(commandName)) {
+      fail(
+        `${rel}: command name "${commandName}" collides with the skill of the same name. ` +
+          'The command shadows the skill, so invoking the skill returns the command body ' +
+          'instead of SKILL.md. Rename the command — see docs/evals.md.',
+      );
+    }
+
+    const pointer = body.match(/`skills\/[^`]*SKILL\.md`/);
+    if (pointer) {
+      fail(
+        `${rel}: points at ${pointer[0]} — a relative path that resolves against the user's ` +
+          "project, not the plugin root, so it never loads. Name the skill for the Skill tool instead.",
+      );
+    }
   }
 }
 
