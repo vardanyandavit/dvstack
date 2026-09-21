@@ -18,7 +18,7 @@ This skill routes to **this marketplace**. It does not replace the skill it poin
 |---|---|---|
 | `dvstack-testing` | Playwright, e2e, test-suite work | `/playwright` (whole pack) or a skill command such as `/playwright-locators` |
 | `dvstack-frontend` | Component markup that tests and agents must drive; typography picker | `/testable-ui`, `/font-switcher` |
-| `dvstack-agents` | Light agent habits (orient, bar, verify, session, rigor, trust, doubt, sources) | `/repo-recon`, `/ops-bar`, `/verify-loop`, `/session`, `/rigor`, `/trust`, `/anti-rationalization`, `/doubt-check`, `/source-check` |
+| `dvstack-agents` | Light agent habits (orient, bar, verify, session, rigor, trust, mode, doubt, sources) | `/repo-recon`, `/ops-bar`, `/verify-loop`, `/session`, `/rigor`, `/trust`, `/mode`, `/anti-rationalization`, `/doubt-check`, `/source-check` |
 | `dvstack-harness` | Multi-step or side-effectful agent **systems** (surfaces, tools, parity, boundary tests, risk chains) | `/harness`, `/execution-surfaces`, `/tool-design`, `/safeguard-parity`, `/boundary-tests`, `/risk-chains` |
 
 **Common asks, straight to the skill:**
@@ -36,6 +36,7 @@ This skill routes to **this marketplace**. It does not replace the skill it poin
 | A test can only find it by CSS class | `testable-ui` |
 | Defining an agent's tools | `agent-tool-design` |
 | Where should this agent fix live / scale agents safely? | `agent-trust-stack` |
+| Nontrivial work / want the global DVstack bar | `dvstack-mode` |
 
 Exact slash form in Claude Code is `/plugin-name:command-name` (see `/help`). Cursor and other tools force via the skill name or a direct ask.
 
