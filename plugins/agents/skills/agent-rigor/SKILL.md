@@ -20,4 +20,12 @@ If the ask is clear and the risk is low, stay on agent-ops-bar. If the work need
 
 ## Not this skill
 
-Session hygiene: agent-session. Quality bar: agent-ops-bar. The system around the agent: harness-engineering.
+Session hygiene: `agent-session`. Quality bar: `agent-ops-bar`. Orienting first: `repo-recon`. Proving it: `verify-loop`. The system around the agent: `harness-engineering`.
+
+## Verification
+
+- [ ] Escalation was triggered by ambiguity or blast radius, not by habit
+- [ ] The ask was restated before editing, where it was ambiguous
+- [ ] Claims carry evidence — a failing case, a doc URL, a mechanism
+- [ ] Exploration was time-boxed, and its result was used or discarded on purpose
+- [ ] Dropped back to `agent-ops-bar` once the risk was resolved

@@ -31,7 +31,7 @@ The same four moving parts apply to GitLab, CircleCI, and Jenkins: shard, cache,
 4. Reproduce the CI environment locally when the trace is not enough:
    ```bash
    docker run --rm -it -v "$PWD":/work -w /work \
-     mcr.microsoft.com/playwright:v1.56.0-jammy \
+     mcr.microsoft.com/playwright:v1.63.0-jammy \
      npx playwright test --workers=2
    ```
    Match the image tag to the project's Playwright version.

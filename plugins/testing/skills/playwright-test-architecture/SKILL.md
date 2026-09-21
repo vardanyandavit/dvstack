@@ -52,7 +52,7 @@ Where something belongs, in one line each: **constants** never change, **data** 
 1. **Install and scaffold.** `npm init playwright@latest` for a new project, then replace the generated config with `files/playwright.config.ts` and copy the folders above.
 2. **Point the config at the app.** `BASE_URL` comes from the environment with a local default, so the same suite runs against local, preview, and staging with no code change. Keep `webServer` only if the suite starts the app itself.
 3. **Move every path into `constants/`.** A URL written inline in a spec is the first thing that rots. Page objects take their path from `routes`, and mocks take their pattern from `endpointPatterns`.
-4. **Put accounts in `data/users.ts`.** Getters, not plain properties, so a missing variable fails in the test that needs the account rather than at import time in every file. Never read `process.env` from a spec.
+4. **Put accounts in `data/users.ts`.** Getters, not plain properties, so a missing variable fails in the test that needs the account rather than at import time in every file. Never read `process.env` from a spec. Factories, uniqueness, and cleanup are `playwright-test-data`.
 5. **Write page objects.** Methods are user intents (`signIn`, `openUserMenu`), one intent each, and they do not assert on their own outcome — the test owns that. Compound checks belonging to the screen rather than to one test (`expectRejected`) live on the page object. Where each locator goes is decided by how often it is used — see below.
 6. **Register every page object in `fixtures/test.fixture.ts`.** A spec that writes `new SomePage(page)` has bypassed the pattern. Each further concern gets its own `*.fixture.ts` and is merged in `fixtures/index.ts` with `mergeTests`, so specs keep a single import line. Worker-scoped, auto, and option fixtures are covered in `playwright-fixtures`.
 7. **Keep helpers pure.** The moment a function needs `page`, it is a page object method or a fixture, not a helper.
@@ -139,7 +139,7 @@ projects: [
 ]
 ```
 
-- `auth.setup.ts` signs in once and writes storage state; browser projects declare `dependencies: ["setup"]` and start signed in. Sign-in keeps its own spec, which opts out with `test.use({ storageState: { cookies: [], origins: [] } })`.
+- `auth.setup.ts` signs in once and writes storage state; browser projects declare `dependencies: ["setup"]` and start signed in. Sign-in keeps its own spec, which opts out with `test.use({ storageState: { cookies: [], origins: [] } })`. More than one role, per-worker sign-in, and permission boundaries are `playwright-auth-and-roles`.
 - `global.teardown.ts` runs after everything that depends on the setup project finishes. It is for run-level state only — a seeded tenant, a shared fixture account. Anything one test created belongs in that test's `afterEach`, so a crashed run does not leave it behind.
 - Browser projects need their own `testMatch`, or they pick up the setup and teardown files as ordinary tests.
 - Reach for `globalSetup` only for work that must happen before the runner starts and needs no browser or fixtures — starting a mock server, generating a `.env`. Everything else is a project.
@@ -160,5 +160,5 @@ projects: [
 - No assertions inside page object action methods, and no `test.step` inside page objects — steps belong to the spec, where they describe the scenario.
 - No conditional assertions (`if (await x.isVisible())`). A test that branches on the app's state has stopped testing a known outcome.
 - No URL, endpoint, credential, or magic value inline in a spec. It belongs in `constants/` or `data/`.
-- No test data shared between tests. Create what a test needs inside it, or through a fixture that creates it per test.
+- No test data shared between tests. Create what a test needs inside it, or through a fixture that creates it per test — `playwright-test-data`.
 - One config. Environments differ by variables, not by `playwright.staging.config.ts`.

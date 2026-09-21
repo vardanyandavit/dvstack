@@ -41,7 +41,7 @@ seededOrderId: async ({ request }, use) => {
 workerAccount: [async ({}, use, workerInfo) => { ... }, { scope: "worker" }],
 ```
 
-Use it only for setup that is expensive *and* safe to share — a provisioned account, a licence token. The moment a test mutates a worker fixture, it has reintroduced shared state, and the suite is order-dependent again. Test-scoped is the default for a reason.
+Use it only for setup that is expensive *and* safe to share — a provisioned account, a licence token. The moment a test mutates a worker fixture, it has reintroduced shared state, and the suite is order-dependent again. Test-scoped is the default for a reason. Per-worker *sign-in*, for suites whose tests mutate the account, is `playwright-auth-and-roles`.
 
 **Auto fixtures** apply to every test without being named in its arguments:
 
@@ -76,7 +76,7 @@ When two tests genuinely cannot touch a resource at the same time — a single s
 test("update user settings", { lock: "user-settings" }, async ({ page }) => { ... });
 ```
 
-Tests holding the same lock never run concurrently; everything else keeps running in parallel. Reach for this only after per-test isolation has been ruled out — a lock is a real constraint on runtime, and most "shared" resources are a data-seeding problem in disguise.
+Tests holding the same lock never run concurrently; everything else keeps running in parallel. Reach for this only after per-test isolation has been ruled out — a lock is a real constraint on runtime, and most "shared" resources are a data-seeding problem in disguise (`playwright-test-data`).
 
 ## Verify
 

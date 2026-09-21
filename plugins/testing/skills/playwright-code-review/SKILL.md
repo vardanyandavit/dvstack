@@ -1,6 +1,6 @@
 ---
 name: playwright-code-review
-description: Review Playwright test code against test-automation standards, naming conventions, and clean-code rules — missing awaits on expect, waitForTimeout and manual waits, brittle selectors, tests with no assertion per step, committed test.only, assertions hidden in page objects, wrong file or identifier casing, hard-coded URLs and credentials, unused imports, any types, duplicated locators, and unclear test titles. Use when reviewing a PR that touches e2e tests, auditing an existing suite, or asked to check whether Playwright code follows good practice.
+description: Review Playwright test code against test-automation standards, naming conventions, and clean-code rules — missing awaits on expect, waitForTimeout and manual waits, brittle selectors, tests with no assertion per step, committed test.only, assertions hidden in page objects, wrong file or identifier casing, hard-coded URLs and credentials, unused imports, any types, duplicated locators, unclear test titles, and agent-generated or auto-healed diffs that weakened an assertion to go green. Use when reviewing a PR that touches e2e tests, auditing an existing suite, reviewing tests an AI agent wrote or repaired, or asked to check whether Playwright code follows good practice.
 ---
 
 # Playwright code review
@@ -41,7 +41,10 @@ The validation each step owes is defined in `playwright-step-validation`.
 - A screenshot assertion doing an assertion's job, or a masked region with no comment explaining why it is volatile.
 - `ElementHandle` stored across re-renders — use locators, which re-resolve.
 - `.first()` / `.nth()` used to silence a strict-mode violation rather than scoping the query.
-- Shared state between tests: a fixed record id, a shared account, an order-dependent sequence. Verify with `--repeat-each=3 --workers=4`.
+- Shared state between tests: a fixed record id, a shared account, an order-dependent sequence. Verify with `--repeat-each=3 --workers=4` — `playwright-test-data`, `playwright-auth-and-roles`.
+- A "unique" value built from `Date.now()` alone: two workers in the same millisecond collide.
+- A test that only passes against data already in the environment, or that asserts on "the first row" — that is an assertion about everyone else's data.
+- A date, currency, or sort assertion with no pinned `timezoneId` / `locale` and no frozen clock.
 - `retries` raised, or `workers: 1` set, to keep a suite green.
 
 ## 3. Selectors
@@ -73,6 +76,8 @@ The validation each step owes is defined in `playwright-step-validation`.
 - A declared type that could be derived (`ReturnType<typeof fn>`) or inlined at its single use site, or an exported type nobody imports.
 - A URL, endpoint, or credential inline in a spec instead of `constants/` or `data/`.
 - `process.env` read from a spec or a page object rather than from `data/`.
+- A committed storage-state file, token, or password. `.auth/` is gitignored — a state file is a credential.
+- Signing in through the UI outside the setup project and the sign-in spec.
 - A "helper" that takes `page` — it is a page object method or a fixture.
 - A test title that does not state the expected outcome, or a step title describing mechanics rather than intent.
 
@@ -88,6 +93,20 @@ The validation each step owes is defined in `playwright-step-validation`.
 - Stub bodies inlined in a spec when they exceed a few lines.
 - Comments restating the code. Comment the non-obvious *why* — a workaround, a known backend quirk.
 
+## 7. Agent-written and healed diffs
+
+Same bar, one extra read. A generated test is reviewed as group 1–6; a **healed** test is reviewed by what it removed — `playwright-agents`.
+
+- An assertion deleted rather than corrected. If the diff's assertion count went down, nothing was fixed.
+- `toHaveText` relaxed to `toContainText`, `toHaveCount(n)` dropped to `not.toHaveCount(0)`, `toBeVisible` weakened to `toBeAttached`.
+- A timeout raised, a retry added, `test.slow()` or `waitForTimeout` introduced, `force: true` or `.first()` appearing around the previously failing line.
+- A conditional wrapped around the check that was failing.
+- A page object invented inside a spec instead of the one in `pages/`, or `new SomePage(page)` instead of a fixture.
+- A test whose assertions match today's data rather than data it created.
+- Healed on `main` or in CI rather than in a reviewable PR. That is a process defect, not a code one — say so.
+
+**A red test is a claim about the product.** Changing the test is only right when the claim was wrong, and the PR should say which product change made it wrong.
+
 ## How to report it
 
 Give file and line, say which of the six groups it falls in, and show the replacement as code. Lead with the blockers; a review that opens with unused imports buries the test that has been passing vacuously for three months.
@@ -101,3 +120,4 @@ Distinguish **"this is wrong"** from **"I would write it differently"**, and say
 - `npx tsc --noEmit` is clean.
 - `grep -rnE "waitForTimeout|networkidle|test\.only|force: true" tests/ pages/` returns nothing.
 - Every changed test still fails when the behaviour it covers is broken — the only real proof that an assertion works.
+- On a healed or generated diff: `git diff` shows no net loss of assertions, and no timeout, retry, or `force` was added.

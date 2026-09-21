@@ -28,8 +28,16 @@ Max model or max effort on a tiny edit. One mega-session all day. Dumping full t
 
 ## Not this skill
 
-Quality bar: agent-ops-bar. Contracts, tool gates, verify/recover: harness-engineering.
+Quality bar: `agent-ops-bar`. Bounded orientation instead of a whole-repo read: `repo-recon`. Contracts, tool gates, verify/recover: `harness-engineering`.
 
 ## Start small
 
 Clear between tasks. Attach known files. Keep the project rules file short.
+
+## Verification
+
+- [ ] Model and effort matched the task, not defaulted to the biggest
+- [ ] Known files pointed at by path instead of discovered by search
+- [ ] Logs summarised, not dumped into the thread
+- [ ] Context cleared or compacted between unrelated tasks
+- [ ] Tokens went to the asked task

@@ -22,7 +22,8 @@ plugins/<plugin>/
 - One narrow subject. Keep the body short.
 - No attribution or source lists in the skill.
 - Files the agent should copy live next to `SKILL.md`; the skill tells the agent to copy them.
-- New skills should end with a `## Verification` checklist.
+- New skills should end with a `## Verification` checklist (the Playwright skills use `## Verify` plus `## Rules` — match the plugin you are adding to).
+- Verify any framework API the skill teaches against that library's official docs before shipping it.
 
 ## A command
 
@@ -41,8 +42,8 @@ plugins/<plugin>/
 
 ## Agent vs harness
 
-- `dvstack-agents` — light habits: quality bar, session hygiene, when to deepen, marketplace router, short self-checks.
-- `dvstack-harness` — the heavy system: contracts, tools, verify/recover, durable state, feature maps, hard CI, plus execution-surface, safeguard-parity, boundary-test, and risk-chain QA.
+- `dvstack-agents` — light habits: repo recon, quality bar, verify loop, session hygiene, when to deepen, marketplace router, short self-checks.
+- `dvstack-harness` — the heavy system: contracts, tool design, verify/recover, durable state, feature maps, hard CI, plus execution-surface, safeguard-parity, boundary-test, and risk-chain QA.
 
 Do not merge them. Point across the boundary instead of duplicating.
 

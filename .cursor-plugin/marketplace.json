@@ -1,6 +1,6 @@
 {
   "name": "dvstack",
-  "description": "Skills and working examples for front-end work, Playwright testing, light agent-ops habits, and the system around coding agents, collected from real projects.",
+  "description": "Skills and working examples for Playwright testing, front-end work an automated suite can drive, light agent-ops habits, and the system around coding agents, collected from real projects.",
   "owner": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
@@ -9,22 +9,22 @@
     {
       "name": "dvstack-frontend",
       "source": "plugins/frontend",
-      "description": "Front-end skills that ship with working source files: the agent copies proven code into your project instead of rewriting it from scratch."
+      "description": "Front-end skills that ship with working source files: markup an automated suite and an AI agent can actually drive, and a drop-in font switcher. The agent copies proven code into your project instead of rewriting it from scratch."
     },
     {
       "name": "dvstack-testing",
       "source": "plugins/testing",
-      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, API-driven setup, network mocking, hard interactions, accessibility, visual testing, debugging, flaky-test triage, CI sharding, and a code-review checklist. Slash commands force the whole pack or one skill."
+      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, auth and roles, test data, API-driven setup, network mocking, hard interactions, mobile and responsive, accessibility, visual testing, debugging, flaky-test triage, CI sharding, a code-review checklist, Playwright agents and MCP, and migrating off Cypress or Selenium. Slash commands force the whole pack or one skill."
     },
     {
       "name": "dvstack-agents",
       "source": "plugins/agents",
-      "description": "Light-by-default agent habits: using-dvstack router, quality bar, session hygiene, when-to-deepen, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill."
+      "description": "Light-by-default agent habits for any coding tool: using-dvstack router, repo recon, quality bar, verify loop, session hygiene, when-to-deepen, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill. Orient, agree done, one honest verify, encode misses."
     },
     {
       "name": "dvstack-harness",
       "source": "plugins/harness",
-      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, change receipts, plus execution-surface, safeguard-parity, boundary-test, and risk-chain QA. Skip for short low-risk tasks."
+      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, change receipts, plus execution-surface, tool-design, safeguard-parity, boundary-test, and risk-chain QA. Skip for short low-risk tasks."
     }
   ]
 }

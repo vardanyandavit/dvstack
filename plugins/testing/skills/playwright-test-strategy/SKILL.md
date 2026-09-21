@@ -56,6 +56,7 @@ npx playwright test                      # merge and nightly
 - **Smoke:** the handful of journeys that mean the app is up. Fast enough to run on every push.
 - **Regression:** everything else, on merge and nightly.
 - Tag by *risk*, not by feature area. `@slow`, `@flaky-quarantine`, and `@manual-data` are useful; `@login-page` is not — the file name already says that.
+- `@mobile` is a real tier when the flow genuinely differs on a phone, and a waste when it is the same test at a narrower width — `playwright-mobile-web`.
 
 ## Keeping the suite trusted
 
@@ -65,6 +66,10 @@ npx playwright test                      # merge and nightly
 - **Delete tests.** A test covering a removed feature, duplicating another, or failing for six months is a liability. Deleting it is a legitimate, reviewable change.
 - **Quarantine honestly.** `test.fixme()` with a ticket is honest; a retry that hides the failure is not.
 - **Watch the runtime.** When the suite outgrows its CI window, shard before cutting coverage — but first check how much of it should have been unit tests.
+
+## Tests an agent proposed
+
+A generated plan makes the scenario list cheap, which makes cutting it the only work that matters. Everything above still decides what survives: name the risk, merge the data-only variants, and push field validation down to component or API tests. An agent explores what the app showed it, so the error, empty, expired, and permission cases are the ones you add by hand. See `playwright-agents`.
 
 ## Writing the test itself
 

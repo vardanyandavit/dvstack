@@ -8,21 +8,26 @@ Only document plugins and skills that exist in the tree. Do not advertise empty 
 
 Shipped plugins:
 
-- `dvstack-frontend` — font-switcher
-- `dvstack-testing` — fifteen Playwright skills
-- `dvstack-agents` — agent-ops-bar, agent-session, agent-rigor, using-dvstack, anti-rationalization, doubt-check, source-check
-- `dvstack-harness` — harness-engineering, agent-execution-surfaces, safeguard-parity, agent-boundary-tests, agent-risk-chains
+- `dvstack-frontend` — testable-ui, font-switcher
+- `dvstack-testing` — twenty Playwright skills
+- `dvstack-agents` — using-dvstack, repo-recon, agent-ops-bar, verify-loop, agent-session, agent-rigor, anti-rationalization, doubt-check, source-check
+- `dvstack-harness` — harness-engineering, agent-execution-surfaces, agent-tool-design, safeguard-parity, agent-boundary-tests, agent-risk-chains
 
 ## Skills
 
 - One narrow subject per skill.
 - `SKILL.md` frontmatter: `name` (same as the folder) and `description` (what it does and when to use it).
 - No attribution or source lists in public skills.
-- New skills should end with a `## Verification` checklist.
+- New skills should end with a `## Verification` checklist. The Playwright skills use `## Verify` plus `## Rules` for the same purpose — follow the plugin's local convention rather than mixing both.
+- Claims about a framework API are checked against the installed version's official docs before they ship, per `source-check`. A wrong API in a skill is worse than no skill.
 
 ## Agents vs harness
 
-Agents stay light (habits). Harness owns heavy system concerns (contracts, tools, verify/recover, durable state, feature maps, hard CI, plus execution-surface / safeguard-parity / boundary-test / risk-chain QA). Do not duplicate across that boundary — point instead.
+Agents stay light (habits). Harness owns heavy system concerns (contracts, tools, verify/recover, durable state, feature maps, hard CI, plus execution-surface / tool-design / safeguard-parity / boundary-test / risk-chain QA). Do not duplicate across that boundary — point instead.
+
+## Scope
+
+Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, and the system around coding agents. No back-end, database, SQL, or infrastructure skills.
 
 ## Commands
 
@@ -30,7 +35,9 @@ Plugin `commands/*.md` are force-loaders for installed skills. They tell the age
 
 ## Token-light
 
-Always-on files (`AGENTS.md`, `CLAUDE.md`) stay short. Detail lives in skills that load when relevant.
+`AGENTS.md` is the single always-on file, and it stays short. Detail lives in skills that load when relevant.
+
+Claude Code reads `AGENTS.md` as project instructions when a repository has no `CLAUDE.md` (v2.1.277+, on the default setting), and Cursor and other agents read it too — so one file covers every tool. Do not add a `CLAUDE.md` here: its presence makes Claude Code skip `AGENTS.md` entirely, and the two would drift.
 
 ## Public-safe
 

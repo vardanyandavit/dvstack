@@ -59,7 +59,7 @@ Prefer `toHaveText` over `toContainText` when the full string is known; prefer `
 
 ## Adding a test id
 
-Before adding `data-testid`, check why the role query fails. Usually the element is missing a label, a button is a `div`, or an icon button has no accessible name — fixing that improves the product and the test at once. Add the test id when the element genuinely has no semantics to query.
+Before adding `data-testid`, check why the role query fails. Usually the element is missing a label, a button is a `div`, or an icon button has no accessible name — fixing that improves the product and the test at once. Add the test id when the element genuinely has no semantics to query. The component-side rules are `testable-ui` in `dvstack-frontend`.
 
 Keep ids stable and domain-named: `data-testid="invoice-row"`, not `data-testid="div-3"`. Set `testIdAttribute` once in the config if the project already uses `data-test` or `data-qa`.
 

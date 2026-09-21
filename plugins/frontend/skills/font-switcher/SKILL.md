@@ -65,5 +65,6 @@ Every stack needs a generic fallback (`serif`, `sans-serif`, `monospace`). A pre
 
 ## Rules
 
+- The picker is a control like any other: give the trigger an accessible name and each option a queryable identity, so a test can drive it — `testable-ui`.
 - Don't load every font up front. Lazy loading is the point of this design.
 - Keep one list of presets per project. If the pre-paint script can't import it (static HTML), say in a comment which file it has to match.

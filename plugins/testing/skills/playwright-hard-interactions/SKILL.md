@@ -84,7 +84,7 @@ await page.getByRole("button", { name: "Account" }).hover();
 await expect(page.getByRole("menuitem", { name: "Settings" })).toBeVisible();
 ```
 
-**Duplicated responsive DOM** — a page rendering both a mobile and a desktop version, where only one is visible — is what `visible()` is for: `await page.getByRole("button", { name: "Menu" }).visible().click()`. Prefer scoping to the visible container when one exists.
+**Duplicated responsive DOM** — a page rendering both a mobile and a desktop version, where only one is visible — is what `visible()` is for: `await page.getByRole("button", { name: "Menu" }).visible().click()` (v1.63; `filter({ visible: true })` since v1.51). Prefer scoping to the visible container when one exists, and see `playwright-mobile-web` for the rest of the responsive cases.
 
 ## Widgets that fight back
 

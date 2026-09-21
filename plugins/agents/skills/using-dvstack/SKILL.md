@@ -17,9 +17,24 @@ This skill routes to **this marketplace**. It does not replace the skill it poin
 | Plugin | When | Force |
 |---|---|---|
 | `dvstack-testing` | Playwright, e2e, test-suite work | `/playwright` (whole pack) or a skill command such as `/playwright-locators` |
-| `dvstack-frontend` | Font UI / typography picker | `/font-switcher` |
-| `dvstack-agents` | Light agent habits (bar, session, rigor, doubt, sources) | `/ops-bar`, `/session`, `/rigor`, `/anti-rationalization`, `/doubt-check`, `/source-check` |
-| `dvstack-harness` | Multi-step or side-effectful agent **systems** (surfaces, parity, boundary tests, risk chains) | `/harness`, `/execution-surfaces`, `/safeguard-parity`, `/boundary-tests`, `/risk-chains` |
+| `dvstack-frontend` | Component markup that tests and agents must drive; typography picker | `/testable-ui`, `/font-switcher` |
+| `dvstack-agents` | Light agent habits (orient, bar, verify, session, rigor, doubt, sources) | `/repo-recon`, `/ops-bar`, `/verify-loop`, `/session`, `/rigor`, `/anti-rationalization`, `/doubt-check`, `/source-check` |
+| `dvstack-harness` | Multi-step or side-effectful agent **systems** (surfaces, tools, parity, boundary tests, risk chains) | `/harness`, `/execution-surfaces`, `/tool-design`, `/safeguard-parity`, `/boundary-tests`, `/risk-chains` |
+
+**Common asks, straight to the skill:**
+
+| Ask | Skill |
+|---|---|
+| New repo, first edit | `repo-recon` → `agent-ops-bar` |
+| "Does it work?" | `verify-loop` |
+| Set up an e2e suite | `playwright-test-architecture` |
+| Tests sign in every time / add a second role | `playwright-auth-and-roles` |
+| Flaky in parallel, shared records | `playwright-test-data` → `playwright-flaky-tests` |
+| AI wrote or healed the tests | `playwright-agents` → `playwright-code-review` |
+| Cypress/Selenium suite to move | `playwright-migration` |
+| Bug only on phones | `playwright-mobile-web` |
+| A test can only find it by CSS class | `testable-ui` |
+| Defining an agent's tools | `agent-tool-design` |
 
 Exact slash form in Claude Code is `/plugin-name:command-name` (see `/help`). Cursor and other tools force via the skill name or a direct ask.
 
@@ -35,7 +50,7 @@ Agents stay light. Harness owns contracts, tool gates, verify/recover, durable s
 
 ## Not this skill
 
-Writing Playwright tests: `dvstack-testing`. Building an agent harness: `harness-engineering` (narrower: `agent-execution-surfaces`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`). Font picker implementation: `font-switcher`.
+Writing Playwright tests: `dvstack-testing`. Building an agent harness: `harness-engineering` (narrower: `agent-execution-surfaces`, `agent-tool-design`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`). Component markup: `testable-ui`. Font picker implementation: `font-switcher`.
 
 ## Verification
 

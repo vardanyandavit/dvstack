@@ -2,7 +2,7 @@
 
 Playwright-focused end-to-end testing skills. Every skill carries a working config, fixture, or spec that the agent copies into the project, so the standard arrives as code rather than as prose.
 
-The fifteen skills are written to work together: naming conventions and architecture set the vocabulary, and the rest reference them.
+The twenty skills are written to work together: naming conventions and architecture set the vocabulary, and the rest reference them.
 
 ## Skills
 
@@ -14,6 +14,8 @@ The fifteen skills are written to work together: naming conventions and architec
 | [playwright-test-architecture](skills/playwright-test-architecture/) | Folder layout, `playwright.config.ts`, setup and teardown projects, page objects through fixtures, where each locator belongs, `test.step` with an assertion closing every step | "set up Playwright" |
 | [playwright-test-strategy](skills/playwright-test-strategy/) | What belongs in e2e versus unit or API, risk-based coverage, smoke and regression tiers, when to delete a test, flaky budget | "how many tests does this need" |
 | [playwright-fixtures](skills/playwright-fixtures/) | Test vs worker scope, auto fixtures, option fixtures, setup/teardown around `use()`, merging fixture files, test locks | "this setup is repeated everywhere" |
+| [playwright-auth-and-roles](skills/playwright-auth-and-roles/) | Storage state per role, `test.use` to pick one, per-worker sign-in, signed-out specs, two roles in one test, MFA and SSO strategies, permission boundaries | "add an admin role" |
+| [playwright-test-data](skills/playwright-test-data/) | Factories with overrides, per-worker unique names, API seeding, `e2e` markers, the cleanup ladder, frozen clock and pinned locale | "tests collide in parallel" |
 
 **Writing tests**
 
@@ -24,6 +26,7 @@ The fifteen skills are written to work together: naming conventions and architec
 | [playwright-api-testing](skills/playwright-api-testing/) | `request` fixture, seeding state through the API instead of the UI, `toBeOK`, cleanup, where the API/UI boundary belongs | "setup is slow because it clicks through the UI" |
 | [playwright-network-mocking](skills/playwright-network-mocking/) | `page.route`, stubbing JSON, forcing errors, deferring responses for loading states, what not to mock | "test the error state" |
 | [playwright-hard-interactions](skills/playwright-hard-interactions/) | iframes, shadow DOM, dialogs, popups, uploads and downloads, drag and drop, clipboard, date pickers, virtualised lists, canvas, frozen time | "this element can't be clicked" |
+| [playwright-mobile-web](skills/playwright-mobile-web/) | Device descriptors vs viewport projects, `tap()` vs `click()`, the duplicated responsive DOM, mobile-only flows, what emulation does not prove | "it only breaks on phones" |
 
 **Quality gates**
 
@@ -31,7 +34,7 @@ The fifteen skills are written to work together: naming conventions and architec
 |---|---|---|
 | [playwright-accessibility-testing](skills/playwright-accessibility-testing/) | `@axe-core/playwright` with WCAG tags, aria snapshots, keyboard and focus tests, what cannot be automated | "add a11y checks" |
 | [playwright-visual-testing](skills/playwright-visual-testing/) | `toHaveScreenshot`, masking, animation and font determinism, per-platform snapshots, update policy | "set up visual regression" |
-| [playwright-code-review](skills/playwright-code-review/) | Review checklist ordered by severity, from vacuous assertions down to unused imports, plus the ESLint config that automates half of it | "review these tests" |
+| [playwright-code-review](skills/playwright-code-review/) | Review checklist ordered by severity, from vacuous assertions down to unused imports, agent-healed diffs that weakened an assertion, plus the ESLint config that automates half of it | "review these tests" |
 
 **Running and fixing**
 
@@ -40,6 +43,13 @@ The fifteen skills are written to work together: naming conventions and architec
 | [playwright-debugging](skills/playwright-debugging/) | UI mode, trace viewer, codegen, `--debug`, `page.pause()`, attachments | "why did this fail" |
 | [playwright-flaky-tests](skills/playwright-flaky-tests/) | Trace triage, replacing sleeps with assertions, state isolation, honest retry policy | "this test is flaky" |
 | [playwright-ci](skills/playwright-ci/) | Sharding, browser caching, merged blob reports, traces as artifacts, secrets per environment | "add e2e to CI" |
+
+**Agents and legacy suites**
+
+| Skill | Covers | Ask for it with |
+|---|---|---|
+| [playwright-agents](skills/playwright-agents/) | `init-agents` planner/generator/healer, the seed test they bootstrap from, Playwright MCP and its scoping flags, and the review gate a healed diff must pass | "let an agent write these tests" |
+| [playwright-migration](skills/playwright-migration/) | Cypress and Selenium-family mapping tables, the assumptions that break, port vs rewrite vs delete, and the order that keeps the team covered | "move us off Cypress" |
 
 ## Conventions these skills enforce
 
@@ -52,6 +62,9 @@ The fifteen skills are written to work together: naming conventions and architec
 - **Nothing hard-coded in a spec.** Routes and endpoints in `constants/`, accounts in `data/`, pure functions in `helpers/`. A spec never reads `process.env`.
 - **Setup and teardown are projects, not `globalSetup`** — they show in the report, record traces, and can use fixtures.
 - **Types are derived or inlined, not declared.** `type` over `interface`, `ReturnType<typeof fn>` over a hand-written shape.
+- **Every test creates what it needs and leaves nothing behind.** No fixed record ids, no shared accounts, per-worker unique names, cleanup through the API.
+- **Sign in once per role, not once per test.** Storage state from a setup project; the login flow keeps exactly one spec of its own.
+- **An agent-written test is a pull request, not a result.** Generated and healed diffs pass the same review, and a heal that removed an assertion fixed nothing.
 
 ## Install
 

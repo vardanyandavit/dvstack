@@ -11,15 +11,21 @@ After `claude plugin install dvstack-testing@dvstack` (and the other plugins you
 ```text
 /dvstack-testing:playwright
 /dvstack-testing:playwright-locators
-/dvstack-agents:ops-bar
 /dvstack-agents:using-dvstack
+/dvstack-agents:repo-recon
+/dvstack-agents:ops-bar
+/dvstack-agents:verify-loop
 /dvstack-harness:harness
 /dvstack-harness:execution-surfaces
+/dvstack-harness:tool-design
 /dvstack-harness:safeguard-parity
 /dvstack-harness:boundary-tests
 /dvstack-harness:risk-chains
+/dvstack-frontend:testable-ui
 /dvstack-frontend:font-switcher
 ```
+
+One command per skill, plus `playwright` for the whole testing pack. `/help` lists them all after install.
 
 - `/dvstack-testing:playwright` — whole Playwright pack (architecture, strategy, writing, review).
 - `/dvstack-testing:playwright-locators` (and the other skill file names) — one skill.

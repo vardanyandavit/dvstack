@@ -82,6 +82,8 @@ Cover: every interactive control reachable and operable by keyboard, visible foc
 
 **What stays manual:** actual screen-reader output, whether alt text is *meaningful*, whether an error message is understandable, whether a custom widget behaves the way its role promises, and testing with disabled users.
 
+Fixing what a scan finds is a component change: `testable-ui` in `dvstack-frontend` covers the markup side — names, roles, live regions, and state in the DOM.
+
 ## Verify
 
 - The scan fails when a label is removed from a form field.

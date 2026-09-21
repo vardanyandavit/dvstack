@@ -15,7 +15,7 @@ Quality bar and blast-radius habits live in agent-ops-bar. Token and session hyg
 
 1. **Task contract first.** Outcome, scope, must-not-change, evidence, approvals, `done_when`, and `escalate_when` — before work starts. Escalate on the same failure 3×, a needed schema change, or a product-rule conflict.
 2. **Compile context, don't dump.** Map + step spec + summarized done + open risks + artifacts. Progressive disclosure. Transcript ≠ DB. Prompt ≠ filing cabinet. Feature map stays current: how to reach features, shortcuts, stable selectors. Route vague screenshots/reports through the map before a code hunt. Atomic PRs are searchable agent context.
-3. **Tool gateway.** Bounds, timeouts, idempotent retries, structured evidence.
+3. **Tool gateway.** Bounds, timeouts, idempotent retries, structured evidence. One authority per tool, no passthrough parameters, dry-run before destructive — `agent-tool-design`.
 4. **Four memory kinds.** FACTS / DECISIONS / STATE / LESSONS. Summarize, then drop tool dumps. The transcript is not memory.
 5. **Permission ladder.** Model proposes → policy authorizes → tool executes. Friction matches consequence: read auto; isolated writes + diff; send/deploy/delete need approval.
 6. **Policy outside the prompt.** Hard gates over soft pleas: CI, import bans, types, linters first; skills/rules on top. Promote review nits that enforce invariants into lint/CI. Gate external and irreversible actions. Hard-stop secrets, out-of-workspace writes, and budget overruns.
@@ -36,6 +36,18 @@ One contract + one verify + one approval gate for risky actions. Skip for short 
 ## Related skills
 
 - `agent-execution-surfaces` — inventory invoke/action channels; produce a surface map
+- `agent-tool-design` — the gateway's shape: one authority per tool, narrow schemas, structured errors, dry-run
 - `safeguard-parity` — same control class on every equivalent route
 - `agent-boundary-tests` — failure-oriented bounds tests (remove control → must fail)
 - `agent-risk-chains` — eight chain templates → QA tickets
+
+Light habits stay in `dvstack-agents`: `agent-ops-bar`, `agent-session`, `agent-rigor`, `repo-recon`, `verify-loop`.
+
+## Verification
+
+- [ ] A task contract exists before work starts: outcome, scope, evidence, `done_when`
+- [ ] One verify path runs, and rejects — an independent check, not self-report
+- [ ] Risky and irreversible actions pass a gate that lives outside the prompt
+- [ ] State that matters is durable, not held in the transcript
+- [ ] A repeated failure was fixed as capability — map, tool, permission, or test — not as prompt heat
+- [ ] The change carries a receipt: what changed, what was verified, what was not
