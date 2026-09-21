@@ -1,6 +1,6 @@
 {
   "name": "dvstack-frontend",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Front-end skills that ship with working source files: markup an automated suite and an AI agent can actually drive, and a drop-in font switcher. The agent copies proven code into your project instead of rewriting it from scratch.",
   "author": {
     "name": "Davit Vardanyan",

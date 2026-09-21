@@ -22,4 +22,4 @@ Or copy a single skill folder by hand — see the [repository README](../../READ
 
 ## Commands
 
-Claude Code: `/dvstack-frontend:testable-ui` and `/dvstack-frontend:font-switcher` force-load a skill. Cursor: invoke the skill name, or ask "add a font switcher". See [using commands](../../docs/using-commands.md).
+Claude Code: `/dvstack-frontend:testable` and `/dvstack-frontend:fonts` force-load a skill. Cursor: invoke the skill name, or ask "add a font switcher". See [using commands](../../docs/using-commands.md).

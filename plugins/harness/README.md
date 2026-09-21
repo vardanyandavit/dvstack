@@ -43,7 +43,7 @@ Claude Code, after install:
 - `/dvstack-harness:harness` — force `harness-engineering`
 - `/dvstack-harness:execution-surfaces` — force `agent-execution-surfaces`
 - `/dvstack-harness:tool-design` — force `agent-tool-design`
-- `/dvstack-harness:safeguard-parity` — force `safeguard-parity`
+- `/dvstack-harness:parity` — force `safeguard-parity`
 - `/dvstack-harness:boundary-tests` — force `agent-boundary-tests`
 - `/dvstack-harness:risk-chains` — force `agent-risk-chains`
 

@@ -109,7 +109,7 @@ Once installed, a normal request is enough: ask "add a font switcher" and the ag
 
 To **force** a skill (or the whole Playwright pack) instead of hoping auto-discovery fires:
 
-- **Claude Code:** `/dvstack-testing:playwright` or `/dvstack-testing:playwright-locators` (namespaced in `/help`).
+- **Claude Code:** `/dvstack-testing:playwright` or `/dvstack-testing:locators` (namespaced in `/help`).
 - **Cursor:** `/` or `@` plus the skill name, or ask "use dvstack-testing".
 - **Grok Bot / other SKILL.md readers:** `/` or `@` if the skill is in that tool's library; otherwise copy the folder or paste the GitHub URL.
 

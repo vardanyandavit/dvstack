@@ -20,7 +20,7 @@ This plugin stays light. It does not own contracts, tool gates, feature maps, CI
 
 ## Commands
 
-Claude Code: `/dvstack-agents:using-dvstack`, `/dvstack-agents:repo-recon`, `/dvstack-agents:ops-bar`, `/dvstack-agents:verify-loop`, `/dvstack-agents:session`, `/dvstack-agents:rigor`, `/dvstack-agents:anti-rationalization`, `/dvstack-agents:doubt-check`, `/dvstack-agents:source-check` (see `/help`). Cursor and other tools: invoke the skill name. See [using commands](../../docs/using-commands.md).
+Claude Code: `/dvstack-agents:dvstack`, `/dvstack-agents:recon`, `/dvstack-agents:ops-bar`, `/dvstack-agents:verify`, `/dvstack-agents:session`, `/dvstack-agents:rigor`, `/dvstack-agents:no-excuses`, `/dvstack-agents:doubt`, `/dvstack-agents:sources` (see `/help`). Cursor and other tools: invoke the skill name. See [using commands](../../docs/using-commands.md).
 
 **Typical order on a new task:** `repo-recon` (orient) → `agent-ops-bar` (set the bar) → work → `verify-loop` (prove it). `agent-rigor` when the ask is ambiguous or the blast radius is high; `agent-session` throughout.
 
