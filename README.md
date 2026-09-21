@@ -4,7 +4,7 @@ DVstack is an open source plugin marketplace I created to share skills and worki
 
 This is a knowledge collection, not a product. The README only covers plugins that are in the tree.
 
-What's here now: twenty Playwright testing skills, two front-end skills (markup a suite can drive, plus a font switcher), nine light agent-ops habits (including a marketplace router, repo recon, a verify loop, and short self-checks), and six harness skills for the system around the agent (contracts plus execution-surface, tool-design, safeguard-parity, boundary-test, and risk-chain QA).
+What's here now: twenty Playwright testing skills, two front-end skills (markup a suite can drive, plus a font switcher), ten light agent-ops habits (including a marketplace router, repo recon, a verify loop, a portable trust ladder, and short self-checks), and six harness skills for the system around the agent (contracts plus execution-surface, tool-design, safeguard-parity, boundary-test, and risk-chain QA).
 
 **Ladder:** recon (orient) → ops-bar (quality bar) → verify-loop (prove it) → session (token hygiene) → rigor (when to deepen) → harness (system around the agent). Harness owns contracts, tools, verify, recover, and bound-action QA; agents stay light habits.
 
@@ -36,7 +36,8 @@ dvstack/
     │       ├── agent-rigor/
     │       ├── anti-rationalization/
     │       ├── doubt-check/
-    │       └── source-check/
+    │       ├── source-check/
+    │       └── agent-trust-stack/
     ├── frontend/                     # dvstack-frontend
     │   ├── .claude-plugin/plugin.json
     │   ├── .cursor-plugin/plugin.json
@@ -84,7 +85,7 @@ dvstack/
 
 | Plugin | Covers | Status |
 |---|---|---|
-| [agents](plugins/agents/) | Light-by-default agent habits: marketplace router, repo recon, quality bar, verify loop, session hygiene, when to deepen, anti-rationalization, doubt-check, source-check | 9 skills |
+| [agents](plugins/agents/) | Light-by-default agent habits: marketplace router, repo recon, quality bar, verify loop, session hygiene, when to deepen, trust stack, anti-rationalization, doubt-check, source-check | 10 skills |
 | [frontend](plugins/frontend/) | Front-end skills: markup an automated suite and an agent can drive, plus working source files to copy | 2 skills |
 | [harness](plugins/harness/) | The system around the model: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, plus execution-surface / tool-design / safeguard-parity / boundary-test / risk-chain QA | 6 skills |
 | [testing](plugins/testing/) | Playwright: architecture, strategy, step validation, fixtures, locators, auth and roles, test data, API, mocking, hard interactions, mobile, a11y, visual, review, debugging, flaky tests, CI, Playwright agents and MCP, migration | 20 skills |
@@ -146,6 +147,7 @@ To add a plugin, skill, or command, see [CONTRIBUTING.md](CONTRIBUTING.md). Mark
 - [anti-rationalization](plugins/agents/skills/anti-rationalization/) — excuse vs reality: skipping verify, "looks right", expanding scope, inventing APIs from memory.
 - [doubt-check](plugins/agents/skills/doubt-check/) — one self-adversarial pass on a non-trivial decision; not a multi-model bakeoff.
 - [source-check](plugins/agents/skills/source-check/) — installed version + official docs for framework code; cite URLs; flag UNVERIFIED.
+- [agent-trust-stack](plugins/agents/skills/agent-trust-stack/) — portable trust ladder: fix at the highest lasting layer, scale agents only after verified work. Not a product-specific toolkit.
 
 **[dvstack-frontend](plugins/frontend/)**
 

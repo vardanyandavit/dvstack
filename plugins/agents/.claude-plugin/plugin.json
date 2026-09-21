@@ -1,7 +1,7 @@
 {
   "name": "dvstack-agents",
-  "version": "0.4.0",
-  "description": "Light-by-default agent habits for any coding tool: using-dvstack router, repo recon, quality bar, verify loop, session hygiene, when-to-deepen, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill. Orient, agree done, one honest verify, encode misses.",
+  "version": "0.5.0",
+  "description": "Light-by-default agent habits for any coding tool: using-dvstack router, repo recon, quality bar, verify loop, session hygiene, when-to-deepen, trust stack, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill. Orient, agree done, one honest verify, encode misses.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"

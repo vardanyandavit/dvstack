@@ -10,7 +10,7 @@ Shipped plugins:
 
 - `dvstack-frontend` — testable-ui, font-switcher
 - `dvstack-testing` — twenty Playwright skills
-- `dvstack-agents` — using-dvstack, repo-recon, agent-ops-bar, verify-loop, agent-session, agent-rigor, anti-rationalization, doubt-check, source-check
+- `dvstack-agents` — using-dvstack, repo-recon, agent-ops-bar, verify-loop, agent-session, agent-rigor, anti-rationalization, doubt-check, source-check, agent-trust-stack
 - `dvstack-harness` — harness-engineering, agent-execution-surfaces, agent-tool-design, safeguard-parity, agent-boundary-tests, agent-risk-chains
 
 ## Skills
