@@ -40,6 +40,7 @@ One contract + one verify + one approval gate for risky actions. Skip for short 
 - `safeguard-parity` — same control class on every equivalent route
 - `agent-boundary-tests` — failure-oriented bounds tests (remove control → must fail)
 - `agent-risk-chains` — eight chain templates → QA tickets
+- `token-efficient-coding-loops` — pair with this skill for loop cost, context shape, and model routing
 
 Light habits stay in `dvstack-agents`: `agent-ops-bar`, `agent-session`, `agent-rigor`, `repo-recon`, `verify-loop`.
 

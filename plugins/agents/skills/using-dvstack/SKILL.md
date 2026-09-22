@@ -19,7 +19,7 @@ This skill routes to **this marketplace**. It does not replace the skill it poin
 | `dvstack-testing` | Playwright, e2e, test-suite work | `/playwright` (whole pack) or a skill command such as `/playwright-locators` |
 | `dvstack-frontend` | Component markup that tests and agents must drive; typography picker | `/testable-ui`, `/font-switcher` |
 | `dvstack-agents` | Light agent habits (orient, bar, verify, session, rigor, trust, coding rules, mode, doubt, sources) | `/repo-recon`, `/ops-bar`, `/verify-loop`, `/session`, `/rigor`, `/trust`, `/code`, `/mode`, `/anti-rationalization`, `/doubt-check`, `/source-check` |
-| `dvstack-harness` | Multi-step or side-effectful agent **systems** (surfaces, tools, parity, boundary tests, risk chains) | `/harness`, `/execution-surfaces`, `/tool-design`, `/safeguard-parity`, `/boundary-tests`, `/risk-chains` |
+| `dvstack-harness` | Multi-step or side-effectful agent **systems** (surfaces, tools, parity, boundary tests, risk chains, coding-loop cost) | `/harness`, `/execution-surfaces`, `/tool-design`, `/safeguard-parity`, `/boundary-tests`, `/risk-chains`, `/coding-loops` |
 
 **Common asks, straight to the skill:**
 
@@ -53,7 +53,7 @@ Agents stay light. Harness owns contracts, tool gates, verify/recover, durable s
 
 ## Not this skill
 
-Writing Playwright tests: `dvstack-testing`. Building an agent harness: `harness-engineering` (narrower: `agent-execution-surfaces`, `agent-tool-design`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`). Component markup: `testable-ui`. Font picker implementation: `font-switcher`.
+Writing Playwright tests: `dvstack-testing`. Building an agent harness: `harness-engineering` (narrower: `agent-execution-surfaces`, `agent-tool-design`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`, `token-efficient-coding-loops`). Component markup: `testable-ui`. Font picker implementation: `font-switcher`.
 
 ## Verification
 

@@ -10,7 +10,7 @@ The system around the model: task contracts, compiled context, tool gateway, per
 
 Short, low-risk tasks. One-file tweaks with no host-mutating tools, secrets, MCP, browser, or durable agent state. Use `dvstack-agents` for the quality bar and session hygiene.
 
-`harness-engineering` is the umbrella. Use a narrower skill when the task is only a surface map, a tool definition, a parity check, boundary tests, or risk-chain tickets.
+`harness-engineering` is the umbrella. Use a narrower skill when the task is only a surface map, a tool definition, a parity check, boundary tests, risk-chain tickets, or loop cost.
 
 **Bound-action pipeline:** `agent-execution-surfaces` (what channels exist) → `agent-tool-design` (what each tool can do) → `safeguard-parity` (same gate on every door) → `agent-boundary-tests` (prove it) → `agent-risk-chains` (file the tickets).
 
@@ -24,6 +24,7 @@ Short, low-risk tasks. One-file tweaks with no host-mutating tools, secrets, MCP
 | [safeguard-parity](skills/safeguard-parity/) | Same control class on every equivalent route to the same protected action (CLI vs API vs headless vs MCP vs hooks) | Gates exist but may be uneven across doors | "check safeguard parity" / `/safeguard-parity` |
 | [agent-boundary-tests](skills/agent-boundary-tests/) | Failure-oriented bounds tests: remove approval/sandbox/redaction/domain-scope → must fail; untrusted-context and multi-step tool paths | Proving claimed gates actually hold | "add boundary tests" / `/boundary-tests` |
 | [agent-risk-chains](skills/agent-risk-chains/) | Eight chain templates into tickets: trigger → asset → required control → regression | Threat modeling or writing QA tickets | "turn risk chains into tickets" / `/risk-chains` |
+| [token-efficient-coding-loops](skills/token-efficient-coding-loops/) | Stable prefix and append-only tail, skeleton reads, sandbox format before a model turn, lazy tool discovery, workhorse vs frontier routing | Designing or reviewing a multi-turn coding loop or tool loading that burns tokens | "keep this coding loop cheap" / `/coding-loops` |
 
 ## Install
 
@@ -46,5 +47,6 @@ Claude Code, after install:
 - `/dvstack-harness:parity` — force `safeguard-parity`
 - `/dvstack-harness:boundary-tests` — force `agent-boundary-tests`
 - `/dvstack-harness:risk-chains` — force `agent-risk-chains`
+- `/dvstack-harness:coding-loops` — force `token-efficient-coding-loops`
 
 Cursor: invoke the skill name. See [using commands](../../docs/using-commands.md).
