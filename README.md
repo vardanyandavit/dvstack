@@ -1,68 +1,104 @@
 # DVstack
 
-DVstack is an open source plugin marketplace I created to share skills and working files from my own projects.
+Open-source plugins for Cursor and Claude Code: Playwright tests, testable UI, two agent habits, and the system around a coding agent.
 
-This is a knowledge collection, not a product. The README only covers plugins that are in the tree.
-
-**Design rule: a skill ships only what a modern model would not do unprompted.** House conventions, copyable templates, and APIs newer than the model's training stay. General good practice the model already follows is left out — it costs context on every turn and measurably adds nothing (see [evals](docs/evals.md)).
-
-## Plugins
-
-| Plugin | Skills |
-|---|---|
-| [dvstack-testing](plugins/testing/) | `playwright-test-architecture`, `playwright-step-validation`, `playwright-code-review`, `playwright-agents` |
-| [dvstack-frontend](plugins/frontend/) | `testable-ui`, `font-switcher` |
-| [dvstack-harness](plugins/harness/) | `harness-engineering`, `agent-execution-surfaces`, `agent-tool-design`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`, `token-efficient-coding-loops` |
-| [dvstack-agents](plugins/agents/) | `repo-recon`, `verify-loop` |
-
-- **testing** — Playwright house conventions: folder layout, naming, locator tiers, page objects through fixtures, templates to copy; zero hard-coded waits and a validation per step; a house-rules review checklist with an ESLint config; reviewing agent-written and healed tests.
-- **frontend** — markup an automated suite and an agent can drive; a drop-in font switcher with source.
-- **harness** — the system around a coding agent: contracts, tool gates, surfaces, parity, boundary tests, risk chains, loop cost.
-- **agents** — two portable habits: bounded repo recon, and an honest verify loop.
+Install the plugins once. For each job, type **one** command, then the task. That command loads the skills in its row.
 
 ## Install
+
+Install the plugins that match the work. `dvstack-testing` is Playwright. `dvstack-agents` is orient-and-prove. `dvstack-frontend` is markup and the font switcher. `dvstack-harness` is the system around an agent.
 
 ### Claude Code
 
 ```bash
 claude plugin marketplace add vardanyandavit/dvstack
-claude plugin install dvstack-testing@dvstack     # and/or -frontend, -harness, -agents
+claude plugin install dvstack-testing@dvstack
+claude plugin install dvstack-agents@dvstack
+claude plugin install dvstack-frontend@dvstack
+claude plugin install dvstack-harness@dvstack
 ```
-
-Update: `claude plugin marketplace update dvstack`, then `/reload-plugins`. If a plugin still looks stale, uninstall and reinstall it.
 
 ### Cursor
 
-1. **Cursor Settings → Plugins**, add `vardanyandavit/dvstack` as a marketplace.
-2. Install the plugins you want.
-3. Update: **Refresh** the marketplace, then restart Cursor. If a skill still looks old, uninstall, clear `~/.cursor/plugins/cache/`, and reinstall.
+1. **Cursor Settings → Plugins**, add marketplace `vardanyandavit/dvstack`.
+2. Install the same four plugins (or the subset you need).
+3. Restart Cursor.
 
-## Using a skill
+## Update
 
-Ask normally ("set up a Playwright suite", "review these tests") and the matching skill loads from its description. To force one:
+### Claude Code
 
-- **Claude Code:** `/dvstack-testing:playwright-code-review` — every plugin skill is a slash command as `/plugin-name:skill-name`.
-- **Cursor:** `/playwright-code-review` or `@playwright-code-review`.
+```bash
+claude plugin marketplace update dvstack
+```
 
-Load one skill per task unless the work genuinely spans two.
+Then in the chat run `/reload-plugins`. If one plugin is still the old copy, uninstall it and run its `claude plugin install` line again.
 
-## Commands by scenario
+### Cursor
 
-A command runs a whole job: it loads the right skills in order, then says what to deliver and how to prove it. Claude Code: `/dvstack-testing:review-tests`. Cursor: `/review-tests`. Add your ask after the command, for example `/dvstack-testing:add-tests checkout with a discount code`. Commands cost no context until you run one.
+**Cursor Settings → Plugins → Refresh** on this marketplace, then restart Cursor. If a skill is still the old copy: uninstall that plugin, delete `~/.cursor/plugins/cache/`, install the plugin again, and restart Cursor.
 
-| Scenario | Playwright tests (`dvstack-testing`) | App code (`dvstack-agents`) | UI (`dvstack-frontend`) | Agent systems (`dvstack-harness`) |
-|---|---|---|---|---|
-| Create new | `new-suite` | `build` | `build-ui` | `design-agent` |
-| Add to existing | `add-tests` | `build` | `build-ui` | — |
-| Rewrite / migrate | `rewrite-suite` | `rewrite` | — | — |
-| Review | `review-tests` | `review` | `review-ui` | `audit-agent` |
-| Fix | `fix-flaky` | `fix` | — | — |
+## Which command
 
-The agents commands route to the others when those plugins are installed: `build` uses `testable-ui` for components, `review` hands test files to `playwright-code-review`, and `rewrite` hands a Playwright suite to `rewrite-suite`.
+Start the message with the command. Put the task on the next line. Cursor commands are `/name`. Claude Code commands are `/plugin:name`.
+
+### New Playwright suite
+
+This is the command for “set up e2e” when the repo has no suite yet. It loads `playwright-test-architecture` and `playwright-step-validation`, then checks the diff against the blockers in `playwright-code-review`.
+
+Cursor:
+
+```text
+/new-suite
+Create the Playwright suite for this app. First flow: home page.
+```
+
+Claude Code:
+
+```text
+/dvstack-testing:new-suite
+Create the Playwright suite for this app. First flow: home page.
+```
+
+When the repo already has a suite, use `add-tests` the same way (`/add-tests` in Cursor, `/dvstack-testing:add-tests` in Claude Code). Same skills.
+
+### All cases
+
+| Case | Cursor | Claude Code | Skills the command loads |
+|---|---|---|---|
+| No Playwright suite yet | `/new-suite` | `/dvstack-testing:new-suite` | `playwright-test-architecture`, `playwright-step-validation`, then blockers in `playwright-code-review` |
+| Add tests to a suite that exists | `/add-tests` | `/dvstack-testing:add-tests` | `playwright-test-architecture`, `playwright-step-validation`, then blockers in `playwright-code-review` |
+| Rewrite a suite, or move Cypress/Selenium | `/rewrite-suite` | `/dvstack-testing:rewrite-suite` | `playwright-test-architecture`, `playwright-step-validation`, `playwright-code-review` |
+| Review Playwright tests | `/review-tests` | `/dvstack-testing:review-tests` | `playwright-code-review`. Also `playwright-agents` when an agent wrote or healed the diff |
+| A test fails sometimes, or only in CI | `/fix-flaky` | `/dvstack-testing:fix-flaky` | `playwright-step-validation` |
+| Build a feature | `/build` | `/dvstack-agents:build` | `repo-recon`, `verify-loop`. UI also loads `testable-ui`. New e2e follows `add-tests`. A new agent follows `design-agent` |
+| Fix a product bug | `/fix` | `/dvstack-agents:fix` | `repo-recon`, `verify-loop`. A flaky Playwright test follows `fix-flaky` |
+| Refactor or migrate app code | `/rewrite` | `/dvstack-agents:rewrite` | `repo-recon`, `verify-loop`. A Playwright suite follows `rewrite-suite` |
+| Review a diff or PR | `/review` | `/dvstack-agents:review` | `verify-loop`. Tests also load `playwright-code-review`. UI also loads `testable-ui`. Agent tools also load `safeguard-parity` and `agent-tool-design` |
+| Build UI a test must click | `/build-ui` | `/dvstack-frontend:build-ui` | `testable-ui`. With testing installed, one role-based test via `add-tests` |
+| Audit UI a test cannot find by role | `/review-ui` | `/dvstack-frontend:review-ui` | `testable-ui` |
+| Add the font switcher | `/font-switcher` | `/dvstack-frontend:font-switcher` | `font-switcher` |
+| Design a new tool-using agent | `/design-agent` | `/dvstack-harness:design-agent` | `agent-execution-surfaces`, `agent-tool-design`, `harness-engineering`, `safeguard-parity`, `agent-boundary-tests`. A long loop also loads `token-efficient-coding-loops` |
+| Audit an agent that already exists | `/audit-agent` | `/dvstack-harness:audit-agent` | `agent-execution-surfaces`, `safeguard-parity`, `agent-tool-design`, `agent-risk-chains`, `agent-boundary-tests` |
+
+`font-switcher` is a skill. Every other row is a scenario command: it chains those skills and says what to deliver.
+
+To force one skill on its own, use the skill name. Cursor: `/repo-recon`. Claude Code: `/dvstack-agents:repo-recon`. In Cursor, `@repo-recon` is the same force.
+
+## Plugins
+
+| Plugin | What it is for |
+|---|---|
+| [dvstack-testing](plugins/testing/) | Playwright layout, waits, review, agent-written tests |
+| [dvstack-frontend](plugins/frontend/) | Markup a suite can drive, and the font switcher |
+| [dvstack-agents](plugins/agents/) | Read the repo before editing, then run the real check |
+| [dvstack-harness](plugins/harness/) | Tools, gates, and tests for a tool-using agent |
+
+A skill ships only what a current model would not do unprompted. See [evals](docs/evals.md).
 
 ### Without the plugin
 
-Every skill folder is self-contained. Copy it to `~/.claude/skills/<name>/`, `~/.cursor/skills/<name>/`, or a repo's `.claude/skills/` / `.cursor/skills/`:
+Copy one skill folder to `~/.claude/skills/<name>/`, `~/.cursor/skills/<name>/`, or a repo's `.claude/skills/` / `.cursor/skills/`:
 
 ```bash
 cp -R plugins/frontend/skills/font-switcher ~/.claude/skills/font-switcher

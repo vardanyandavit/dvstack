@@ -11,14 +11,16 @@ System concerns — contracts, tool gates, recover loops, CI — live in `dvstac
 
 ## Commands
 
-| Command | Use it to |
-|---|---|
-| `build` | Build a feature: orient, agree done, implement, prove |
-| `fix` | Fix a bug: reproduce, root cause, minimal fix, prove |
-| `rewrite` | Refactor or migrate in behaviour-preserving slices |
-| `review` | Review a diff for correctness, scope, and proof |
+Type one command, then the task. The case list, including which skills each command loads, is in the [repository README](../../README.md#which-command).
 
-They hand off to testing, frontend, and harness skills when those plugins are installed. Claude Code: `/dvstack-agents:<command>`. Cursor: `/<command>`.
+| Case | Cursor | Claude Code |
+|---|---|---|
+| Build a feature | `/build` | `/dvstack-agents:build` |
+| Fix a product bug | `/fix` | `/dvstack-agents:fix` |
+| Refactor or migrate app code | `/rewrite` | `/dvstack-agents:rewrite` |
+| Review a diff or PR | `/review` | `/dvstack-agents:review` |
+
+These hand off to testing, frontend, and harness when those plugins are installed. A Playwright suite uses the testing commands (`/new-suite`, `/add-tests`, `/rewrite-suite`, `/review-tests`, `/fix-flaky`).
 
 ## Install
 

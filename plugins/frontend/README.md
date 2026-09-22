@@ -11,12 +11,13 @@ Front-end skills from real projects. `testable-ui` is the component side of `dvs
 
 ## Commands
 
-| Command | Use it to |
-|---|---|
-| `build-ui` | Build or change components that tests and agents can drive |
-| `review-ui` | Audit components for testability, and fix on request |
+Type one command, then the task. The case list, including which skills each command loads, is in the [repository README](../../README.md#which-command).
 
-Claude Code: `/dvstack-frontend:<command>`. Cursor: `/<command>`.
+| Case | Cursor | Claude Code |
+|---|---|---|
+| Build UI a test must click | `/build-ui` | `/dvstack-frontend:build-ui` |
+| Audit UI a test cannot find by role | `/review-ui` | `/dvstack-frontend:review-ui` |
+| Add the font switcher | `/font-switcher` | `/dvstack-frontend:font-switcher` |
 
 ## Install
 
