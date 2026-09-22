@@ -43,6 +43,7 @@ After `claude plugin install dvstack-testing@dvstack` (and the other plugins you
 /dvstack-harness:parity
 /dvstack-harness:boundary-tests
 /dvstack-harness:risk-chains
+/dvstack-harness:coding-loops
 /dvstack-frontend:testable
 /dvstack-frontend:fonts
 ```
