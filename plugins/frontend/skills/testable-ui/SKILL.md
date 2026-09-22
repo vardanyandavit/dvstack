@@ -1,11 +1,11 @@
 ---
 name: testable-ui
-description: Build front-end components an automated suite and an AI agent can actually drive — accessible names on every control, semantic elements over div handlers, when a data-testid is the right answer and how to name it, stable identity for list rows, exposing loading, empty and error states in the DOM, announcing async results, and the markup patterns that force tests into brittle CSS selectors. Use when writing or reviewing React/TSX components, when a test needs a selector the markup cannot provide, when a locator matches twice, or when asked to make an app easier to test or automate.
+description: Write or review components that tests and AI agents can drive — accessible names, semantic elements, when and how to add data-testid, stable row identity, loading/empty/error states in the DOM. Use when a test needs a selector the markup cannot provide.
 ---
 
 # Testable UI
 
-The front-end side of `playwright-locators`. That skill says how to *query* a page; this one says how to *build* one so the query is possible.
+The front-end side of Playwright locators (`dvstack-testing`). That plugin says how to *query* a page; this one says how to *build* one so the query is possible.
 
 **A test that reaches for `.css-1x2y3z` is reporting a markup bug.** The selector is brittle because the element has no identity a user — or a screen reader, or an agent — could use to find it. Fixing that in the component makes the product better and the test stable in the same change. An AI agent driving the app through an accessibility tree (Playwright MCP, `playwright-agents`) sees exactly what a screen reader sees, so the same fix is what makes the app automatable at all.
 
@@ -82,7 +82,7 @@ Give each row a container with a role or a test id, put something identifying in
 
 ## Render one layout, or name both
 
-A responsive app that renders a mobile nav and a desktop nav together makes every shared query ambiguous — the failure described in `playwright-mobile-web`.
+A responsive app that renders a mobile nav and a desktop nav together makes every shared query ambiguous — a strict-mode violation in every test.
 
 Best: render one. If both must exist, give each an accessible name (`<nav aria-label="Main">`, `<nav aria-label="Mobile">`) so a test can scope to the one on screen instead of filtering on visibility.
 
@@ -115,7 +115,7 @@ A test can only assert what the markup says. Each of these is one attribute and 
 
 ## Verify
 
-- Every interactive element has a role and a non-empty accessible name — check the browser devtools accessibility tree, or `toMatchAriaSnapshot` (`playwright-accessibility-testing`).
+- Every interactive element has a role and a non-empty accessible name — check the browser devtools accessibility tree, or `toMatchAriaSnapshot`.
 - The whole flow works with a keyboard alone.
 - A repeated control in a list is reachable by scoping, with no `.first()` or `.nth()`.
 - Loading, empty, and error each render a distinct, queryable element.

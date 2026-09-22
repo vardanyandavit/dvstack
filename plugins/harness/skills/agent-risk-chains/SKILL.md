@@ -1,6 +1,6 @@
 ---
 name: agent-risk-chains
-description: Use for threat modeling or QA tickets on tool-using agents. Turn eight chain templates into tickets shaped trigger → asset → required control → regression. Skip a template only with evidence that surface is absent. After a surface map.
+description: Threat-model a tool-using agent as tickets: trigger → asset → required control → regression, from eight chain templates. Use after a surface map.
 ---
 
 # Agent risk chains

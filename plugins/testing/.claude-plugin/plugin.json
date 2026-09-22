@@ -1,7 +1,7 @@
 {
   "name": "dvstack-testing",
-  "version": "0.7.0",
-  "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, auth and roles, test data, API-driven setup, network mocking, hard interactions, mobile and responsive, accessibility, visual testing, debugging, flaky-test triage, CI sharding, a code-review checklist, Playwright agents and MCP, and migrating off Cypress or Selenium. Slash commands force the whole pack or one skill.",
+  "version": "0.8.0",
+  "description": "Opinionated Playwright house conventions: suite architecture and naming with copyable templates, step validation and flaky-test fixes, a house-rules review checklist with ESLint config, and Playwright agents/MCP review.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"

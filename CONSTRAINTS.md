@@ -9,31 +9,46 @@ Only document plugins and skills that exist in the tree. Do not advertise empty 
 Shipped plugins:
 
 - `dvstack-frontend` — testable-ui, font-switcher
-- `dvstack-testing` — twenty Playwright skills
-- `dvstack-agents` — using-dvstack, repo-recon, agent-ops-bar, verify-loop, agent-session, agent-rigor, anti-rationalization, doubt-check, source-check, agent-trust-stack, coding-rules, dvstack-mode
+- `dvstack-testing` — playwright-test-architecture, playwright-step-validation, playwright-code-review, playwright-agents
+- `dvstack-agents` — repo-recon, verify-loop
 - `dvstack-harness` — harness-engineering, agent-execution-surfaces, agent-tool-design, safeguard-parity, agent-boundary-tests, agent-risk-chains, token-efficient-coding-loops
+
+## What earns a skill
+
+A skill costs context twice: its description on every turn, and its body whenever it loads. It ships only content a current model would not produce unprompted:
+
+- **House conventions** — an opinionated choice between valid options (folder layout, locator tiers, "assert both directions of a toggle").
+- **Copyable files** — templates, configs, source the agent copies instead of retyping.
+- **Knowledge newer than training** — recent APIs and tools, verified against official docs.
+- **Domain systems work** the model does not do by default — e.g. the agent harness.
+
+Not a skill: general engineering good practice (naming, SOLID, "run the tests", "don't invent APIs", "restate ambiguous asks"), tutorials of documented APIs, or advice aimed at the human operator rather than the model. Measure before adding: a skill whose eval delta is zero has not earned its place.
 
 ## Skills
 
-- One narrow subject per skill.
-- `SKILL.md` frontmatter: `name` (same as the folder) and `description` (what it does and when to use it).
+- One narrow subject per skill. Merge rather than split when two skills share a trigger.
+- `SKILL.md` frontmatter: `name` (same as the folder) and `description` — one or two sentences, key use case first, at most 300 characters (enforced by the check script).
+- Bodies state the rule and the code; skip the explanation of why a well-known practice is good.
+- No "Not this skill" routing sections or checklists that restate the body. A short `## Verify` with runnable checks is fine.
 - No attribution or source lists in public skills.
-- New skills should end with a `## Verification` checklist. The Playwright skills use `## Verify` plus `## Rules` for the same purpose — follow the plugin's local convention rather than mixing both.
-- Claims about a framework API are checked against the installed version's official docs before they ship, per `source-check`. A wrong API in a skill is worse than no skill.
+- Claims about a framework API are checked against the installed version's official docs before they ship. A wrong API in a skill is worse than no skill.
 
 ## Agents vs harness
 
-Agents stay light (habits). Harness owns heavy system concerns (contracts, tools, verify/recover, durable state, feature maps, hard CI, plus execution-surface / tool-design / safeguard-parity / boundary-test / risk-chain QA, and coding-loop cost). Do not duplicate across that boundary — point instead.
+Agents holds only portable habits with a measurable effect. Harness owns the system around an agent. Do not duplicate across that boundary — point instead.
 
 ## Scope
 
-Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, the system around coding agents, and the universal rules an agent applies when it writes or changes code (`coding-rules`).
-
-`coding-rules` states invariants (correctness, data, effects, failure, proof, ownership). The skill file is the short list for every change. Detail that does not apply to every change lives in `references/` and is opened only when its trigger matches. It is not a backend, SQL, or infrastructure tutorial: no migration recipes, query patterns, or cloud runbooks.
+Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, and the system around coding agents.
 
 ## Commands
 
-Plugin `commands/*.md` are force-loaders for installed skills. They tell the agent which `SKILL.md` to Read and follow. They must not invent parallel rules.
+Commands are **scenario workflows**, not skill aliases. Every skill is already slash-invocable (`/plugin-name:skill-name` in Claude Code, `/skill-name` in Cursor), so a command that only loads one skill adds nothing. A command earns its place by chaining the right skills in the right order for a job — new, add, rewrite, review, fix — with its deliverable and its proof.
+
+- `disable-model-invocation: true`, so the description costs no context until the user runs it.
+- Its name never equals a skill name — a command shadows a skill of the same name.
+- It references skills as "the `name` skill" and other commands as "the `name` command", so the check script can verify both exist.
+- It says what to load and in what order, and what to report. Never restate a skill's rules.
 
 ## Token-light
 

@@ -1,7 +1,7 @@
 {
   "name": "dvstack-harness",
-  "version": "0.5.0",
-  "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, change receipts, plus execution-surface, tool-design, safeguard-parity, boundary-test, risk-chain QA, and token-efficient coding loops. Skip for short low-risk tasks.",
+  "version": "0.6.0",
+  "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, hard CI, plus execution-surface mapping, tool design, safeguard parity, boundary tests, risk chains, and token-efficient coding loops.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"

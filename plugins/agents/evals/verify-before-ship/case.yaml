@@ -1,7 +1,7 @@
 schema_version: "1.0"
 name: verify-before-ship
 description: A change reviewed by eye only. A good answer refuses to bless it on reading alone and names the narrowest honest check this repo actually has.
-tags: [verify-loop, anti-rationalization]
+tags: [verify-loop]
 execution:
   max_turns: 20
   allowed_tools: [Skill, Read, Glob, Grep]

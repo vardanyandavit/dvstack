@@ -1,6 +1,6 @@
 ---
 name: safeguard-parity
-description: Use when safeguards exist (approval, sandbox, policy, redaction, domain scope) but may be uneven. For each protected action or asset, require the same control class on every equivalent route (CLI vs API vs headless vs MCP vs hooks). Skip if there are no gates yet — inventory surfaces first.
+description: Check that each protected action gets the same control class on every equivalent route (CLI, API, headless, MCP, hooks). Use when safeguards exist but may be uneven.
 ---
 
 # Safeguard parity

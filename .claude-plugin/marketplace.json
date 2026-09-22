@@ -1,6 +1,6 @@
 {
   "name": "dvstack",
-  "description": "Skills and working examples for Playwright testing, front-end work an automated suite can drive, light agent-ops habits, and the system around coding agents, collected from real projects.",
+  "description": "Skills and working files for Playwright testing, front-end work an automated suite can drive, two portable agent habits, and the system around coding agents.",
   "owner": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
@@ -9,22 +9,22 @@
     {
       "name": "dvstack-frontend",
       "source": "./plugins/frontend",
-      "description": "Front-end skills that ship with working source files: markup an automated suite and an AI agent can actually drive, and a drop-in font switcher. The agent copies proven code into your project instead of rewriting it from scratch."
+      "description": "Front-end skills with working source files: markup an automated suite and an AI agent can drive, and a drop-in font switcher."
     },
     {
       "name": "dvstack-testing",
       "source": "./plugins/testing",
-      "description": "Playwright end-to-end skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, auth and roles, test data, API-driven setup, network mocking, hard interactions, mobile and responsive, accessibility, visual testing, debugging, flaky-test triage, CI sharding, a code-review checklist, Playwright agents and MCP, and migrating off Cypress or Selenium. Slash commands force the whole pack or one skill."
+      "description": "Opinionated Playwright house conventions: suite architecture and naming with copyable templates, step validation and flaky-test fixes, a house-rules review checklist with ESLint config, and Playwright agents/MCP review."
     },
     {
       "name": "dvstack-agents",
       "source": "./plugins/agents",
-      "description": "Light-by-default agent habits for any coding tool: using-dvstack router, repo recon, quality bar, verify loop, session hygiene, when-to-deepen, trust stack, coding rules for any change, a thin dvstack-mode conductor, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill. Orient, agree done, one honest verify, encode misses."
+      "description": "Two portable agent habits the base model does not reliably apply: a bounded repo recon before the first edit, and an honest verify loop that reports real output and what was not checked."
     },
     {
       "name": "dvstack-harness",
       "source": "./plugins/harness",
-      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, change receipts, plus execution-surface, tool-design, safeguard-parity, boundary-test, risk-chain QA, and token-efficient coding loops. Skip for short low-risk tasks."
+      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, hard CI, plus execution-surface mapping, tool design, safeguard parity, boundary tests, risk chains, and token-efficient coding loops."
     }
   ]
 }

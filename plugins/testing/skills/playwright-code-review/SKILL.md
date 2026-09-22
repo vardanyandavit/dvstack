@@ -1,123 +1,61 @@
 ---
 name: playwright-code-review
-description: Review Playwright test code against test-automation standards, naming conventions, and clean-code rules — missing awaits on expect, waitForTimeout and manual waits, brittle selectors, tests with no assertion per step, committed test.only, assertions hidden in page objects, wrong file or identifier casing, hard-coded URLs and credentials, unused imports, any types, duplicated locators, unclear test titles, and agent-generated or auto-healed diffs that weakened an assertion to go green. Use when reviewing a PR that touches e2e tests, auditing an existing suite, reviewing tests an AI agent wrote or repaired, or asked to check whether Playwright code follows good practice.
+description: House rules for writing and reviewing Playwright tests — severity-ordered review checklist, per-area rules (auth, data, mocking, a11y, visual, mobile, CI, migration), and review of agent-generated or healed diffs. Ships an ESLint config.
 ---
 
-# Playwright code review
+# Playwright code review and house rules
 
-Naming rules referenced below are defined in `playwright-naming-conventions`.
-
-Review in this order. The first group are defects — the test is wrong, or it is not testing anything. Everything after that is quality.
+Structure and naming: `playwright-test-architecture`. Waits and flakiness: `playwright-step-validation`.
 
 ## Files
 
-- `files/eslint.config.mjs` — the lint rules that catch the mechanical half of this list automatically. Install it in the project so a reviewer never spends attention on a missing `await` again.
+`files/eslint.config.mjs` — catches floating `expect`, `waitForTimeout`, `networkidle`, `test.only`, and more. Install it so review never spends attention on those.
 
-## 1. Blockers — the test does not do what it claims
+## Review order
 
-| Check | Why it is a blocker |
-|---|---|
-| `expect(...)` without `await` | The assertion never runs. The test passes forever, including when the feature is broken. |
-| A `test.step` with no assertion | The step reports as passed for having executed. Every step must close with at least one `expect`. |
-| A test with no assertion at all | It asserts only that nothing threw. |
-| `test.only` committed | Skips the entire rest of the suite in CI. |
-| `if (await x.isVisible())` around an assertion | A conditional assertion passes when the branch is not taken. The test no longer has a known expected outcome. |
-| `try/catch` swallowing a failed action | Converts a failure into a pass. |
-| Assertion inside a page object action method | Hides the check from the report and couples the page object to one scenario. Assertion *helpers* (`expectRejected`) are fine; a `signIn` that asserts is not. |
-| A mocked endpoint the test never asserts on | Dead configuration pretending to be coverage. |
+Report file:line, the group, and the replacement as code. Lead with blockers. Say whether each finding is "wrong" (blocks) or "I'd write it differently" (does not).
 
-## 2. Stability
+**1. Blockers — the test does not test what it claims**
+- `expect` without `await`; a step or test with no assertion; committed `test.only`.
+- Conditional assertion (`if (await x.isVisible())`); `try/catch` swallowing a failure.
+- Assertion inside a page-object action method.
+- A mocked endpoint never asserted on; mocking the very thing under test.
 
-The validation each step owes is defined in `playwright-step-validation`.
+**2. Stability** — per `playwright-step-validation`: any hard-coded wait, `networkidle`, non-retrying read in an assertion, listener registered after its trigger, `Promise.all` with action first, `force: true`, `.first()` silencing strict mode, shared records/accounts, `Date.now()`-only unique values, unpinned timezone/locale on date/currency/sort assertions, retries or `workers: 1` raised to go green.
 
-- A step that ends without a validation, or whose only wait is a load state on a content-heavy page.
-- `page.waitForTimeout` — replace with an assertion on the awaited state. No exceptions.
-- `waitForLoadState("networkidle")` — replace with an assertion on the landing element.
-- `isVisible()` / `textContent()` / `count()` used inside an assertion — non-retrying reads. Use `toBeVisible`, `toHaveText`, `toHaveCount`.
-- `waitForSelector` where `expect(...).toBeVisible()` says the same thing.
-- `force: true` — a forced click means the element was covered or disabled, which is what the test should be reporting.
-- An event listener registered *after* its trigger: `await click()` then `waitForEvent("download" | "popup" | "filechooser")`. The event already fired; the test will time out. See `playwright-hard-interactions`.
-- A `Promise.all` with the action listed before the wait — the array evaluates left to right, so the trigger fires before the listener exists.
-- A screenshot assertion doing an assertion's job, or a masked region with no comment explaining why it is volatile.
-- `ElementHandle` stored across re-renders — use locators, which re-resolve.
-- `.first()` / `.nth()` used to silence a strict-mode violation rather than scoping the query.
-- Shared state between tests: a fixed record id, a shared account, an order-dependent sequence. Verify with `--repeat-each=3 --workers=4` — `playwright-test-data`, `playwright-auth-and-roles`.
-- A "unique" value built from `Date.now()` alone: two workers in the same millisecond collide.
-- A test that only passes against data already in the environment, or that asserts on "the first row" — that is an assertion about everyone else's data.
-- A date, currency, or sort assertion with no pinned `timezoneId` / `locale` and no frozen clock.
-- `retries` raised, or `workers: 1` set, to keep a suite green.
+**3. Selectors** — role > label > text > test id; no structural CSS/XPath or generated classes. A `data-testid` where a role would work means the markup lacks an accessible name — fix the markup (`testable-ui`). One definition per element at the right tier; no raw `page.locator` in specs; `getByText` needs `exact` when the string is a substring.
 
-## 3. Selectors
+**4. Structure and naming** — per `playwright-test-architecture`: `new SomePage(page)` in a spec, `beforeEach` doing work under test, cleanup through the UI, tests grouped by page instead of flow, mechanical step titles, titles without an outcome, wrong casing or suffix, inline URL/credential/`process.env`, committed `.auth/` or token.
 
-- CSS or XPath tied to structure — `nth-child`, generated class names, DOM depth. Replace with role, label, or text.
-- A `data-testid` added where a role query would have worked; usually the element is missing an accessible name, and fixing that is the better change.
-- The same element located in more than one place — inline twice, or a getter duplicated across page objects.
-- A locator at the wrong tier: a `getXxx()` getter with one caller (inline it), an inline locator with two callers (promote it to a getter), or a getter repeated across pages (move the value to `constants/selectors.ts`).
-- A raw `page.locator(...)` in a spec instead of on the page object.
-- Raw CSS in `constants/selectors.ts` where a test id or accessible name would work.
-- `getByText` without `exact` where the string is a substring of another.
+**5. Clean code** — unused imports, `any`, commented-out tests, `test.skip` with no reason or link, magic numbers, copy-pasted setup that belongs in a fixture, inline stub bodies beyond a few lines, comments restating code.
 
-## 4. Structure
+## House rules by area
 
-- Page objects not injected through fixtures (`new SomePage(page)` inside a spec).
-- `beforeEach` doing work that is under test, so a failure is attributed to setup rather than to the scenario.
-- `beforeAll` mutating state shared across a worker.
-- Cleanup done through the UI rather than the API, or missing entirely.
-- Tests grouped by page instead of by user-facing flow.
-- `test.describe.configure({ mode: "serial" })` used to paper over coupling rather than for a genuine wizard.
-- Step titles describing mechanics ("click button") rather than intent ("submit valid credentials").
-- Test titles that do not say the expected outcome. `"login"` is not a title; `"rejects a wrong password"` is.
+- **Auth**: sign in through the UI only in `auth.setup.ts` and the sign-in spec. One storage state per role, named for permissions (`admin`, `viewer`), picked with `test.use` at file/describe scope. Tests that mutate the account get their own data or per-worker accounts. Never automate a third-party login or a real second factor. Negative permission tests assert the **API** (403), not just a hidden button.
+- **Data**: factories with overrides, no fixed ids/emails shared between tests. Unique by `parallelIndex` + randomness, not `Date.now()` alone. Every seeded record carries a marker (`createdBy: "e2e"`) and is deleted by the scope that created it, through the API. Randomise identity, never what is asserted. Never pass on pre-existing data or "the first row".
+- **API setup**: reach preconditions through the API, assert through the UI. Something that must persist is verified at the API, not by a success toast. One client module per endpoint set; specs do not call endpoints ad hoc.
+- **Mocking**: `route.fulfill` with the real status (a 500 is not `route.abort()`); stub files, not inline blobs; block third-party scripts. Never mock the thing the test exists to verify.
+- **Fixtures**: fixture over hook for reusable setup; worker scope only for expensive read-only resources, never mutated; everything created is cleaned after `use()`; one concern per fixture.
+- **Accessibility**: axe scans states, not URLs; an axe pass is not "accessible"; every exclusion has a ticket and comment; keyboard/focus tests are ordinary specs.
+- **Visual**: screenshots only where an assertion cannot answer; baselines generated in CI's OS; animations off, clock frozen, volatile regions masked with a comment; never `--update-snapshots` suite-wide to go green.
+- **Mobile**: spread the full device descriptor; `tap()` only where touch differs; never report emulation as device coverage.
+- **CI**: shard plus merged blob report; traces/report uploaded even on failure; no secrets or base URLs committed.
+- **Strategy**: no e2e for what a unit or component test proves; every test names the risk it protects; no permanent skips; an escaped bug gets a regression test at the level it escaped.
+- **Migration** (Cypress/Selenium): never port a sleep, implicit wait, retry wrapper, or structural selector; custom commands become fixtures; delete an old test only in the PR that adds its replacement.
 
-## 5. Naming and placement
+## Agent-written and healed diffs
 
-- File not kebab-case, or a `PascalCase` file name — passes on macOS, fails on Linux CI when an import's casing drifts.
-- Wrong or missing role suffix: a page object without `.page.ts`, a fixture file without `.fixture.ts`.
-- `UPPER_SNAKE_CASE` on a local `const`, `camelCase` on a type, an `I`-prefixed interface.
-- A declared type that could be derived (`ReturnType<typeof fn>`) or inlined at its single use site, or an exported type nobody imports.
-- A URL, endpoint, or credential inline in a spec instead of `constants/` or `data/`.
-- `process.env` read from a spec or a page object rather than from `data/`.
-- A committed storage-state file, token, or password. `.auth/` is gitignored — a state file is a credential.
-- Signing in through the UI outside the setup project and the sign-in spec.
-- A "helper" that takes `page` — it is a page object method or a fixture.
-- A test title that does not state the expected outcome, or a step title describing mechanics rather than intent.
+Generated tests get the same review. For healed tests, review **what was removed**:
 
-## 6. Clean code
+- Assertion deleted, or weakened (`toHaveText`→`toContainText`, `toBeVisible`→`toBeAttached`, count → `not.toHaveCount(0)`).
+- Timeout raised, retry, `test.slow()`, `waitForTimeout`, `force`, `.first()`, or a conditional added around the failing line.
+- Assertions matching today's data rather than data the test created.
+- Healed on `main`/CI rather than in a reviewed PR — a process defect.
 
-- Unused imports and variables.
-- `any`, or missing return types on page object methods.
-- Commented-out tests, and `test.skip` with no reason and no link.
-- Hard-coded credentials, tokens, URLs, or environment-specific ids.
-- Magic waits and magic numbers — name them or derive them.
-- Copy-pasted setup across specs that belongs in a fixture.
-- A helper used once, or a page object method that just forwards to a locator with no added meaning.
-- Stub bodies inlined in a spec when they exceed a few lines.
-- Comments restating the code. Comment the non-obvious *why* — a workaround, a known backend quirk.
-
-## 7. Agent-written and healed diffs
-
-Same bar, one extra read. A generated test is reviewed as group 1–6; a **healed** test is reviewed by what it removed — `playwright-agents`.
-
-- An assertion deleted rather than corrected. If the diff's assertion count went down, nothing was fixed.
-- `toHaveText` relaxed to `toContainText`, `toHaveCount(n)` dropped to `not.toHaveCount(0)`, `toBeVisible` weakened to `toBeAttached`.
-- A timeout raised, a retry added, `test.slow()` or `waitForTimeout` introduced, `force: true` or `.first()` appearing around the previously failing line.
-- A conditional wrapped around the check that was failing.
-- A page object invented inside a spec instead of the one in `pages/`, or `new SomePage(page)` instead of a fixture.
-- A test whose assertions match today's data rather than data it created.
-- Healed on `main` or in CI rather than in a reviewable PR. That is a process defect, not a code one — say so.
-
-**A red test is a claim about the product.** Changing the test is only right when the claim was wrong, and the PR should say which product change made it wrong.
-
-## How to report it
-
-Give file and line, say which of the six groups it falls in, and show the replacement as code. Lead with the blockers; a review that opens with unused imports buries the test that has been passing vacuously for three months.
-
-Distinguish **"this is wrong"** from **"I would write it differently"**, and say which. Only the first group blocks a merge.
+A red test is a claim about the product. Changing the test is right only when the claim was wrong; the PR names the product change that made it wrong.
 
 ## Verify the review
 
-- `npx eslint .` with `files/eslint.config.mjs` is clean.
-- File names are all lowercase: `find . -name "*[A-Z]*.ts"` returns nothing.
-- `npx tsc --noEmit` is clean.
-- `grep -rnE "waitForTimeout|networkidle|test\.only|force: true" tests/ pages/` returns nothing.
-- Every changed test still fails when the behaviour it covers is broken — the only real proof that an assertion works.
-- On a healed or generated diff: `git diff` shows no net loss of assertions, and no timeout, retry, or `force` was added.
+- `npx eslint .` with `files/eslint.config.mjs` and `npx tsc --noEmit` clean.
+- `grep -rnE "waitForTimeout|networkidle|test\.only|force: true" tests/ pages/` empty.
+- Changed tests fail when their behaviour is broken; healed diffs lose no assertions.

@@ -1,6 +1,6 @@
 ---
 name: agent-execution-surfaces
-description: Use when designing or reviewing a tool-using agent. Map every invoke/action channel (CLI, API, UI, browser, FS, shell, MCP, plugin, subagent) and which reach shell, files, network, secrets, browser, MCP, or other agents. Produce a short surface map. Not light agent habits.
+description: Map every channel a tool-using agent can act through (CLI, API, UI, browser, FS, shell, MCP, plugins, subagents) and what each reaches. First step when designing or reviewing an agent.
 ---
 
 # Agent execution surfaces

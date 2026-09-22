@@ -4,260 +4,75 @@ DVstack is an open source plugin marketplace I created to share skills and worki
 
 This is a knowledge collection, not a product. The README only covers plugins that are in the tree.
 
-What's here now: twenty Playwright testing skills, two front-end skills (markup a suite can drive, plus a font switcher), twelve light agent-ops habits (including a marketplace router, repo recon, a verify loop, a portable trust ladder, coding rules for any change, a thin dvstack-mode conductor, and short self-checks), and seven harness skills for the system around the agent (contracts plus execution-surface, tool-design, safeguard-parity, boundary-test, risk-chain QA, and token-efficient coding loops).
+**Design rule: a skill ships only what a modern model would not do unprompted.** House conventions, copyable templates, and APIs newer than the model's training stay. General good practice the model already follows is left out — it costs context on every turn and measurably adds nothing (see [evals](docs/evals.md)).
 
-**Ladder:** recon (orient) → ops-bar (quality bar) → coding-rules (what the code must be) → verify-loop (prove it) → session (token hygiene) → rigor (when to deepen) → harness (system around the agent). Harness owns contracts, tools, verify, recover, bound-action QA, and coding-loop cost; agents stay light habits.
+## Plugins
 
-Daily work uses one command: [Which command to use](#which-command-to-use).
+| Plugin | Skills |
+|---|---|
+| [dvstack-testing](plugins/testing/) | `playwright-test-architecture`, `playwright-step-validation`, `playwright-code-review`, `playwright-agents` |
+| [dvstack-frontend](plugins/frontend/) | `testable-ui`, `font-switcher` |
+| [dvstack-harness](plugins/harness/) | `harness-engineering`, `agent-execution-surfaces`, `agent-tool-design`, `safeguard-parity`, `agent-boundary-tests`, `agent-risk-chains`, `token-efficient-coding-loops` |
+| [dvstack-agents](plugins/agents/) | `repo-recon`, `verify-loop` |
 
-## How it's organized
-
-A skill is one unit of knowledge — a `SKILL.md` plus the real files that go with it. A plugin is a group of related skills with a manifest, so a whole topic installs in one command and updates with the repository. Each plugin also ships Claude Code `commands/` that force-load a skill or the whole testing pack.
-
-```
-dvstack/
-├── AGENTS.md                         # thin pointers, including using-dvstack
-├── CONTRIBUTING.md                   # how to add a plugin, skill, or command
-├── CONSTRAINTS.md                    # what this marketplace is allowed to ship
-├── docs/using-commands.md            # Claude vs Cursor: how to force a skill
-├── scripts/check-marketplace.mjs     # marketplace, skill, and command-frontmatter checks
-├── .github/workflows/marketplace.yml
-├── .claude-plugin/marketplace.json   # marketplace manifest (Claude Code)
-├── .cursor-plugin/marketplace.json   # marketplace manifest (Cursor)
-└── plugins/
-    ├── agents/                       # dvstack-agents
-    │   ├── .claude-plugin/plugin.json
-    │   ├── .cursor-plugin/plugin.json
-    │   ├── commands/                 # repo-recon, ops-bar, verify-loop, session, …
-    │   └── skills/
-    │       ├── using-dvstack/
-    │       ├── repo-recon/
-    │       ├── agent-ops-bar/
-    │       ├── verify-loop/
-    │       ├── agent-session/
-    │       ├── agent-rigor/
-    │       ├── anti-rationalization/
-    │       ├── doubt-check/
-    │       ├── source-check/
-    │       ├── agent-trust-stack/
-    │       ├── coding-rules/
-    │       └── dvstack-mode/             # conductor + playbooks/
-    ├── frontend/                     # dvstack-frontend
-    │   ├── .claude-plugin/plugin.json
-    │   ├── .cursor-plugin/plugin.json
-    │   ├── commands/                 # testable-ui, font-switcher
-    │   └── skills/
-    │       ├── testable-ui/
-    │       └── font-switcher/        # SKILL.md + src/ + examples/
-    ├── harness/                      # dvstack-harness
-    │   ├── .claude-plugin/plugin.json
-    │   ├── .cursor-plugin/plugin.json
-    │   ├── commands/                 # harness, execution-surfaces, tool-design, safeguard-parity, boundary-tests, risk-chains, coding-loops
-    │   └── skills/
-    │       ├── harness-engineering/
-    │       ├── agent-execution-surfaces/
-    │       ├── agent-tool-design/
-    │       ├── safeguard-parity/
-    │       ├── agent-boundary-tests/
-    │       ├── agent-risk-chains/
-    │       └── token-efficient-coding-loops/
-    └── testing/                      # dvstack-testing
-        ├── .claude-plugin/plugin.json
-        ├── .cursor-plugin/plugin.json
-        ├── commands/          # playwright (whole pack) + one file per skill
-        └── skills/            # 20 Playwright skills
-            ├── playwright-naming-conventions/
-            ├── playwright-test-architecture/   # SKILL.md + files/ to copy
-            ├── playwright-test-strategy/
-            ├── playwright-step-validation/
-            ├── playwright-fixtures/
-            ├── playwright-locators/
-            ├── playwright-auth-and-roles/
-            ├── playwright-test-data/
-            ├── playwright-api-testing/
-            ├── playwright-network-mocking/
-            ├── playwright-hard-interactions/
-            ├── playwright-mobile-web/
-            ├── playwright-accessibility-testing/
-            ├── playwright-visual-testing/
-            ├── playwright-code-review/
-            ├── playwright-debugging/
-            ├── playwright-flaky-tests/
-            ├── playwright-ci/
-            ├── playwright-agents/
-            └── playwright-migration/
-```
-
-| Plugin | Covers | Status |
-|---|---|---|
-| [agents](plugins/agents/) | Light-by-default agent habits: marketplace router, repo recon, quality bar, verify loop, session hygiene, when to deepen, trust stack, coding rules, dvstack-mode conductor, anti-rationalization, doubt-check, source-check | 12 skills |
-| [frontend](plugins/frontend/) | Front-end skills: markup an automated suite and an agent can drive, plus working source files to copy | 2 skills |
-| [harness](plugins/harness/) | The system around the model: task contracts, tool gates, verify/recover, durable state, feature maps, hard CI, plus execution-surface / tool-design / safeguard-parity / boundary-test / risk-chain QA and token-efficient coding loops | 7 skills |
-| [testing](plugins/testing/) | Playwright: architecture, strategy, step validation, fixtures, locators, auth and roles, test data, API, mocking, hard interactions, mobile, a11y, visual, review, debugging, flaky tests, CI, Playwright agents and MCP, migration | 20 skills |
+- **testing** — Playwright house conventions: folder layout, naming, locator tiers, page objects through fixtures, templates to copy; zero hard-coded waits and a validation per step; a house-rules review checklist with an ESLint config; reviewing agent-written and healed tests.
+- **frontend** — markup an automated suite and an agent can drive; a drop-in font switcher with source.
+- **harness** — the system around a coding agent: contracts, tool gates, surfaces, parity, boundary tests, risk chains, loop cost.
+- **agents** — two portable habits: bounded repo recon, and an honest verify loop.
 
 ## Install
 
-Add the marketplace once, then install the plugins you need. After you pull new commits on this repo (or we publish updates), **refresh / update** so local copies pick up the latest skills — install alone does not keep updating forever on every tool.
-
-Plugins in this repo:
-
-| Plugin id | What you get |
-|---|---|
-| `dvstack-agents` | Light agent habits, coding rules, trust stack, `dvstack-mode` conductor |
-| `dvstack-frontend` | Testable UI + font switcher (ships copyable source) |
-| `dvstack-harness` | Contracts, tool gates, verify/recover, bound-action QA |
-| `dvstack-testing` | Playwright pack (20 skills) |
-
 ### Claude Code
-
-**Install**
 
 ```bash
 claude plugin marketplace add vardanyandavit/dvstack
-claude plugin install dvstack-agents@dvstack
-claude plugin install dvstack-frontend@dvstack
-claude plugin install dvstack-harness@dvstack
-claude plugin install dvstack-testing@dvstack
+claude plugin install dvstack-testing@dvstack     # and/or -frontend, -harness, -agents
 ```
 
-Same flow works inside a session with `/plugin marketplace add` and `/plugin install …`.
-
-**Update (get the latest from this repo)**
-
-```bash
-# Refresh the marketplace clone (new skills / versions show up)
-claude plugin marketplace update dvstack
-# or in-session:
-# /plugin marketplace update dvstack
-
-# Reload so the running session uses the new files
-# /reload-plugins
-```
-
-If a plugin still looks stale after the marketplace update, reinstall it:
-
-```bash
-claude plugin uninstall dvstack-agents@dvstack
-claude plugin install dvstack-agents@dvstack
-# repeat for frontend / harness / testing as needed
-```
-
-Optional: enable marketplace auto-update in Claude Code settings so catalogs refresh in the background; still run `/reload-plugins` (or restart) when you need the new code in the current session.
+Update: `claude plugin marketplace update dvstack`, then `/reload-plugins`. If a plugin still looks stale, uninstall and reinstall it.
 
 ### Cursor
 
-**Install**
+1. **Cursor Settings → Plugins**, add `vardanyandavit/dvstack` as a marketplace.
+2. Install the plugins you want.
+3. Update: **Refresh** the marketplace, then restart Cursor. If a skill still looks old, uninstall, clear `~/.cursor/plugins/cache/`, and reinstall.
 
-1. Open **Dashboard → Plugins** (or **Cursor Settings → Plugins**).
-2. Add this repository as a **plugin marketplace** / team marketplace (import from GitHub: `vardanyandavit/dvstack`).
-3. Install `dvstack-agents`, `dvstack-frontend`, `dvstack-harness`, and/or `dvstack-testing` from that marketplace.
+## Using a skill
 
-Also on the Cursor plugin catalog (search **dvstack**):
+Ask normally ("set up a Playwright suite", "review these tests") and the matching skill loads from its description. To force one:
 
-- [dvstack-testing](https://cursor.com/marketplace) — Playwright skills
-- [dvstack-frontend](https://cursor.com/marketplace) — front-end skills with source
+- **Claude Code:** `/dvstack-testing:playwright-code-review` — every plugin skill is a slash command as `/plugin-name:skill-name`.
+- **Cursor:** `/playwright-code-review` or `@playwright-code-review`.
 
-(The GitHub marketplace is the full set, including agents + harness.)
+Load one skill per task unless the work genuinely spans two.
 
-**Update**
+## Commands by scenario
 
-1. In the marketplace settings for `vardanyandavit/dvstack`, click **Refresh** (or turn on **Auto Refresh** if the Cursor GitHub App can see the repo).
-2. Focus Cursor or restart so the client reloads skills.
-3. If a skill still looks old: uninstall that plugin, clear its cache under `~/.cursor/plugins/cache/` if needed, then reinstall.
+A command runs a whole job: it loads the right skills in order, then says what to deliver and how to prove it. Claude Code: `/dvstack-testing:review-tests`. Cursor: `/review-tests`. Add your ask after the command, for example `/dvstack-testing:add-tests checkout with a discount code`. Commands cost no context until you run one.
 
-Force a skill with `/` or `@` plus the skill name (e.g. `@dvstack-mode`, `@playwright-locators`), or ask in plain language ("use dvstack-testing").
+| Scenario | Playwright tests (`dvstack-testing`) | App code (`dvstack-agents`) | UI (`dvstack-frontend`) | Agent systems (`dvstack-harness`) |
+|---|---|---|---|---|
+| Create new | `new-suite` | `build` | `build-ui` | `design-agent` |
+| Add to existing | `add-tests` | `build` | `build-ui` | — |
+| Rewrite / migrate | `rewrite-suite` | `rewrite` | — | — |
+| Review | `review-tests` | `review` | `review-ui` | `audit-agent` |
+| Fix | `fix-flaky` | `fix` | — | — |
 
-### After install
+The agents commands route to the others when those plugins are installed: `build` uses `testable-ui` for components, `review` hands test files to `playwright-code-review`, and `rewrite` hands a Playwright suite to `rewrite-suite`.
 
-A normal request is often enough ("add a font switcher", "rewrite this Playwright suite"). For a guaranteed load, use a slash/`@` skill name — see [docs/using-commands.md](docs/using-commands.md).
+### Without the plugin
 
-## Which command to use
-
-These are the daily ones. Say the kind of work in the same message. `/dvstack-agents:mode` loads the `dvstack-mode` skill, which already applies the coding rules, the quality bar, and the verify step.
-
-| Work | Claude Code | Cursor |
-|---|---|---|
-| New app | `/dvstack-agents:mode` — "new app" | `@dvstack-mode` — "new app" |
-| Bug in the current app | `/dvstack-agents:mode` — "bugfix" | `@dvstack-mode` — "bugfix" |
-| Playwright suite from scratch | `/dvstack-agents:mode` and `/dvstack-testing:test-architecture` — "new suite" | `@dvstack-mode` and `@playwright-test-architecture` — "new suite" |
-| Rewrite old Playwright | `/dvstack-agents:mode` and `/dvstack-testing:test-architecture` — "rewrite" | `@dvstack-mode` and `@playwright-test-architecture` — "rewrite" |
-| Review the app | `/dvstack-agents:mode` — "review" | `@dvstack-mode` — "review" |
-| Review Playwright | `/dvstack-agents:mode` and `/dvstack-testing:code-review` | `@dvstack-mode` and `@playwright-code-review` |
-
-`/dvstack-testing:migration` (Cursor: `@playwright-migration`) is for a Cypress, Selenium, WebdriverIO, or Protractor suite. A suite that is already Playwright uses the rewrite row.
-
-Unsure which skill applies: `/dvstack-agents:dvstack` or `@using-dvstack`. That only picks a skill. Every other command is in [docs/using-commands.md](docs/using-commands.md).
-
-## Commands
-
-To **force** a skill (or the whole Playwright pack) instead of hoping auto-discovery fires:
-
-- **Claude Code:** `/dvstack-testing:playwright` or `/dvstack-testing:locators` (namespaced in `/help`).
-- **Cursor:** `/` or `@` plus the skill name, or ask "use dvstack-testing".
-
-See [docs/using-commands.md](docs/using-commands.md). Commands load skills; they do not invent a second rulebook.
-
-### Using a single skill without the plugin
-
-Every skill folder is self-contained, so it also works on its own in any tool that reads `SKILL.md`:
-
-| Copy the skill folder to | Who sees it |
-|---|---|
-| `~/.claude/skills/<name>/` | Claude Code, all your projects |
-| `~/.cursor/skills/<name>/` | Cursor, all your projects |
-| `.claude/skills/<name>/` or `.cursor/skills/<name>/` in a repo | That project only |
+Every skill folder is self-contained. Copy it to `~/.claude/skills/<name>/`, `~/.cursor/skills/<name>/`, or a repo's `.claude/skills/` / `.cursor/skills/`:
 
 ```bash
 cp -R plugins/frontend/skills/font-switcher ~/.claude/skills/font-switcher
 ```
 
-**Any other AI.** Send the folder URL, for example `https://github.com/vardanyandavit/dvstack/tree/main/plugins/frontend/skills/font-switcher`, and ask it to implement that skill.
-
-To add a plugin, skill, or command, see [CONTRIBUTING.md](CONTRIBUTING.md). Marketplace limits: [CONSTRAINTS.md](CONSTRAINTS.md).
-
-## What's here now
-
-**[dvstack-agents](plugins/agents/)** — light habits. Not the harness.
-
-- [using-dvstack](plugins/agents/skills/using-dvstack/) — which DVstack plugin or skill applies; prefer the narrowest; slash command = force-load.
-- [repo-recon](plugins/agents/skills/repo-recon/) — bounded orientation before the first edit in an unfamiliar repo: stack and package manager from the lockfile, verify commands, enforced conventions, files in scope, blast radius, then a short recon note.
-- [agent-ops-bar](plugins/agents/skills/agent-ops-bar/) — quality bar scaled to blast radius: outcome and constraints first, one honest verify command in project rules, encode misses, no extra work.
-- [verify-loop](plugins/agents/skills/verify-loop/) — find the project's real check from lockfile, scripts, and CI; scope it to the change; widen before the PR; report the actual output; what to do when no check exists.
-- [agent-session](plugins/agents/skills/agent-session/) — session and token hygiene: context budget, model choice, quiet logs, clear between tasks, side agents that return conclusions.
-- [agent-rigor](plugins/agents/skills/agent-rigor/) — when to deepen only: restate, demand evidence, escalate model or effort, time-boxed exploration when ambiguity or risk is high.
-- [anti-rationalization](plugins/agents/skills/anti-rationalization/) — excuse vs reality: skipping verify, "looks right", expanding scope, inventing APIs from memory.
-- [doubt-check](plugins/agents/skills/doubt-check/) — one self-adversarial pass on a non-trivial decision; not a multi-model bakeoff.
-- [source-check](plugins/agents/skills/source-check/) — installed version + official docs for framework code; cite URLs; flag UNVERIFIED.
-- [agent-trust-stack](plugins/agents/skills/agent-trust-stack/) — portable trust ladder: fix at the highest lasting layer, scale agents only after verified work. Not a product-specific toolkit.
-- [coding-rules](plugins/agents/skills/coding-rules/) — short rules for every code change. Data, retries, tests, shipping, and contested trade-offs sit in references the agent opens only when the change touches them. `dvstack-mode` loads the short file on every code-changing playbook.
-- [dvstack-mode](plugins/agents/skills/dvstack-mode/) — thin conductor: global bar (including coding rules), then route to domain skills. Playbooks: feature, bugfix, rewrite, review, harden, investigate.
-
-**[dvstack-frontend](plugins/frontend/)**
-
-- [testable-ui](plugins/frontend/skills/testable-ui/) — the component side of the testing plugin: an accessible name on every control, native elements instead of `div` click handlers, when a `data-testid` is the right answer and how to name it, list rows a test can scope into, and loading, empty, and error states that exist in the DOM. The same markup is what an agent reading the accessibility tree needs.
-- [font-switcher](plugins/frontend/skills/font-switcher/) — a drop-in font picker for React or plain HTML/JS projects: heading and body font pairs, fonts downloaded only when needed, live previews, and the choice remembered across visits.
-
-**[dvstack-harness](plugins/harness/)** — the heavy system around the agent. Quality bar and session hygiene stay in `dvstack-agents`. Force a skill after install with e.g. `/dvstack-harness:boundary-tests`.
-
-- [harness-engineering](plugins/harness/skills/harness-engineering/) — task contracts, compiled context, tool gateway, permissions, durable state, feature maps, hard CI, verify-to-reject, recover, and change receipts. Skip for short low-risk tasks.
-- [agent-execution-surfaces](plugins/harness/skills/agent-execution-surfaces/) — inventory every invoke/action channel and which reach shell, files, network, secrets, browser, MCP, or subagents; overlapping routes; short surface map.
-- [agent-tool-design](plugins/harness/skills/agent-tool-design/) — the gateway's shape: one authority per tool, narrow typed parameters instead of passthrough strings, structured errors that teach recovery, idempotency keys, dry-run before destructive, explicit bounds.
-- [safeguard-parity](plugins/harness/skills/safeguard-parity/) — same control class on every equivalent route to the same protected action (CLI vs API vs headless vs MCP vs hooks).
-- [agent-boundary-tests](plugins/harness/skills/agent-boundary-tests/) — failure-oriented bounds tests: remove the control → must fail; untrusted-context and multi-step tool paths. Component tests alone are not enough.
-- [agent-risk-chains](plugins/harness/skills/agent-risk-chains/) — eight chain templates into QA tickets: trigger → asset → required control → regression.
-- [token-efficient-coding-loops](plugins/harness/skills/token-efficient-coding-loops/) — stable prefix and append-only tail, skeleton reads, sandbox format before a model turn, lazy tool discovery, workhorse vs frontier routing. Use when a multi-turn coding loop or tool load burns tokens.
-
-**[dvstack-testing](plugins/testing/)** — twenty Playwright skills: naming conventions, suite architecture, test strategy, step validation and waiting, fixtures, locators, auth and roles, test data, API-driven setup, network mocking, hard interactions (iframes, dialogs, downloads, drag and drop), mobile and responsive, accessibility, visual testing, code review, debugging, flaky-test triage, CI, Playwright's own planner/generator/healer agents plus the MCP browser, and migrating off Cypress or Selenium. Page objects injected through fixtures, everything else in `constants/`, `data/`, and `helpers/`, and every `test.step` closing with a validation that proves the app moved on — never a hard-coded timeout. Force the pack with `/dvstack-testing:playwright` after install. See the [plugin README](plugins/testing/) for the full table.
-
-## Status
-
-Early. Public.
+To add a skill, see [CONTRIBUTING.md](CONTRIBUTING.md). Limits: [CONSTRAINTS.md](CONSTRAINTS.md).
 
 ## License
 
-[MIT](LICENSE). Free to use, copy, change, and share — including in commercial projects. Keep the copyright notice. No warranty.
-
-The typefaces the font switcher loads from Google Fonts are not in this repo. They stay under their own [SIL Open Font License](https://openfontlicense.org/) terms.
+[MIT](LICENSE). The typefaces the font switcher loads from Google Fonts are not in this repo; they stay under their own [SIL Open Font License](https://openfontlicense.org/) terms.
 
 ## Author
 
