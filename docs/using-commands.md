@@ -6,6 +6,25 @@ Install a plugin once. Then force its conventions for a task with a slash comman
 
 Commands are **force-loaders**. They point at installed skills. They do not add a second rulebook.
 
+## Which command to use
+
+These are the daily ones. Say the kind of work in the same message. `/dvstack-agents:mode` loads the `dvstack-mode` skill, which already applies the coding rules, the quality bar, and the verify step.
+
+| Work | Claude Code | Cursor |
+|---|---|---|
+| New app | `/dvstack-agents:mode` — "new app" | `@dvstack-mode` — "new app" |
+| Bug in the current app | `/dvstack-agents:mode` — "bugfix" | `@dvstack-mode` — "bugfix" |
+| Playwright suite from scratch | `/dvstack-agents:mode` and `/dvstack-testing:test-architecture` — "new suite" | `@dvstack-mode` and `@playwright-test-architecture` — "new suite" |
+| Rewrite old Playwright | `/dvstack-agents:mode` and `/dvstack-testing:test-architecture` — "rewrite" | `@dvstack-mode` and `@playwright-test-architecture` — "rewrite" |
+| Review the app | `/dvstack-agents:mode` — "review" | `@dvstack-mode` — "review" |
+| Review Playwright | `/dvstack-agents:mode` and `/dvstack-testing:code-review` | `@dvstack-mode` and `@playwright-code-review` |
+
+`/dvstack-testing:migration` (Cursor: `@playwright-migration`) is for a Cypress, Selenium, WebdriverIO, or Protractor suite. A suite that is already Playwright uses the rewrite row.
+
+Unsure which skill applies: `/dvstack-agents:dvstack` or `@using-dvstack`. That only picks a skill. The lists below are the rest.
+
+The same table is at the top of the [repository README](../README.md#which-command-to-use).
+
 ## Claude Code
 
 After `claude plugin install dvstack-testing@dvstack` (and the other plugins you want), commands from each plugin's `commands/` folder show up as namespaced slash commands. Exact labels appear in `/help`. Typical form:

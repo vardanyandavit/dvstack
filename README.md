@@ -8,6 +8,8 @@ What's here now: twenty Playwright testing skills, two front-end skills (markup 
 
 **Ladder:** recon (orient) → ops-bar (quality bar) → coding-rules (what the code must be) → verify-loop (prove it) → session (token hygiene) → rigor (when to deepen) → harness (system around the agent). Harness owns contracts, tools, verify, recover, and bound-action QA; agents stay light habits.
 
+Daily work uses one command: [Which command to use](#which-command-to-use).
+
 ## How it's organized
 
 A skill is one unit of knowledge — a `SKILL.md` plus the real files that go with it. A plugin is a group of related skills with a manifest, so a whole topic installs in one command and updates with the repository. Each plugin also ships Claude Code `commands/` that force-load a skill or the whole testing pack.
@@ -167,6 +169,23 @@ Force a skill with `/` or `@` plus the skill name (e.g. `@dvstack-mode`, `@playw
 ### After install
 
 A normal request is often enough ("add a font switcher", "rewrite this Playwright suite"). For a guaranteed load, use a slash/`@` skill name — see [docs/using-commands.md](docs/using-commands.md).
+
+## Which command to use
+
+These are the daily ones. Say the kind of work in the same message. `/dvstack-agents:mode` loads the `dvstack-mode` skill, which already applies the coding rules, the quality bar, and the verify step.
+
+| Work | Claude Code | Cursor |
+|---|---|---|
+| New app | `/dvstack-agents:mode` — "new app" | `@dvstack-mode` — "new app" |
+| Bug in the current app | `/dvstack-agents:mode` — "bugfix" | `@dvstack-mode` — "bugfix" |
+| Playwright suite from scratch | `/dvstack-agents:mode` and `/dvstack-testing:test-architecture` — "new suite" | `@dvstack-mode` and `@playwright-test-architecture` — "new suite" |
+| Rewrite old Playwright | `/dvstack-agents:mode` and `/dvstack-testing:test-architecture` — "rewrite" | `@dvstack-mode` and `@playwright-test-architecture` — "rewrite" |
+| Review the app | `/dvstack-agents:mode` — "review" | `@dvstack-mode` — "review" |
+| Review Playwright | `/dvstack-agents:mode` and `/dvstack-testing:code-review` | `@dvstack-mode` and `@playwright-code-review` |
+
+`/dvstack-testing:migration` (Cursor: `@playwright-migration`) is for a Cypress, Selenium, WebdriverIO, or Protractor suite. A suite that is already Playwright uses the rewrite row.
+
+Unsure which skill applies: `/dvstack-agents:dvstack` or `@using-dvstack`. That only picks a skill. Every other command is in [docs/using-commands.md](docs/using-commands.md).
 
 ## Commands
 

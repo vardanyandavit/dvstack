@@ -23,7 +23,9 @@ This plugin stays light. It does not own contracts, tool gates, feature maps, CI
 
 ## Commands
 
-Claude Code: `/dvstack-agents:dvstack`, `/dvstack-agents:recon`, `/dvstack-agents:ops-bar`, `/dvstack-agents:verify`, `/dvstack-agents:session`, `/dvstack-agents:rigor`, `/dvstack-agents:no-excuses`, `/dvstack-agents:doubt`, `/dvstack-agents:sources`, `/dvstack-agents:trust`, `/dvstack-agents:code`, `/dvstack-agents:mode` (see `/help`). Cursor and other tools: invoke the skill name. See [using commands](../../docs/using-commands.md).
+Daily work is `/dvstack-agents:mode` (Cursor: `@dvstack-mode`). Say whether it is a new app, a bugfix, or a review. The map, including Playwright, is [Which command to use](../../README.md#which-command-to-use).
+
+Every command in this plugin: `/dvstack-agents:dvstack`, `/dvstack-agents:recon`, `/dvstack-agents:ops-bar`, `/dvstack-agents:verify`, `/dvstack-agents:session`, `/dvstack-agents:rigor`, `/dvstack-agents:no-excuses`, `/dvstack-agents:doubt`, `/dvstack-agents:sources`, `/dvstack-agents:trust`, `/dvstack-agents:code`, `/dvstack-agents:mode` (see `/help`). Cursor and other tools: invoke the skill name. See [using commands](../../docs/using-commands.md).
 
 **Typical order on a new task:** `repo-recon` (orient) → `agent-ops-bar` (set the bar) → `coding-rules` (what the code must be) → work → `verify-loop` (prove it). `dvstack-mode` loads that sequence for you. `agent-rigor` when the ask is ambiguous or the blast radius is high; `agent-session` throughout.
 
