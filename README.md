@@ -228,7 +228,7 @@ To add a plugin, skill, or command, see [CONTRIBUTING.md](CONTRIBUTING.md). Mark
 - [doubt-check](plugins/agents/skills/doubt-check/) — one self-adversarial pass on a non-trivial decision; not a multi-model bakeoff.
 - [source-check](plugins/agents/skills/source-check/) — installed version + official docs for framework code; cite URLs; flag UNVERIFIED.
 - [agent-trust-stack](plugins/agents/skills/agent-trust-stack/) — portable trust ladder: fix at the highest lasting layer, scale agents only after verified work. Not a product-specific toolkit.
-- [coding-rules](plugins/agents/skills/coding-rules/) — rules for code an agent writes or changes: intent and deep modules, correctness that cannot be bypassed, data, effects, loud failure, tests of behavior, and an owned outcome. `dvstack-mode` loads it on every code-changing playbook.
+- [coding-rules](plugins/agents/skills/coding-rules/) — short rules for every code change. Data, retries, tests, shipping, and contested trade-offs sit in references the agent opens only when the change touches them. `dvstack-mode` loads the short file on every code-changing playbook.
 - [dvstack-mode](plugins/agents/skills/dvstack-mode/) — thin conductor: global bar (including coding rules), then route to domain skills. Playbooks: feature, bugfix, rewrite, review, harden, investigate.
 
 **[dvstack-frontend](plugins/frontend/)**
