@@ -1,13 +1,13 @@
 ---
 name: token-efficient-coding-loops
-description: Use when designing or reviewing coding-agent harnesses, multi-turn PR/fix loops, or MCP tool loading that burns tokens. Loop cost, context shape, and model routing.
+description: Design or review coding-agent harnesses and multi-turn fix loops that burn tokens — loop cost, context shape, MCP tool loading, model routing.
 ---
 
 # Token-efficient coding loops
 
 Keep a multi-turn coding trajectory cheap. The harness decides what stays pinned, what gets loaded, and which model runs the turn.
 
-Task contracts, tool gates, and verify/recover stay in `harness-engineering`. Light session habits stay in `agent-session`. This skill owns **loop cost / context / routing**.
+Task contracts, tool gates, and verify/recover stay in `harness-engineering`. This skill owns **loop cost / context / routing**.
 
 ## When to use
 
@@ -33,7 +33,7 @@ Skip for one short edit with no loop and no tool catalog.
 
 ## Related
 
-Umbrella: `harness-engineering`. Tool shape: `agent-tool-design`. Light session budget: `agent-session`.
+Umbrella: `harness-engineering`. Tool shape: `agent-tool-design`.
 
 ## Verification
 

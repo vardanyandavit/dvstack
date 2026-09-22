@@ -1,7 +1,7 @@
 {
   "name": "dvstack-agents",
-  "version": "0.7.1",
-  "description": "Light-by-default agent habits for any coding tool: using-dvstack router, repo recon, quality bar, verify loop, session hygiene, when-to-deepen, trust stack, coding rules for any change, a thin dvstack-mode conductor, plus short anti-rationalization, doubt-check, and source-check skills. Slash commands force-load a skill. Orient, agree done, one honest verify, encode misses.",
+  "version": "0.8.0",
+  "description": "Two portable agent habits the base model does not reliably apply: a bounded repo recon before the first edit, and an honest verify loop that reports real output and what was not checked.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"

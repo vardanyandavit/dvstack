@@ -1,6 +1,6 @@
 ---
 name: agent-boundary-tests
-description: Use when proving agent safeguards hold. Write failure-oriented tests (remove approval/sandbox/redaction/domain-scope → must fail). Require ≥1 untrusted-context case when the agent reads web/files/MCP, and ≥1 multi-step tool sequence that cannot skip the gate. Component tests alone are not enough.
+description: Prove agent safeguards hold with failure-oriented tests — remove the approval/sandbox/redaction/scope and the test must fail; include an untrusted-context case and a multi-step sequence that cannot skip the gate.
 ---
 
 # Agent boundary tests

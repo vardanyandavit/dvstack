@@ -1,13 +1,13 @@
 ---
 name: harness-engineering
-description: Use when building or tightening the system around coding agents (task contracts, tool gates, verify/recover, durable state, feature maps, hard CI). Skip for short low-risk tasks.
+description: Build or tighten the system around coding agents — task contracts, tool gates, verify/recover loops, durable state, feature maps, hard CI. Skip for short low-risk tasks.
 ---
 
 # Harness engineering
 
 The harness is the system around the model: contracts, tool gates, verify/recover, durable state, feature maps, hard CI, and receipts.
 
-Quality bar and blast-radius habits live in agent-ops-bar. Token and session hygiene live in agent-session. This skill is the heavy system — skip it for short low-risk tasks.
+This skill is the heavy system — skip it for short low-risk tasks.
 
 **Default trade:** start with one contract, one verify path, and one approval gate for risky actions. Add a layer only after a failure you have seen.
 
@@ -42,7 +42,7 @@ One contract + one verify + one approval gate for risky actions. Skip for short 
 - `agent-risk-chains` — eight chain templates → QA tickets
 - `token-efficient-coding-loops` — pair with this skill for loop cost, context shape, and model routing
 
-Light habits stay in `dvstack-agents`: `agent-ops-bar`, `agent-session`, `agent-rigor`, `repo-recon`, `verify-loop`.
+Light habits stay in `dvstack-agents`: `repo-recon`, `verify-loop`.
 
 ## Verification
 

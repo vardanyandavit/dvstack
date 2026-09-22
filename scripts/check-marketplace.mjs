@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Fast, dependency-free marketplace checks.
- * Fails if skill frontmatter, command frontmatter, marketplace sources, or plugin folders drift.
+ * Fails if skill or command frontmatter, description length, command references,
+ * marketplace sources, or plugin folders drift.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -9,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
+const MAX_DESCRIPTION = 300;
 
 function fail(message) {
   errors.push(message);
@@ -78,19 +80,14 @@ function skillFolders(pluginName) {
     .sort();
 }
 
-function commandMarkdownFiles(pluginName) {
-  const commandsRoot = join(repoRoot, 'plugins', pluginName, 'commands');
-  if (!isDir(commandsRoot)) return [];
+function commandFiles(pluginName) {
+  const root = join(repoRoot, 'plugins', pluginName, 'commands');
+  if (!isDir(root)) return [];
   const files = [];
-  for (const name of readdirSync(commandsRoot).sort()) {
+  for (const name of readdirSync(root).sort()) {
     if (name.startsWith('.')) continue;
-    const abs = join(commandsRoot, name);
-    if (statSync(abs).isDirectory()) {
-      fail(`commands must be flat .md files: plugins/${pluginName}/commands/${name}/`);
-      continue;
-    }
-    if (!name.endsWith('.md')) {
-      fail(`commands must be .md files: plugins/${pluginName}/commands/${name}`);
+    if (statSync(join(root, name)).isDirectory() || !name.endsWith('.md')) {
+      fail(`commands must be flat .md files: plugins/${pluginName}/commands/${name}`);
       continue;
     }
     files.push(name);
@@ -178,9 +175,7 @@ for (const dir of dirs) {
 }
 
 let skillCount = 0;
-let commandCount = 0;
 const counts = {};
-const commandCounts = {};
 for (const pluginName of dirs) {
   const skills = skillFolders(pluginName);
   counts[pluginName] = skills.length;
@@ -198,37 +193,52 @@ for (const pluginName of dirs) {
       continue;
     }
     if (!fields.name) fail(`${rel}: frontmatter missing name`);
+    else if (fields.name !== skillName) fail(`${rel}: name "${fields.name}" does not match folder`);
     if (!fields.description) fail(`${rel}: frontmatter missing description`);
+    else if (fields.description.length > MAX_DESCRIPTION) {
+      fail(
+        `${rel}: description is ${fields.description.length} chars (max ${MAX_DESCRIPTION}). ` +
+          'It is in context on every turn — cut it to the trigger.',
+      );
+    }
   }
 
-  const commands = commandMarkdownFiles(pluginName);
-  commandCounts[pluginName] = commands.length;
-  commandCount += commands.length;
-  for (const file of commands) {
+}
+
+const allSkills = new Set(dirs.flatMap(skillFolders));
+const commandsByPlugin = Object.fromEntries(dirs.map((p) => [p, commandFiles(p)]));
+const allCommands = new Set(Object.values(commandsByPlugin).flat().map((f) => f.replace(/\.md$/, '')));
+let commandCount = 0;
+
+for (const [pluginName, files] of Object.entries(commandsByPlugin)) {
+  commandCount += files.length;
+  for (const file of files) {
     const rel = `plugins/${pluginName}/commands/${file}`;
     const body = readFileSync(join(repoRoot, rel), 'utf8');
+    const name = file.replace(/\.md$/, '');
     const fields = parseFrontmatter(body);
     if (!fields) {
       fail(`${rel}: missing YAML frontmatter`);
       continue;
     }
     if (!fields.description) fail(`${rel}: frontmatter missing description`);
-
-    const commandName = file.replace(/\.md$/, '');
-    if (skills.includes(commandName)) {
+    if (fields['disable-model-invocation'] !== 'true') {
       fail(
-        `${rel}: command name "${commandName}" collides with the skill of the same name. ` +
-          'The command shadows the skill, so invoking the skill returns the command body ' +
-          'instead of SKILL.md. Rename the command — see docs/evals.md.',
+        `${rel}: needs \`disable-model-invocation: true\` so its description stays out of the ` +
+          'model context until the user runs it.',
       );
     }
-
-    const pointer = body.match(/`skills\/[^`]*SKILL\.md`/);
-    if (pointer) {
-      fail(
-        `${rel}: points at ${pointer[0]} — a relative path that resolves against the user's ` +
-          "project, not the plugin root, so it never loads. Name the skill for the Skill tool instead.",
-      );
+    if (allSkills.has(name)) {
+      fail(`${rel}: command "${name}" shares a skill's name and would shadow it — rename the command.`);
+    }
+    if (/`skills\/[^`]*SKILL\.md`/.test(body)) {
+      fail(`${rel}: points at a relative SKILL.md path, which resolves against the user's project. Name the skill.`);
+    }
+    for (const [, ref] of body.matchAll(/the `([a-z0-9-]+)` skill/g)) {
+      if (!allSkills.has(ref)) fail(`${rel}: references skill \`${ref}\`, which does not exist.`);
+    }
+    for (const [, ref] of body.matchAll(/the `([a-z0-9-]+)` command/g)) {
+      if (!allCommands.has(ref)) fail(`${rel}: references command \`${ref}\`, which does not exist.`);
     }
   }
 }
@@ -257,9 +267,8 @@ if (claude.names.size !== dirs.length) {
 
 console.log('plugins:', dirs.join(', ') || '(none)');
 for (const [pluginName, count] of Object.entries(counts)) {
-  const cmds = commandCounts[pluginName] ?? 0;
-  const cmdPart = cmds ? `, ${cmds} command${cmds === 1 ? '' : 's'}` : '';
-  console.log(`  ${pluginName}: ${count} skill${count === 1 ? '' : 's'}${cmdPart}`);
+  const cmds = commandsByPlugin[pluginName].length;
+  console.log(`  ${pluginName}: ${count} skill${count === 1 ? '' : 's'}, ${cmds} command${cmds === 1 ? '' : 's'}`);
 }
 console.log(`total skills: ${skillCount}`);
 console.log(`total commands: ${commandCount}`);

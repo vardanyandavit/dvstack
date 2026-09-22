@@ -26,29 +26,25 @@ carried a labelled remove-and-fail bullet under every control. The CLI warns abo
 ("llm judges are noisy on long inputs"); the harness answers are the longest in the suite.
 A default-judge run here would have read as "this plugin does nothing".
 
-## Command names must not collide with skill names
+## What the deltas decided
 
-`scripts/check-marketplace.mjs` fails the build on two things, both of which shipped once:
+Latest runs before the token diet (sonnet judge, 3 runs per case):
 
-1. **A command named the same as a skill.** The command shadows the skill, so
-   `Skill(dvstack-frontend:testable-ui)` returns the *command* body instead of `SKILL.md`.
-2. **A command pointing at `skills/<name>/SKILL.md`.** That path resolves against the user's
-   project, not the plugin root, so it never loads. The agent globs for it, finds nothing, and
-   answers from general knowledge instead.
+| Plugin | Case | with | without | Δ |
+|---|---|---|---|---|
+| frontend | testable-component | 0.86 | 0.43 | +0.43 |
+| harness | agent-shell-safeguards | 0.93 | 0.48 | +0.45 |
+| testing | locator-strict-mode, step-validation-wait | 1.00 | 1.00 | 0 |
+| agents | verify-before-ship | 0.70 | 0.73 | −0.03 |
 
-Together these cost up to 0.68 of score and roughly doubled turn count. A forcing command should
-name the skill for the Skill tool and nothing else:
+Frontend and harness kept every skill. The agents plugin — generic habits a current model already
+follows — was cut from twelve skills to two. The testing plugin was cut from twenty to four: the
+Playwright API tutorials went, and their house rules were folded into `playwright-code-review`.
 
-```md
-Load the skill **`dvstack-testing:playwright-locators`** with the Skill tool now, and follow it
-for this task. The skill arrives with its own base directory, so do not go looking for
-`SKILL.md` on disk.
-
-If the skill does not load, say so plainly and stop — do not answer from general knowledge instead.
-```
-
-That last line matters: the failure mode was silently substituting generic advice, which is worse
-than failing loudly.
+The one-command-per-skill aliases were replaced by scenario commands (new, add, rewrite, review,
+fix). A command sharing a skill's name shadowed the skill (up to −0.68), and plugin skills are
+already slash-invocable, so an alias only duplicated its skill. Scenario commands carry
+`disable-model-invocation: true`, so they cost no context until run.
 
 ## Writing a case that can measure anything
 

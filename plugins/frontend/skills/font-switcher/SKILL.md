@@ -1,6 +1,6 @@
 ---
 name: font-switcher
-description: Add a runtime font switcher to a web app or browser game. Presets pair a heading font with a body font, fonts load only when needed, each option previews in its own face, and the choice persists with no flash on reload. Use when someone wants users to choose between fonts, a typography picker, or font themes.
+description: Add a runtime font switcher to a web app or game — heading/body presets, lazy font loading, self-previewing options, persisted choice with no flash on reload.
 ---
 
 # Font switcher

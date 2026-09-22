@@ -1,6 +1,6 @@
 ---
 name: agent-tool-design
-description: Use when defining or reviewing the tools an agent is given — one authority per tool, narrow typed parameters and enums over free strings, structured errors that teach recovery, idempotency keys, dry-run before a destructive call, and explicit bounds on time, size, and budget. The gateway's shape, not its policy. After a surface map; before boundary tests.
+description: Define or review the tools an agent is given — one authority per tool, typed narrow parameters, structured recoverable errors, idempotency keys, dry-run before destructive calls, explicit time/size/budget bounds.
 ---
 
 # Agent tool design
