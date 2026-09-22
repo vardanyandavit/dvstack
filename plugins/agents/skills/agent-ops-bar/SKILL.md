@@ -13,7 +13,7 @@ Apply across projects. Per-repo files stay limited to one honest verify command 
 
 ## Rules
 
-1. **Match the bar to blast radius.** A low-risk prototype can stay a black box. Production work — especially money, auth, and user data — needs a higher bar than typical human-written code.
+1. **Match the bar to blast radius.** A prototype the user said cannot be deployed can stay a black box. Production work — especially money, auth, and user data — needs a higher bar than typical human-written code. What the code must be is `coding-rules`.
 2. **Outcome and constraints first.** Agree what done looks like, what must not be touched, and whether to refactor or reuse. Name the files or the area in scope. Then let the agent work. Reject a bad change before it becomes a PR. In an unfamiliar repo, orient first — `repo-recon`.
 3. **One honest verify command.** Prefer a single real check over review swarms. Put the exact build, test, or lint command in project rules. Keep the inner loop narrow; save the full suite for before the PR. A check that takes minutes gets skipped, or re-run whole for a one-line change. Finding and scoping that command is `verify-loop`.
 4. **Hold design and the bar.** Blast radius decides how much you read, and how much you spend. Do not add process theater.
@@ -22,7 +22,7 @@ Apply across projects. Per-repo files stay limited to one honest verify command 
 
 ## Not this skill
 
-Orienting in an unfamiliar repo: `repo-recon`. Finding and running the check: `verify-loop`. Session budget and quiet logs: `agent-session`. When to deepen: `agent-rigor`. Contracts, tool gates, feature maps, CI, memory, recover: `harness-engineering`.
+Orienting in an unfamiliar repo: `repo-recon`. What the code itself must be: `coding-rules`. Finding and running the check: `verify-loop`. Session budget and quiet logs: `agent-session`. When to deepen: `agent-rigor`. Contracts, tool gates, feature maps, CI, memory, recover: `harness-engineering`.
 
 ## Default mode
 

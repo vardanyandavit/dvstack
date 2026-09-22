@@ -2,7 +2,7 @@
 name: dvstack-mode
 description: >-
   Use when starting nontrivial coding work and the user wants the full DVstack
-  global bar (quality, trust, verify, comments, encode misses) plus automatic
+  global bar (quality, trust, verify, coding rules, encode misses) plus automatic
   routing to domain skills (Playwright, frontend, harness). Sticky entry /
   /dvstack-mode / "work in dvstack mode". Not a dump of every skill — conductor
   only. Skip for one-line typos with no risk.
@@ -19,10 +19,11 @@ Force entry: `/dvstack-agents:mode` (Claude) or skill name `dvstack-mode` / `@dv
 1. **Bar matches blast radius** — follow `agent-ops-bar`. Tiny throwaway stays light; auth/money/user-data needs a real verify.
 2. **Trust ladder** — follow `agent-trust-stack`. Fix recurring misses at the highest lasting layer (codebase → CI/lint → guidance → human review). Do not scale agent count before one agent’s verified work is trusted.
 3. **Prove it** — follow `verify-loop`. Run the project’s honest check. Diff-reading is not proof.
-4. **Comments** — only when the code/method is genuinely complex and needs an explanation. Skip comments on simple, obvious methods and changes. Never use comments to excuse debt (prefer types/tests/bans).
-5. **Encode misses** — same friction twice → project rule or skill, not only a chat fix (`agent-ops-bar`).
-6. **Narrowest domain skill** — route via `using-dvstack`; load Playwright/frontend/harness skills only when the task actually needs them. Point; do not merge plugins into this file.
-7. **No extra work** — no unasked refactor, speculative layers, or summary files.
+4. **Coding rules** — when the task writes, changes, or reviews code, follow `coding-rules`. That skill is what the code must be (intent, correctness, data, effects, failure, tests, outcome). Do not paste it here, and do not substitute a generic style guide. `agent-ops-bar` stays how you work.
+5. **Comments** — follow `coding-rules`: comment the why (constraints, surprises, rejected alternatives). A restatement is noise. A comment that contradicts the code is a bug. Never use a comment to excuse debt.
+6. **Encode misses** — same friction twice → project rule or skill, not only a chat fix (`agent-ops-bar`). A rule in `coding-rules` that can be a type, lint, or CI check gets promoted via `agent-trust-stack`.
+7. **Narrowest domain skill** — route via `using-dvstack`; load Playwright/frontend/harness skills only when the task actually needs them. Point; do not merge plugins into this file.
+8. **No extra work** — no unasked refactor, speculative layers, or summary files.
 
 Optional when risk/ambiguity is high: `agent-rigor`, `doubt-check`, `anti-rationalization`, `source-check`. Session hygiene when context bloats: `agent-session`. Unfamiliar repo before first edit: `repo-recon`.
 
@@ -49,7 +50,7 @@ Open the matching file under `playbooks/` and copy its steps into the todo list.
 | [harden](playbooks/harden.md) | Security, reliability, or performance hardening on existing code |
 | [investigate](playbooks/investigate.md) | Read-only: how/why does this work |
 
-If none fit: `repo-recon` (if unfamiliar) → `agent-ops-bar` → do the work → `verify-loop` → promote any miss via `agent-trust-stack`.
+If none fit: `repo-recon` (if unfamiliar) → `agent-ops-bar` → `coding-rules` when code changes → do the work → `verify-loop` → promote any miss via `agent-trust-stack`.
 
 ## Domain routing (pointers only)
 
@@ -62,6 +63,7 @@ If none fit: `repo-recon` (if unfamiliar) → `agent-ops-bar` → do the work �
 
 ## Not this skill
 
+- The code bar alone, without a playbook → `coding-rules`
 - Day-to-day single habit without “mode” → use that skill directly (`agent-ops-bar`, `verify-loop`, …)
 - Marketplace “which skill?” only → `using-dvstack`
 - Trust-ladder decision alone → `agent-trust-stack`
@@ -70,7 +72,8 @@ If none fit: `repo-recon` (if unfamiliar) → `agent-ops-bar` → do the work �
 ## Verification
 
 - [ ] Named the playbook (or generic path)
-- [ ] Global bar applied (ops-bar + trust + verify + comment rule)
+- [ ] Global bar applied (ops-bar + trust + verify + coding-rules)
+- [ ] On a code change or review, `coding-rules` was loaded and its checklist applied
 - [ ] Domain skills loaded only when needed, via `using-dvstack` when unsure
 - [ ] Honest verify actually ran before claiming done
 - [ ] Recurring miss promoted up the trust stack, not only fixed in chat

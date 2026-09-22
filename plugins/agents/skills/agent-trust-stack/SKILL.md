@@ -43,6 +43,7 @@ Chat-only corrections die next session. Prefer (1) or (2) over (3) or (4).
 ## Not this skill
 
 - Day-to-day quality bar / blast radius → `agent-ops-bar`
+- What the code itself must be → `coding-rules`
 - Finding and running the project check → `verify-loop`
 - Heavy contracts / feature maps / recover → `harness-engineering`
 - Product-specific frameworks or one-off client toolkits — keep those out of this skill

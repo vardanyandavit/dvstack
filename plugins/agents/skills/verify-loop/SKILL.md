@@ -63,7 +63,7 @@ Say so plainly, then pick the cheapest real proof and name it:
 
 ## Not this skill
 
-Orienting in the repo first: `repo-recon`. The bar itself: `agent-ops-bar`. Excuses for skipping: `anti-rationalization`. CI, gates, and recover loops: `harness-engineering`. Playwright suite commands: `dvstack-testing`.
+Orienting in the repo first: `repo-recon`. The bar itself: `agent-ops-bar`. What a test is allowed to assert: `coding-rules`. Excuses for skipping: `anti-rationalization`. CI, gates, and recover loops: `harness-engineering`. Playwright suite commands: `dvstack-testing`.
 
 ## Verification
 
