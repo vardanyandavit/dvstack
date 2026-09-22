@@ -20,15 +20,15 @@ Opinionated Playwright house conventions. The skills carry only what a current m
 
 ## Commands
 
-| Command | Use it to |
-|---|---|
-| `new-suite` | Create a suite from scratch with the templates |
-| `add-tests` | Add tests for a flow to an existing suite |
-| `rewrite-suite` | Rewrite a suite, or migrate from Cypress/Selenium, in slices |
-| `review-tests` | Review tests or a PR, including agent-healed diffs |
-| `fix-flaky` | Find and fix the root cause of a flaky test |
+Type one command, then the task. The case list, including which skills each command loads, is in the [repository README](../../README.md#which-command).
 
-Claude Code: `/dvstack-testing:<command>`. Cursor: `/<command>`.
+| Case | Cursor | Claude Code |
+|---|---|---|
+| No suite yet | `/new-suite` | `/dvstack-testing:new-suite` |
+| Add tests to a suite that exists | `/add-tests` | `/dvstack-testing:add-tests` |
+| Rewrite a suite, or move Cypress/Selenium | `/rewrite-suite` | `/dvstack-testing:rewrite-suite` |
+| Review tests | `/review-tests` | `/dvstack-testing:review-tests` |
+| A test fails sometimes, or only in CI | `/fix-flaky` | `/dvstack-testing:fix-flaky` |
 
 ## Install
 

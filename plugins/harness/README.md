@@ -24,12 +24,12 @@ Short, low-risk tasks. One-file tweaks with no host-mutating tools, secrets, MCP
 
 ## Commands
 
-| Command | Use it to |
-|---|---|
-| `design-agent` | Design a new agent system: surfaces, tools, contract, parity, boundary tests |
-| `audit-agent` | Audit an existing agent: surface map, parity gaps, risk tickets, missing tests |
+Type one command, then the task. The case list, including which skills each command loads, is in the [repository README](../../README.md#which-command).
 
-Claude Code: `/dvstack-harness:<command>`. Cursor: `/<command>`.
+| Case | Cursor | Claude Code |
+|---|---|---|
+| Design a new tool-using agent | `/design-agent` | `/dvstack-harness:design-agent` |
+| Audit an agent that already exists | `/audit-agent` | `/dvstack-harness:audit-agent` |
 
 ## Install
 
