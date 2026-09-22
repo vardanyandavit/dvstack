@@ -13,7 +13,7 @@ Compressed bar:
 - Encode repeated misses into skills or rules; keep always-on files short, detail goes in skills.
 - No unasked refactors, speculative layers, or summaries nobody asked for — ship the change plus its proof.
 - Hold design and quality; blast radius decides how deep you read and how much you spend.
-- Code an agent writes or changes follows `coding-rules` (dvstack-mode loads it): intent, correctness that cannot be bypassed, data shape, bounded effects, loud failure, tests of behavior, and a reversible outcome.
+- Code an agent writes or changes follows `coding-rules` (dvstack-mode loads the short file; open a reference only when the change touches it).
 
 Editing this repo: skills stay one narrow subject each, agents-vs-harness stays separated (point, don't duplicate), framework APIs are checked against official docs before shipping, and `node scripts/check-marketplace.mjs` passes. Limits: `CONSTRAINTS.md`.
 

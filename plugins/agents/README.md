@@ -18,7 +18,7 @@ This plugin stays light. It does not own contracts, tool gates, feature maps, CI
 | [doubt-check](skills/doubt-check/) | One self-adversarial pass on a non-trivial decision; flag self-check vs independent review | "I'm unsure about this boundary" |
 | [source-check](skills/source-check/) | Installed version + official docs for framework code; cite URLs; flag UNVERIFIED | "confirm this Playwright API" |
 | [agent-trust-stack](skills/agent-trust-stack/) | Portable trust ladder: fix at the highest lasting layer, scale agents only after one verified agent, easy path is the right path | "where should this fix live" / "safe to add more agents?" |
-| [coding-rules](skills/coding-rules/) | Rules for code you write or change: intent, correctness that cannot be bypassed, data, effects, loud failure, tests of behavior, owned outcome. Contested trade-offs stay judgment calls | "follow the coding rules" / `/dvstack-agents:code` |
+| [coding-rules](skills/coding-rules/) | Short rules for every change. References for data, retries, tests, shipping, and trade-offs open only when that change touches them | "follow the coding rules" / `/dvstack-agents:code` |
 | [dvstack-mode](skills/dvstack-mode/) | Sticky conductor: global bar (including coding rules), then route to domain skills. Playbooks: feature, bugfix, rewrite, review, harden, investigate | "work in dvstack mode" / `/dvstack-agents:mode` |
 
 ## Commands

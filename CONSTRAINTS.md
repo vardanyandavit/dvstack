@@ -29,7 +29,7 @@ Agents stay light (habits). Harness owns heavy system concerns (contracts, tools
 
 Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, the system around coding agents, and the universal rules an agent applies when it writes or changes code (`coding-rules`).
 
-`coding-rules` states invariants (correctness, data, effects, failure, proof, ownership). It is not a backend, SQL, or infrastructure tutorial: no migration recipes, query patterns, or cloud runbooks.
+`coding-rules` states invariants (correctness, data, effects, failure, proof, ownership). The skill file is the short list for every change. Detail that does not apply to every change lives in `references/` and is opened only when its trigger matches. It is not a backend, SQL, or infrastructure tutorial: no migration recipes, query patterns, or cloud runbooks.
 
 ## Commands
 

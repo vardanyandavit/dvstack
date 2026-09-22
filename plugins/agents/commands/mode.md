@@ -11,4 +11,4 @@ so do not go looking for `SKILL.md` on disk by relative path from the user proje
 If the skill does not load, say so plainly and stop — do not answer from general knowledge instead.
 
 Do not invent a second global rulebook; route to existing DVstack skills.
-Code-changing and review playbooks load `coding-rules`. Follow that load. Do not substitute a generic style guide.
+Code-changing and review playbooks load `coding-rules`. Follow that load. Open a reference only when its trigger matches. Do not substitute a generic style guide.
