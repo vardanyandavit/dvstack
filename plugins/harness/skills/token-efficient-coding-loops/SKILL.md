@@ -22,6 +22,9 @@ Skip for one short edit with no loop and no tool catalog.
 3. **Deterministic sandbox before the model.** Intercept edits with formatters, linters, and typechecks in a sandbox when those can fix the issue. Do not spend a frontier-model turn on indentation, unused imports, or a pure format fix.
 4. **Lazy tool discovery.** Do not dump every tool schema on turn 0. Progressive: search tools (names and one-liners) → describe only the tools about to be used → execute with a projected, filtered response. Aggregate in the sandbox — filter and summarize in a script, print short stdout — instead of stuffing large JSON into the model.
 5. **Workhorse vs frontier routing.** Default a cheap, fast model for mechanical turns (file slices, test runs, routine diffs). Escalate to a frontier model only on a deterministic trigger: initial planning or decomposition; the same gate failing more than 3 times on one file; a public API signature or AST change; structured-output or schema validation failure. Stay escalated until the gates pass. Cap escalations. Downshift when the budget is tight. Circuit-break a cycle that repeats the same failure with no new fact.
+6. **Effort before a model change.** On a stall in well-scoped work, raise the reasoning budget before switching models. Use a lower budget for mechanical renames and repeated patterns. Change effort or model only at a natural break so the prefix cache stays valid.
+7. **Slim always-on instructions.** The pinned prefix includes project rules. Keep `AGENTS.md` and other always-on instructions well under ~200 lines. Playbooks load on demand.
+8. **Measure the run.** After a real task, read input, output, and cache share. Low cache on a long run, huge output on a tiny change, or input far above the conversation size means wasted turns.
 
 ## Do not
 
@@ -30,6 +33,9 @@ Skip for one short edit with no loop and no tool catalog.
 - Send a format, import, or type fix the sandbox can make to the frontier model.
 - Load the full tool catalog, or raw tool JSON, into the model on turn 0.
 - Route every turn to the frontier model, or escalate without a trigger, a cap, and a way back down.
+- Switch model or effort mid-run.
+- Grow the always-on prefix with playbooks that belong in skills.
+- Ship a loop whose input, output, and cache share you have not read.
 
 ## Related
 
@@ -44,3 +50,6 @@ Umbrella: `harness-engineering`. Tool shape: `agent-tool-design`.
 - [ ] A format, lint, or type fix the sandbox can make does not take a model turn
 - [ ] Tools load as search → describe the next tool → filtered result
 - [ ] Frontier use is trigger-based, sticky until gates pass, capped, and circuit-broken
+- [ ] A stall raises reasoning budget before a model change, and that change waits for a natural break
+- [ ] Always-on project instructions stay well under ~200 lines
+- [ ] A finished run has input, output, and cache share checked
