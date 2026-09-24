@@ -5,7 +5,7 @@ DVstack is a plugin marketplace of skills. Limits: `CONSTRAINTS.md`.
 Editing this repo:
 - A skill earns its place only with content a modern model would not produce unprompted — house conventions, copyable files, APIs newer than training. Cut general good practice.
 - Skill descriptions are always in context: one or two sentences, key use case first, under 300 characters.
-- Commands are scenario workflows (new, rewrite, review, fix) that chain skills — never one-skill aliases. Rules in `CONSTRAINTS.md`.
+- One call per plugin. A command exists only when the job needs several skills (`playwright`). A single-skill job is the skill. Rules in `CONSTRAINTS.md`.
 - Framework APIs in a skill are checked against the installed version's official docs before shipping.
 - `node scripts/check-marketplace.mjs` passes. Measure a skill change with `claude plugin eval` (see `docs/evals.md`) — the with/without delta is the proof.
 
@@ -19,5 +19,3 @@ Cost is the finished task. Fewer turns and fewer retries beat a cheaper rate tha
 - Keep this file well under ~200 lines. Every line is resent every turn. Playbooks live in skills that load on demand.
 - Set tools, MCP, and effort at session start. Leave them stable for the run. Clear context between unrelated tasks. At a break, compact and say what to keep. Disconnect MCP servers the task is not using.
 - After a real task, read session usage: input, output, and cache share. Low cache on a long run, huge output on a tiny change, or input far above the conversation size means wasted turns.
-
-Loop shape — stable prefix, skeleton reads, lazy tools, workhorse versus frontier inside a harness — stays in the `token-efficient-coding-loops` skill.

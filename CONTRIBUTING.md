@@ -27,7 +27,7 @@ plugins/<plugin>/
 
 ## A command
 
-A scenario, not an alias — see "Commands" in [CONSTRAINTS.md](CONSTRAINTS.md). Frontmatter `description` and `disable-model-invocation: true`. The body names the skills to load in order ("the `playwright-code-review` skill"), the steps, and what to report. Invoked as `/plugin-name:command` in Claude Code and `/command` in Cursor.
+See "Commands" in [CONSTRAINTS.md](CONSTRAINTS.md). One command per plugin, and only when the job needs several skills. Frontmatter `description` and `disable-model-invocation: true`. The body names the skills to load ("the `playwright-code-review` skill"), the steps, and what to report. Invoked as `/plugin-name:command` in Claude Code and `/command` in Cursor. A single-skill job has no command file.
 
 ## A plugin
 
@@ -47,5 +47,5 @@ Fails if a skill is missing frontmatter, a description exceeds 300 characters, a
 Evals — see [docs/evals.md](docs/evals.md):
 
 ```bash
-cd plugins/frontend && claude plugin eval . --judge-model sonnet --runs 4
+cd plugins/testing && claude plugin eval . --judge-model sonnet --runs 4
 ```

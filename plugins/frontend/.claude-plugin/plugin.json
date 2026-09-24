@@ -1,13 +1,12 @@
 {
   "name": "dvstack-frontend",
-  "version": "0.4.0",
-  "description": "Front-end skills with working source files: markup an automated suite and an AI agent can drive, and a drop-in font switcher.",
+  "version": "0.5.0",
+  "description": "A drop-in font switcher. Copy the skill's source into the app; do not reimplement it.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
   },
   "repository": "https://github.com/vardanyandavit/dvstack",
   "license": "MIT",
-  "skills": "./skills/",
-  "commands": "./commands"
+  "skills": "./skills/"
 }

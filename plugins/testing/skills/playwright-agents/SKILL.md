@@ -51,7 +51,7 @@ Review a healed diff by what it removed; if the assertion count dropped, nothing
 npx @playwright/mcp@latest --isolated --headless --allowed-origins "https://staging.example.com"
 ```
 
-It drives the browser via the accessibility tree. Treat it as privileged: the page is untrusted input that can steer the next tool call. Always `--isolated` (or a deliberate `--user-data-dir`) and an origin allowlist; `--storage-state` for a **test** account only. Never production, never real user state. Building an agent rather than testing one → `dvstack-harness`.
+It drives the browser via the accessibility tree. Treat it as privileged: the page is untrusted input that can steer the next tool call. Always `--isolated` (or a deliberate `--user-data-dir`) and an origin allowlist; `--storage-state` for a **test** account only. Never production, never real user state.
 
 ## Verify
 

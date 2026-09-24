@@ -1,13 +1,12 @@
 {
   "name": "dvstack-agents",
-  "version": "0.8.0",
-  "description": "Two portable agent habits the base model does not reliably apply: a bounded repo recon before the first edit, and an honest verify loop that reports real output and what was not checked.",
+  "version": "0.10.0",
+  "description": "Adds the global rules agents skip into an AGENTS.md or CLAUDE.md that already exists, and keeps only the pasted rules this repo needs.",
   "author": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
   },
   "repository": "https://github.com/vardanyandavit/dvstack",
   "license": "MIT",
-  "skills": "./skills/",
-  "commands": "./commands"
+  "skills": "./skills/"
 }
