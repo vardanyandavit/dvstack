@@ -1,6 +1,6 @@
 {
   "name": "dvstack",
-  "description": "Skills and working files for Playwright testing, front-end work an automated suite can drive, two portable agent habits, and the system around coding agents.",
+  "description": "Three plugins, one call each: Playwright tests, a font switcher, and AGENTS.md for how a coding agent should behave in a repo.",
   "owner": {
     "name": "Davit Vardanyan",
     "url": "https://github.com/vardanyandavit"
@@ -9,7 +9,7 @@
     {
       "name": "dvstack-frontend",
       "source": "plugins/frontend",
-      "description": "Front-end skills with working source files: markup an automated suite and an AI agent can drive, and a drop-in font switcher."
+      "description": "A drop-in font switcher. Copy the skill's source into the app; do not reimplement it."
     },
     {
       "name": "dvstack-testing",
@@ -19,12 +19,7 @@
     {
       "name": "dvstack-agents",
       "source": "plugins/agents",
-      "description": "Two portable agent habits the base model does not reliably apply: a bounded repo recon before the first edit, and an honest verify loop that reports real output and what was not checked."
-    },
-    {
-      "name": "dvstack-harness",
-      "source": "plugins/harness",
-      "description": "The system around coding agents: task contracts, tool gates, verify/recover, durable state, hard CI, plus execution-surface mapping, tool design, safeguard parity, boundary tests, risk chains, and token-efficient coding loops."
+      "description": "Adds the global rules agents skip into an AGENTS.md or CLAUDE.md that already exists, and keeps only the pasted rules this repo needs."
     }
   ]
 }

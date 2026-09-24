@@ -1,10 +1,11 @@
 # Evals
 
-Each plugin carries an eval suite under `plugins/<name>/evals/`. A case is one `case.yaml`:
-a realistic prompt plus graders that say what a good answer contains.
+A measured skill carries an eval suite under `plugins/<name>/evals/`. A case is one `case.yaml`:
+a realistic prompt plus graders that say what a good answer contains. The font switcher has no
+case: its proof is the source files it copies.
 
 ```bash
-cd plugins/frontend && claude plugin eval . --judge-model sonnet --runs 4
+cd plugins/testing && claude plugin eval . --judge-model sonnet --runs 4
 ```
 
 `claude plugin eval` runs each case twice — once with the plugin loaded, once without — and
@@ -37,7 +38,7 @@ Latest runs before the token diet (sonnet judge, 3 runs per case):
 | testing | locator-strict-mode, step-validation-wait | 1.00 | 1.00 | 0 |
 | agents | verify-before-ship | 0.70 | 0.73 | −0.03 |
 
-Frontend and harness kept every skill. The agents plugin — generic habits a current model already
+At that point frontend and harness kept every skill. The agents plugin — generic habits a current model already
 follows — was cut from twelve skills to two. The testing plugin was cut from twenty to four: the
 Playwright API tutorials went, and their house rules were folded into `playwright-code-review`.
 
@@ -45,6 +46,13 @@ The one-command-per-skill aliases were replaced by scenario commands (new, add, 
 fix). A command sharing a skill's name shadowed the skill (up to −0.68), and plugin skills are
 already slash-invocable, so an alias only duplicated its skill. Scenario commands carry
 `disable-model-invocation: true`, so they cost no context until run.
+
+Those scenario commands were then collapsed to one call per plugin. The user was choosing a
+command the agent can choose. `dvstack-harness` (designing a tool-using agent) and `testable-ui`
+left with that cut: they are not one of the three jobs. The agents habits that measured no delta
+moved into `agent-rules`, which adds a short block to the instruction file `/init` already wrote.
+The rows above are the measurements that justified the earlier cuts; the cases for removed skills
+are gone from the tree.
 
 ## Writing a case that can measure anything
 

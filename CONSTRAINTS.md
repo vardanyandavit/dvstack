@@ -8,10 +8,9 @@ Only document plugins and skills that exist in the tree. Do not advertise empty 
 
 Shipped plugins:
 
-- `dvstack-frontend` — testable-ui, font-switcher
-- `dvstack-testing` — playwright-test-architecture, playwright-step-validation, playwright-code-review, playwright-agents
-- `dvstack-agents` — repo-recon, verify-loop
-- `dvstack-harness` — harness-engineering, agent-execution-surfaces, agent-tool-design, safeguard-parity, agent-boundary-tests, agent-risk-chains, token-efficient-coding-loops
+- `dvstack-testing` — playwright-test-architecture, playwright-step-validation, playwright-code-review, playwright-agents. One command, `playwright`, picks among them.
+- `dvstack-frontend` — font-switcher
+- `dvstack-agents` — agent-rules. Adds a filtered block to an `AGENTS.md` or `CLAUDE.md` that already exists. Does not create that file.
 
 ## What earns a skill
 
@@ -20,7 +19,7 @@ A skill costs context twice: its description on every turn, and its body wheneve
 - **House conventions** — an opinionated choice between valid options (folder layout, locator tiers, "assert both directions of a toggle").
 - **Copyable files** — templates, configs, source the agent copies instead of retyping.
 - **Knowledge newer than training** — recent APIs and tools, verified against official docs.
-- **Domain systems work** the model does not do by default — e.g. the agent harness.
+- **Domain systems work** the model does not do by default — e.g. the copyable Playwright suite and the `AGENTS.md` block.
 
 Not a skill: general engineering good practice (naming, SOLID, "run the tests", "don't invent APIs", "restate ambiguous asks"), tutorials of documented APIs, or advice aimed at the human operator rather than the model. Measure before adding: a skill whose eval delta is zero has not earned its place.
 
@@ -33,22 +32,22 @@ Not a skill: general engineering good practice (naming, SOLID, "run the tests", 
 - No attribution or source lists in public skills.
 - Claims about a framework API are checked against the installed version's official docs before they ship. A wrong API in a skill is worse than no skill.
 
-## Agents vs harness
-
-Agents holds only portable habits with a measurable effect. Harness owns the system around an agent. Do not duplicate across that boundary — point instead.
-
 ## Scope
 
-Only subjects covered by real, first-hand experience: Playwright and test automation, the front-end side of making an app testable, and the system around coding agents.
+Only subjects covered by real, first-hand experience: Playwright tests, the font switcher, and the `AGENTS.md` a coding agent should follow in a repo.
 
 ## Commands
 
-Commands are **scenario workflows**, not skill aliases. Every skill is already slash-invocable (`/plugin-name:skill-name` in Claude Code, `/skill-name` in Cursor), so a command that only loads one skill adds nothing. A command earns its place by chaining the right skills in the right order for a job — new, add, rewrite, review, fix — with its deliverable and its proof.
+One call per plugin. The agent decides which skills that call needs. The user does not pick a skill or a scenario.
+
+A command exists only when one job needs several skills. `playwright` is that command: it chooses create, add, rewrite, review, flaky, or agent-written, and loads only that row.
+
+A job with one skill has no command. The skill is the call (`/font-switcher`, `/agent-rules`). A command that only loads one skill adds nothing.
 
 - `disable-model-invocation: true`, so the description costs no context until the user runs it.
 - Its name never equals a skill name — a command shadows a skill of the same name.
 - It references skills as "the `name` skill" and other commands as "the `name` command", so the check script can verify both exist.
-- It says what to load and in what order, and what to report. Never restate a skill's rules.
+- It says what to load and what to report. Never restate a skill's rules.
 
 ## Token-light
 

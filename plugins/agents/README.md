@@ -1,26 +1,22 @@
 # DVstack Agents
 
-Two portable habits for any coding agent. Everything else a current model already does — quality bar, rigor, session hygiene, general coding rules — was removed because it measured no effect and cost context on every turn (see [evals](../../docs/evals.md)).
+One skill. Run it after `/init`.
 
-| Skill | What it does | Ask for it with |
-|---|---|---|
-| [repo-recon](skills/repo-recon/) | Bounded orientation before the first edit: package manager from the lockfile, verify commands from CI, enforced conventions, scope, blast radius — as a three-to-five-line note | "orient in this repo first" |
-| [verify-loop](skills/verify-loop/) | Find the enforced check, run the narrowest one, widen before the PR, report real output and what was not checked | "prove this works" |
+`/init` reads the project and writes `AGENTS.md` or `CLAUDE.md`. `/agent-rules` does not do that. It appends one block of global rules agents skip, and only the sections this repo needs. A web app gets the accessible-name line. A repo that already has Playwright, Cypress, or Selenium gets the e2e lines. A game does not get either.
 
-System concerns — contracts, tool gates, recover loops, CI — live in `dvstack-harness`.
+If you paste extra rules in the same message, it keeps the ones this repo uses and drops the rest. Those go under `## Project`. Re-running replaces the marked block and leaves that section.
 
-## Commands
+No instruction file yet: it stops. It does not create one.
 
-Type one command, then the task. The case list, including which skills each command loads, is in the [repository README](../../README.md#which-command).
+| Skill | What it does |
+|---|---|
+| [agent-rules](skills/agent-rules/) | Copy the matching sections from `files/global-rules.md` into each existing instruction file |
 
-| Case | Cursor | Claude Code |
-|---|---|---|
-| Build a feature | `/build` | `/dvstack-agents:build` |
-| Fix a product bug | `/fix` | `/dvstack-agents:fix` |
-| Refactor or migrate app code | `/rewrite` | `/dvstack-agents:rewrite` |
-| Review a diff or PR | `/review` | `/dvstack-agents:review` |
+## Call
 
-These hand off to testing, frontend, and harness when those plugins are installed. A Playwright suite uses the testing commands (`/new-suite`, `/add-tests`, `/rewrite-suite`, `/review-tests`, `/fix-flaky`).
+| Cursor | Claude Code |
+|---|---|
+| `/agent-rules` | `/dvstack-agents:agent-rules` |
 
 ## Install
 

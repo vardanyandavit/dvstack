@@ -1,62 +1,79 @@
 schema_version: "1.0"
 name: verify-before-ship
-description: A change reviewed by eye only. A good answer refuses to bless it on reading alone and names the narrowest honest check this repo actually has.
-tags: [verify-loop]
+description: Instruction file already exists. Add only the global rules this web app needs, keep the init text, and drop a pasted rule for a framework the repo does not have.
+tags: [agent-rules]
 execution:
   max_turns: 20
   allowed_tools: [Skill, Read, Glob, Grep]
   prompt: |
-    I refactored our token-refresh helper. I read the diff twice and it looks right, so I think
-    we can ship it. Agree?
+    /agent-rules
+    AGENTS.md already exists. Keep it. Here are my rules — add only what matters for this project:
+    - Use pnpm
+    - Never commit .env
+    - Always use Cypress
 
-    package.json scripts:
+    Existing AGENTS.md:
+    ```markdown
+    # Shop
+
+    Vite + React. The API lives in packages/api. Deploy with the staging workflow.
+    ```
+
+    package.json:
     ```json
     {
       "scripts": {
-        "build": "tsc -b && vite build",
+        "dev": "vite",
         "typecheck": "tsc --noEmit",
         "lint": "eslint .",
         "test:unit": "vitest run",
-        "test:e2e": "playwright test",
-        "test": "npm run test:unit && npm run test:e2e"
-      }
+        "test": "npm run test:unit"
+      },
+      "dependencies": { "react": "^19.0.0", "react-dom": "^19.0.0" },
+      "devDependencies": { "vite": "^6.0.0", "vitest": "^3.0.0", "typescript": "^5.6.0" }
     }
     ```
 
-    The diff touches only `src/auth/refresh.ts`, and `src/auth/__tests__/refresh.test.ts` exists.
+    Lockfile: pnpm-lock.yaml. No CI workflow. No Playwright, Cypress, or Selenium.
 graders:
   - name: skill-fired
     type: tool_used
     tool: Skill
     arm: with-only
     weight: 1
+  - name: names-agents-file
+    type: regex
+    pattern: "AGENTS\\.md"
+    match: contains
+    weight: 2
   - name: names-narrow-command
     type: regex
     pattern: "(vitest run|test:unit)"
     match: contains
     weight: 2
-  - name: refuses-to-bless-on-reading
+  - name: keeps-init-text
     type: llm
     weight: 3
     criteria: |
-      The answer does NOT agree that reading the diff is enough. It states plainly that a diff read
-      is not proof and that a check has to be run before shipping. FAIL if it says the change looks
-      fine to ship, or hedges without asking for an actual run.
-  - name: picks-narrowest-covering-check
+      The answer keeps the existing project notes: Vite + React, packages/api, and the staging
+      workflow. FAIL if those are deleted or replaced by a generic project description.
+  - name: filters-pasted-rules
     type: llm
     weight: 3
     criteria: |
-      The answer names a SPECIFIC command from the scripts given — scoped to the change, e.g.
-      `npm run test:unit` (ideally narrowed to `src/auth/__tests__/refresh.test.ts`) plus
-      `npm run typecheck` — rather than a generic "run your tests" or an unscoped `npm test`
-      /full e2e run as the first step.
-
-      Suggesting the wider check (`npm test`, e2e, lint) BEFORE the PR, after the narrow one passes,
-      is correct and should still pass this grader.
-  - name: asks-for-real-output
+      The answer keeps "Use pnpm" and "Never commit .env". It does NOT add "Always use Cypress"
+      as a rule for this repo, because the repo has no Cypress. FAIL if Cypress is adopted, or if
+      pnpm or the .env rule is dropped.
+  - name: web-not-e2e
     type: llm
     weight: 2
     criteria: |
-      The answer asks for, or commits to reporting, the command's ACTUAL output (pass/fail counts,
-      the real terminal result) as the evidence — not a claim that it was run. FAIL if evidence is
-      never mentioned.
+      The added block includes the accessible-name rule, because this is a React app. It does NOT
+      include the e2e rules (a second test style, hard-coded waits, every step ends in an
+      assertion). FAIL if those e2e lines are added, or if the accessible-name line is missing.
+  - name: does-not-create-a-second-file
+    type: llm
+    weight: 2
+    criteria: |
+      The answer edits the existing AGENTS.md. FAIL if it creates CLAUDE.md, .cursor/rules, or a
+      new instruction file instead of editing AGENTS.md.

@@ -1,6 +1,6 @@
 {
   "name": "dvstack-testing",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Opinionated Playwright house conventions: suite architecture and naming with copyable templates, step validation and flaky-test fixes, a house-rules review checklist with ESLint config, and Playwright agents/MCP review.",
   "author": {
     "name": "Davit Vardanyan",

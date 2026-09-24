@@ -23,7 +23,7 @@ Report file:line, the group, and the replacement as code. Lead with blockers. Sa
 
 **2. Stability** — per `playwright-step-validation`: any hard-coded wait, `networkidle`, non-retrying read in an assertion, listener registered after its trigger, `Promise.all` with action first, `force: true`, `.first()` silencing strict mode, shared records/accounts, `Date.now()`-only unique values, unpinned timezone/locale on date/currency/sort assertions, retries or `workers: 1` raised to go green.
 
-**3. Selectors** — role > label > text > test id; no structural CSS/XPath or generated classes. A `data-testid` where a role would work means the markup lacks an accessible name — fix the markup (`testable-ui`). One definition per element at the right tier; no raw `page.locator` in specs; `getByText` needs `exact` when the string is a substring.
+**3. Selectors** — role > label > text > test id; no structural CSS/XPath or generated classes. A `data-testid` where a role would work means the markup lacks an accessible name — fix the markup. One definition per element at the right tier; no raw `page.locator` in specs; `getByText` needs `exact` when the string is a substring.
 
 **4. Structure and naming** — per `playwright-test-architecture`: `new SomePage(page)` in a spec, `beforeEach` doing work under test, cleanup through the UI, tests grouped by page instead of flow, mechanical step titles, titles without an outcome, wrong casing or suffix, inline URL/credential/`process.env`, committed `.auth/` or token.
 
